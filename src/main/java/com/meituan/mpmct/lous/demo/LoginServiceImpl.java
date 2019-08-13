@@ -14,11 +14,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class LoginServiceImpl implements LoginService {
 
 
-    private AtomicInteger counter=new AtomicInteger(0);
+    private AtomicInteger counter = new AtomicInteger(0);
 
-    @GetCache(key = "#name+#age",cacheName = "login-record")
+    @GetCache(key = "#name+#age", cacheName = "login-record")
     @Override
     public void login(String name, Integer age) {
-        System.out.println(name+age +counter.incrementAndGet());
+        System.out.println(name + age + counter.incrementAndGet());
     }
 }

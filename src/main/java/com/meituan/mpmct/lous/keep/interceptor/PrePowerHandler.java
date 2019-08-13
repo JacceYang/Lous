@@ -5,5 +5,5 @@ package com.meituan.mpmct.lous.keep.interceptor;
  * @Description:
  * @Data:Initialized in 6:43 PM 2019/8/11
  **/
-public interface PrePowerHandler extends PowerHandler{
+public interface PrePowerHandler extends PowerHandler {
 }

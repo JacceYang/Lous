@@ -12,5 +12,5 @@ import java.util.List;
  **/
 public interface CacheSolver {
 
-    Cache determineUltimateCache(List<CacheManager> cacheManagers,String cacheName);
+    List<Cache> determineUltimateCache(List<CacheManager> cacheManagers, String cacheName);
 }

@@ -15,18 +15,21 @@ public @interface Power {
 
     /**
      * 前处理
+     *
      * @return
      */
     String[] preHandler() default "";
 
     /**
      * 处理链
+     *
      * @return
      */
     String[] chain() default "";
 
     /**
      * 后处理
+     *
      * @return
      */
     String[] postHandler() default "";

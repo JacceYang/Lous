@@ -10,15 +10,16 @@ import java.util.Set;
 public interface CacheManager {
 
     /**
-     *
      * @param cacheName
      * @return
      */
-     Cache getCache(String cacheName);
+    Cache getCache(String cacheName);
 
     /**
-     *
      * @return
      */
     Set<String> cacheNames();
+
+
+    Integer getCacheLine();
 }

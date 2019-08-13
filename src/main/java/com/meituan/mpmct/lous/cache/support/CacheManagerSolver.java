@@ -3,6 +3,7 @@ package com.meituan.mpmct.lous.cache.support;
 import com.meituan.mpmct.lous.cache.CacheManager;
 import com.meituan.mpmct.lous.cache.annotation.CachingMode;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 
 /**
@@ -12,6 +13,6 @@ import java.util.List;
  **/
 public interface CacheManagerSolver {
 
-    List<CacheManager> getCacheManager(List<CachingMode>  modes);
+    List<CacheManager> getCacheManager(LinkedHashSet<CachingMode> modes);
 
 }

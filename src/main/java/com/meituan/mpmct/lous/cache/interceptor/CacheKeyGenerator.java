@@ -10,12 +10,11 @@ import java.lang.reflect.Method;
 public interface CacheKeyGenerator {
 
     /**
-     *
      * @param target
      * @param method
      * @param args
      * @return
      */
-    String generateKey(Object target, Method method,Object... args);
+    String generateKey(Object target, Method method, Object... args);
 
 }
