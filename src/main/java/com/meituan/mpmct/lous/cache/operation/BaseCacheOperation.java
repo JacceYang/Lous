@@ -1,7 +1,5 @@
 package com.meituan.mpmct.lous.cache.operation;
 
-import java.util.Set;
-
 /**
  * @Author:Yangchao16
  * @Description:
@@ -9,5 +7,5 @@ import java.util.Set;
  **/
 public interface BaseCacheOperation {
 
-    Set<String> getCacheNames();
+    String getCacheName();
 }

@@ -12,7 +12,7 @@ public class GetCacheOperation extends CacheOperation {
         super(builder);
     }
 
-    public static class Builder extends CacheOperation.Builder{
+    public static class Builder extends CacheOperation.Builder {
 
         @Override
         CacheOperation build() {

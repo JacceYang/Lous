@@ -8,36 +8,32 @@ package com.meituan.mpmct.lous.cache;
 public interface Cache {
 
     /**
-     *
      * @param key
      * @return
      */
     Object getValue(Object key);
 
     /**
-     *
      * @param key
      * @param type
      * @param <T>
      * @return
      */
-    <T> T getValue(Object key,Class<T> type );
+    <T> T getValue(Object key, Class<T> type);
 
     /**
-     *
      * @param key
      * @param value
      * @return
      */
-    boolean put(Object key,Object value);
+    Object put(Object key, Object value);
 
     /**
-     *
      * @param key
      * @param value
      * @return
      */
-    boolean pubIfAbsent(Object key,Object value);
+    Object pubIfAbsent(Object key, Object value);
 
     /**
      *

@@ -12,12 +12,12 @@ import java.lang.reflect.Method;
  * @Description:
  * @Data:Initialized in 10:11 PM 2019/8/9
  **/
-public class CacheOperationSourcePointcut extends StaticMethodMatcherPointcut implements Serializable{
+public class CacheOperationSourcePointcut extends StaticMethodMatcherPointcut implements Serializable {
 
     @Override
     public boolean matches(Method method, Class<?> aClass) {
         Method specificMethod = AopUtils.getMostSpecificMethod(method, aClass);
-        if (specificMethod.isAnnotationPresent(GetCache.class)){
+        if (specificMethod.isAnnotationPresent(GetCache.class)) {
             return true;
         }
         return false;

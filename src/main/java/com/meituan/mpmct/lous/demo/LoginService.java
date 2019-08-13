@@ -7,5 +7,5 @@ package com.meituan.mpmct.lous.demo;
  **/
 public interface LoginService {
 
-    void login(String name,Integer age);
+    void login(String name, Integer age);
 }

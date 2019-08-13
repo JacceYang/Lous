@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Import(CachingConfigurationSelector.class)
 public @interface EnableMCaching {
 
-    boolean  proxyTargetClass() default  false;
+    boolean proxyTargetClass() default false;
 
     AdviceMode mode() default AdviceMode.PROXY;
 }

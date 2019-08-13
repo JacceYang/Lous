@@ -7,5 +7,5 @@ package com.meituan.mpmct.lous.cache.config;
  **/
 public class CacheManagementConfigUtils {
 
-    public static final   String CACHE_ADVISOR_BEAN_NAME="com.meituan.mpmct.lous.cache.interceptor.internalAdvisor";
+    public static final String CACHE_ADVISOR_BEAN_NAME = "com.meituan.mpmct.lous.cache.interceptor.internalAdvisor";
 }

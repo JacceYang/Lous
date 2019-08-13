@@ -14,8 +14,8 @@ public class PutCacheOperation extends CacheOperation {
     }
 
 
-    public static class Builder extends CacheOperation.Builder{
-        private boolean async=false;
+    public static class Builder extends CacheOperation.Builder {
+        private boolean async = false;
 
         public boolean isAsync() {
             return async;

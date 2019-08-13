@@ -20,18 +20,21 @@ public @interface GetCache {
 
     /**
      * the cache name for store the key
+     *
      * @return
      */
-    String[] cacheName() default {};
+    String cacheName() default "";
 
     /**
      * the cache media ,you can define multi-level cache for you
+     *
      * @return
      */
     CachingMode[] cacheMode() default {CachingMode.REDIS};
 
     /**
-     *  the cache key define ,
+     * the cache key define ,
+     *
      * @return
      */
     String keyGenerator() default "";

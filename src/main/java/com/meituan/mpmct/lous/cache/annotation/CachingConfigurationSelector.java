@@ -1,8 +1,6 @@
 package com.meituan.mpmct.lous.cache.annotation;
 
 import com.meituan.mpmct.lous.cache.config.ProxyCachingConfig;
-import org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator;
-import org.springframework.aop.support.AopUtils;
 import org.springframework.context.annotation.AdviceMode;
 import org.springframework.context.annotation.AdviceModeImportSelector;
 import org.springframework.context.annotation.AutoProxyRegistrar;
@@ -32,7 +30,7 @@ public class CachingConfigurationSelector extends AdviceModeImportSelector<Enabl
 
 
     private String[] getProxyImports() {
-        List<String> result=new ArrayList<>();
+        List<String> result = new ArrayList<>();
         result.add(AutoProxyRegistrar.class.getName());
         result.add(ProxyCachingConfig.class.getName());
 
@@ -41,7 +39,7 @@ public class CachingConfigurationSelector extends AdviceModeImportSelector<Enabl
     }
 
     private String[] getAspectJImport() {
-        List<String> result=new ArrayList<>();
+        List<String> result = new ArrayList<>();
 
         return StringUtils.toStringArray(result);
     }
