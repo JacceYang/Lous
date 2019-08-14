@@ -1,5 +1,6 @@
 package com.meituan.mpmct.lous.demo;
 
+import com.meituan.mpmct.lous.cache.annotation.CachingMode;
 import com.meituan.mpmct.lous.cache.annotation.GetCache;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ public class LoginServiceImpl implements LoginService {
 
     private AtomicInteger counter = new AtomicInteger(0);
 
-    @GetCache(key = "#name+#age", cacheName = "login-record")
+    @GetCache(key = "#name+#age", cacheName = "login-record",cacheMode = CachingMode.LOCAL)
     @Override
     public void login(String name, Integer age) {
         System.out.println(name + age + counter.incrementAndGet());

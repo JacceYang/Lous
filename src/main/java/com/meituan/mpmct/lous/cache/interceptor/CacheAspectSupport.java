@@ -1,22 +1,29 @@
 package com.meituan.mpmct.lous.cache.interceptor;
 
 import com.meituan.mpmct.lous.cache.Cache;
+import com.meituan.mpmct.lous.cache.CacheManager;
 import com.meituan.mpmct.lous.cache.operation.CacheOperation;
 import com.meituan.mpmct.lous.cache.operation.CacheOperationContext;
 import com.meituan.mpmct.lous.cache.operation.CacheOperationSource;
+import com.meituan.mpmct.lous.cache.support.CacheManagerSolver;
+import com.meituan.mpmct.lous.cache.support.CacheManagerSolverSupport;
+import com.meituan.mpmct.lous.cache.support.CacheSolver;
 import org.springframework.aop.framework.AopProxyUtils;
+import org.springframework.beans.factory.SmartInitializingSingleton;
 
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * @Author:Yangchao16
  * @Description:
  * @Data:Initialized in 3:11 PM 2019/8/11
  **/
-public class CacheAspectSupport {
+public class CacheAspectSupport{
 
-
-    CacheOperationSource cacheOperationSource;
+    private CacheManagerSolver cacheManagerSolver;
+    private CacheSolver cacheSolver;
+    private CacheOperationSource cacheOperationSource;
 
 
     public CacheOperationSource getCacheOperationSource() {
@@ -42,7 +49,9 @@ public class CacheAspectSupport {
     }
 
     private Object execute(CacheOperationContext operationContext) {
-        for (Cache cache : operationContext.getCaches()) {
+        List<CacheManager> cacheManager = getCacheManagerSolver().getCacheManager(operationContext.getCachingModes());
+
+        for (Cache cache : getCacheSolver().determineUltimateCache(cacheManager,operationContext.getCacheName())) {
             Object value = cache.getValue(operationContext.getGenerateKey());
             if (value != null) {
                 return value;
@@ -55,4 +64,21 @@ public class CacheAspectSupport {
     private Class<?> getTargetClass(Object target) {
         return AopProxyUtils.ultimateTargetClass(target);
     }
+
+    public CacheManagerSolver getCacheManagerSolver() {
+        return cacheManagerSolver;
+    }
+
+    public void setCacheManagerSolver(CacheManagerSolver cacheManagerSolver) {
+        this.cacheManagerSolver = cacheManagerSolver;
+    }
+
+    public CacheSolver getCacheSolver() {
+        return cacheSolver;
+    }
+
+    public void setCacheSolver(CacheSolver cacheSolver) {
+        this.cacheSolver = cacheSolver;
+    }
+
 }

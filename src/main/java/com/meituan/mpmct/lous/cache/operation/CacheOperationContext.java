@@ -17,10 +17,6 @@ import java.util.List;
  **/
 public class CacheOperationContext {
 
-    List<CacheManager> cacheManager;
-    List<Cache> caches;
-    CacheManagerSolverSupport cacheManagerSolverSupport;
-    CacheSolver cacheSolver;
     private Method method;
     private Class targetClass;
     private Object[] parameters;
@@ -39,25 +35,6 @@ public class CacheOperationContext {
         this.key = cacheOperation.getKey();
         this.targetObject = targetObject;
         this.parameters = parameters;
-        List<CacheManager> cacheManager = cacheManagerSolverSupport.getCacheManager(cacheOperation.getCachingModes());
-        List<Cache> caches = cacheSolver.determineUltimateCache(cacheManager, cacheOperation.getCacheName());
-    }
-
-
-    public List<CacheManager> getCacheManager() {
-        return cacheManager;
-    }
-
-    public void setCacheManager(List<CacheManager> cacheManager) {
-        this.cacheManager = cacheManager;
-    }
-
-    public List<Cache> getCaches() {
-        return caches;
-    }
-
-    public void setCaches(List<Cache> caches) {
-        this.caches = caches;
     }
 
     public Method getMethod() {
