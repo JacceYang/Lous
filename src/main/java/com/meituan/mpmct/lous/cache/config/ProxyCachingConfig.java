@@ -5,6 +5,10 @@ import com.meituan.mpmct.lous.cache.interceptor.CacheInterceptor;
 import com.meituan.mpmct.lous.cache.operation.AnnotationCacheOperationParser;
 import com.meituan.mpmct.lous.cache.operation.AnnotationCacheOperationSource;
 import com.meituan.mpmct.lous.cache.operation.CacheOperationSource;
+import com.meituan.mpmct.lous.cache.support.CacheManagerSolver;
+import com.meituan.mpmct.lous.cache.support.CacheManagerSolverSupport;
+import com.meituan.mpmct.lous.cache.support.CacheSolver;
+import com.meituan.mpmct.lous.cache.support.CacheSolverSupport;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,6 +43,23 @@ public class ProxyCachingConfig extends AbstractCachingConfig {
     public CacheInterceptor cacheInterceptor() {
         CacheInterceptor cacheInterceptor = new CacheInterceptor();
         cacheInterceptor.setCacheOperationSource(cacheOperationSource());
+        cacheInterceptor.setCacheManagerSolver(cacheManagerSolver());
+        cacheInterceptor.setCacheSolver(cacheSolver());
         return cacheInterceptor;
+    }
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public CacheManagerSolver cacheManagerSolver(){
+        CacheManagerSolver cacheManagerSolver=new CacheManagerSolverSupport();
+        return cacheManagerSolver;
+    }
+
+    @Bean
+    @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+    public CacheSolver cacheSolver(){
+        CacheSolver cacheSolver=new CacheSolverSupport() ;
+        return cacheSolver;
+
     }
 }

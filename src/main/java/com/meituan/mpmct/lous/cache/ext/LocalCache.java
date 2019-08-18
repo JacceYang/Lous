@@ -12,7 +12,10 @@ import java.util.concurrent.ConcurrentMap;
  **/
 public class LocalCache implements Cache {
 
-    ConcurrentMap caches = new ConcurrentHashMap(16);
+    private ConcurrentMap caches = new ConcurrentHashMap(16);
+
+    public static Cache  NoCache=new LocalCache();
+
 
     @Override
     public Object getValue(Object key) {
