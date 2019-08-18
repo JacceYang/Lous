@@ -19,7 +19,10 @@ public class LoginServiceImpl implements LoginService {
 
     @GetCache(key = "#name+#age", cacheName = "login-record",cacheMode = CachingMode.LOCAL)
     @Override
-    public void login(String name, Integer age) {
-        System.out.println(name + age + counter.incrementAndGet());
+    public boolean login(String name, Integer age) {
+        if(name.contains("yang")){
+            return true;
+        }
+        return false;
     }
 }

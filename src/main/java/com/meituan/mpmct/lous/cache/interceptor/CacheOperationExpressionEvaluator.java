@@ -1,13 +1,16 @@
 package com.meituan.mpmct.lous.cache.interceptor;
 
 import com.meituan.mpmct.lous.cache.operation.CacheOperationContext;
-import com.meituan.mpmct.lous.cache.operation.CacheOperationSource;
 import com.sun.org.apache.xalan.internal.extensions.ExpressionContext;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.MethodClassKey;
+import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,15 +21,28 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 public class CacheOperationExpressionEvaluator {
 
-    private Map<MethodClassKey,Object> operationExp=new ConcurrentHashMap<>(16);
+    private Map<MethodClassKey, Expression> operationExp = new ConcurrentHashMap<>(16);
 
-    private ExpressionParser parser=new SpelExpressionParser();
+    private ExpressionParser parser = new SpelExpressionParser();
 
+    private ParameterNameDiscoverer parameterNameDiscoverer = new DefaultParameterNameDiscoverer();
 
-    public CacheOperationExpressionEvaluator(MethodClassKey methodClassKey, CacheOperationContext context) {
-
-        Expression expression = parser.parseExpression(context.getKey());
-        ExpressionContext expressionContext=new ExpressionContext();
-        expression.getValue();
+    public CacheOperationExpressionEvaluator() {
     }
+
+
+    public Expression getExpression(Method method, Class<?> clazz, BeanFactory beanFactory, String key) {
+        MethodClassKey methodClassKey = new MethodClassKey(method, clazz);
+        Expression expression = operationExp.get(methodClassKey);
+        if (expression == null) {
+            expression = parser.parseExpression(key);
+            //TO do  there maybe performance issue
+            operationExp.put(methodClassKey, expression);
+        }
+        return operationExp.get(methodClassKey);
+    }
+
+
+
+
 }

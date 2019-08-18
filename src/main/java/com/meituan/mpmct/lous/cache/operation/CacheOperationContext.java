@@ -3,8 +3,11 @@ package com.meituan.mpmct.lous.cache.operation;
 import com.meituan.mpmct.lous.cache.Cache;
 import com.meituan.mpmct.lous.cache.CacheManager;
 import com.meituan.mpmct.lous.cache.annotation.CachingMode;
+import com.meituan.mpmct.lous.cache.interceptor.CacheOperationExpressionEvaluator;
 import com.meituan.mpmct.lous.cache.support.CacheManagerSolverSupport;
 import com.meituan.mpmct.lous.cache.support.CacheSolver;
+import org.springframework.aop.support.AopUtils;
+import org.springframework.core.MethodClassKey;
 
 import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
@@ -18,17 +21,22 @@ import java.util.List;
 public class CacheOperationContext {
 
     private Method method;
+    private Method targetMethod;
+
     private Class targetClass;
     private Object[] parameters;
     private Object targetObject;
     private String key;
     private Object generateKey;
     private String cacheName;
+    private Object valueKey;
     private LinkedHashSet<CachingMode> cachingModes;
 
 
     public CacheOperationContext(Method method, Object targetObject, Object[] parameters, CacheOperation cacheOperation) {
         this.method = method;
+        this.targetClass=targetObject.getClass();
+        this.targetMethod= AopUtils.getMostSpecificMethod(method,targetObject.getClass());
         this.cacheName = cacheOperation.getCacheName();
         this.cachingModes = cacheOperation.getCachingModes();
         this.method = method;
@@ -99,5 +107,22 @@ public class CacheOperationContext {
 
     public void setCachingModes(LinkedHashSet<CachingMode> cachingModes) {
         this.cachingModes = cachingModes;
+    }
+
+
+    public Method getTargetMethod() {
+        return targetMethod;
+    }
+
+    public void setTargetMethod(Method targetMethod) {
+        this.targetMethod = targetMethod;
+    }
+
+    public Object getValueKey() {
+        return valueKey;
+    }
+
+    public void setValueKey(Object valueKey) {
+        this.valueKey = valueKey;
     }
 }
