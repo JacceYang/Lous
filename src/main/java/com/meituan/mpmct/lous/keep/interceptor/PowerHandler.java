@@ -7,4 +7,7 @@ package com.meituan.mpmct.lous.keep.interceptor;
  **/
 public interface PowerHandler extends Power {
 
+    Object filter();
+
+    String getName();
 }

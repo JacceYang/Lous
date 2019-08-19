@@ -5,5 +5,18 @@ package com.meituan.mpmct.lous.keep.interceptor;
  * @Description:
  * @Data:Initialized in 6:43 PM 2019/8/11
  **/
-public interface PrePowerHandler extends PowerHandler {
+public abstract class PrePowerHandler implements ConfigurablePowerHandler {
+
+    private PowerErrorHandler  powerErrorHandler=new DefaultPowerErrorHandler();
+
+
+    @Override
+    public PowerErrorHandler getErrorHandler() {
+        return powerErrorHandler;
+    }
+
+    @Override
+    public void setErrorHandler(PowerErrorHandler errorHandler) {
+        this.powerErrorHandler=errorHandler;
+    }
 }

@@ -4,6 +4,8 @@ import org.springframework.context.annotation.ImportAware;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
 
+import java.lang.annotation.Annotation;
+
 /**
  * @Author:Yangchao16
  * @Description:
@@ -16,8 +18,13 @@ public abstract class AbstractKeepConfig implements ImportAware {
     @Override
     public void setImportMetadata(AnnotationMetadata importMetadata) {
         annotationAttributes=AnnotationAttributes.fromMap(importMetadata.getAnnotationAttributes(EnableKeep.class.getName(),false));
+
+
     }
 
 
+    public AnnotationAttributes getAnnotationAttributes() {
+        return annotationAttributes;
+    }
 
 }
