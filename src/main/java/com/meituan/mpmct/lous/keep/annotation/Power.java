@@ -18,20 +18,26 @@ public @interface Power {
      *
      * @return
      */
-    String[] preHandler() default "";
+    String[] preHandler() default {};
 
     /**
      * 处理链
      *
      * @return
      */
-    String[] chain() default "";
+    String[] chain() default {};
 
     /**
      * 后处理
      *
      * @return
      */
-    String[] postHandler() default "";
+    String[] postHandler() default {};
+
+    /**
+     *  错误处理器
+     * @return
+     */
+    String errorHandler() default "";
 
 }

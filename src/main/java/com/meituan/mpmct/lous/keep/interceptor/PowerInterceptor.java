@@ -23,6 +23,6 @@ public class PowerInterceptor extends PowerAspectSupport implements MethodInterc
             return null;
         };
 
-        return execute(invoker,invocation.getMethod(),invocation.getArguments(),invocation.getStaticPart());
+        return execute(invoker,invocation.getMethod(),invocation.getArguments(),invocation.getThis());
     }
 }

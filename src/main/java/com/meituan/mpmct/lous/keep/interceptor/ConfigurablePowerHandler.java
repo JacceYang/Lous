@@ -5,7 +5,7 @@ package com.meituan.mpmct.lous.keep.interceptor;
  * @Description:
  * @Data:Initialized in 1:18 PM 2019/8/19
  **/
-public interface ConfigurablePowerHandler extends PowerHandler{
+public interface ConfigurablePowerHandler extends FilterablePowerHandler{
 
     PowerErrorHandler getErrorHandler();
 

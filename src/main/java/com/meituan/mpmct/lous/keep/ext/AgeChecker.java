@@ -6,25 +6,24 @@ import org.springframework.stereotype.Component;
 /**
  * @Author:Yangchao16
  * @Description:
- * @Data:Initialized in 1:12 PM 2019/8/19
+ * @Data:Initialized in 1:13 PM 2019/8/19
  **/
 @Component
-public class UserCheck extends AbstractPrePowerHandler<Boolean> {
-
+public class AgeChecker extends AbstractPrePowerHandler<Integer> {
 
     @Override
     public Object filter() {
-        invokeResult=true;
+        invokeResult=28;
         return null;
     }
 
     @Override
     public boolean shouldProcced() {
-        return invokeResult;
+        return invokeResult>18;
     }
 
     @Override
     public String getName() {
-        return "user";
+        return "age";
     }
 }
