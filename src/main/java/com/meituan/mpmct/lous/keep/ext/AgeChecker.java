@@ -1,0 +1,29 @@
+package com.meituan.mpmct.lous.keep.ext;
+
+import com.meituan.mpmct.lous.keep.interceptor.AbstractPrePowerHandler;
+import org.springframework.stereotype.Component;
+
+/**
+ * @Author:Yangchao16
+ * @Description:
+ * @Data:Initialized in 1:13 PM 2019/8/19
+ **/
+@Component
+public class AgeChecker extends AbstractPrePowerHandler<Integer> {
+
+    @Override
+    public Object filter() {
+        invokeResult=28;
+        return null;
+    }
+
+    @Override
+    public boolean shouldProcced() {
+        return invokeResult>18;
+    }
+
+    @Override
+    public String getName() {
+        return "age";
+    }
+}

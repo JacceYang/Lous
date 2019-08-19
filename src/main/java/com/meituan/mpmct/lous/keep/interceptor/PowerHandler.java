@@ -5,6 +5,11 @@ package com.meituan.mpmct.lous.keep.interceptor;
  * @Description:
  * @Data:Initialized in 6:41 PM 2019/8/11
  **/
-public interface PowerHandler extends Power {
+public interface PowerHandler {
+    /**
+     * the power handler name
+     * @return
+     */
+    String getName();
 
 }

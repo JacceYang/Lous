@@ -3,7 +3,7 @@ package com.meituan.mpmct.lous.keep.interceptor;
 /**
  * @Author:Yangchao16
  * @Description:
- * @Data:Initialized in 6:43 PM 2019/8/11
+ * @Data:Initialized in 5:07 PM 2019/8/19
  **/
-public interface PrePowerHandler extends PowerHandler {
+public interface PowerChainHandler extends PowerHandler{
 }

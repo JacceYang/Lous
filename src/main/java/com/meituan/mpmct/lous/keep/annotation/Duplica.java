@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Inherited
 public @interface Duplica {
 
     /**

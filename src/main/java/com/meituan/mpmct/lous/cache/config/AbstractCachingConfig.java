@@ -21,6 +21,5 @@ public abstract class AbstractCachingConfig implements ImportAware {
 
         enableMCaching = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(EnableMCaching.class.getName(), false));
 
-        System.out.println(annotationMetadata);
     }
 }
