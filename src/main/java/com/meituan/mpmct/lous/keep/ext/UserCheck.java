@@ -19,7 +19,7 @@ public class UserCheck extends AbstractPrePowerHandler<Boolean> {
     }
 
     @Override
-    public boolean shouldProcced() {
+    public boolean proceed() {
         return invokeResult;
     }
 

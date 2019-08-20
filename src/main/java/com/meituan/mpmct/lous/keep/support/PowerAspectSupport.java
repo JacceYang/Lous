@@ -37,14 +37,15 @@ public class PowerAspectSupport implements SmartInitializingSingleton{
 
 
         //3 .构造请求的InvokerContext 为每一个 Handler
-        powerHandlerRunContainer.preRun(powerSource);
+        PowerInvokeContext powerInvokeContext=new DefaultPowerInvokeContext();
+        powerHandlerRunContainer.preRun(powerSource,powerInvokeContext);
 
 
         //4. 执行 filter 逻辑
         Object invokeResult=null;
         if (powerHandlerRunContainer.canRun()){
             invokeResult = invoker.invoke();
-            powerHandlerRunContainer.afterRun(powerSource);
+            powerHandlerRunContainer.afterRun(powerSource,powerInvokeContext);
         }
 
         return invokeResult;

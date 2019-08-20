@@ -5,9 +5,9 @@ import com.meituan.mpmct.lous.keep.support.PowerInvokeContext;
 /**
  * @Author:Yangchao16
  * @Description:
- * @Data:Initialized in 6:43 PM 2019/8/11
+ * @Data:Initialized in 1:14 PM 2019/8/20
  **/
-public abstract class AbstractPrePowerHandler<T> implements ConfigurablePowerHandler {
+public abstract class AbstractPostPowerHanler<T> implements ConfigurablePowerHandler {
 
     private PowerErrorHandler  powerErrorHandler=new DefaultPowerErrorHandler();
 
@@ -38,4 +38,5 @@ public abstract class AbstractPrePowerHandler<T> implements ConfigurablePowerHan
     public void setContext(PowerInvokeContext context) {
         this.context=context;
     }
+
 }

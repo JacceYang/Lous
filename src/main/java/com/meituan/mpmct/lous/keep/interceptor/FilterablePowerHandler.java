@@ -9,5 +9,5 @@ public interface FilterablePowerHandler extends PowerHandler{
 
      Object filter();
 
-     boolean shouldProcced();
+     boolean proceed();
 }

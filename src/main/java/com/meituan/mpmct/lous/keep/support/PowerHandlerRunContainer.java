@@ -13,11 +13,12 @@ public class PowerHandlerRunContainer {
 
    private int status;
 
-   public void preRun(PowerSourceContext powerSourceContext){
+   public void preRun(PowerSourceContext powerSourceContext, PowerInvokeContext context){
       if (!CollectionUtils.isEmpty(powerSourceContext.getPreHandlers())) {
          for (AbstractPrePowerHandler abstractPrePowerHandler :powerSourceContext.getPreHandlers()){
+            abstractPrePowerHandler.setContext(context);
             abstractPrePowerHandler.filter();
-            if (!abstractPrePowerHandler.shouldProcced()) {
+            if (!abstractPrePowerHandler.proceed()) {
                abstractPrePowerHandler.getErrorHandler().message("处理失败！");
                status=1;
             }
@@ -26,12 +27,13 @@ public class PowerHandlerRunContainer {
       status=0;
    }
 
-   public void afterRun(PowerSourceContext powerSourceContext){
+   public void afterRun(PowerSourceContext powerSourceContext,PowerInvokeContext context){
 
       if (!CollectionUtils.isEmpty(powerSourceContext.getPostPowerHandlers())) {
          for (PostPowerHandler postPowerHandler:powerSourceContext.getPostPowerHandlers()){
+            postPowerHandler.setContext(context);
             postPowerHandler.filter();
-            if (!postPowerHandler.shouldProcced()){
+            if (!postPowerHandler.proceed()){
                postPowerHandler.getErrorHandler().message("处理失败!");
                status=1;
             }
