@@ -19,7 +19,6 @@ public interface GlobalPowerHandler {
 
     List<PostPowerHandler> getPostPowerHandler(Set<String> handlers);
 
-
     PowerErrorHandler getErrorHandler(String errorHandler);
 
     List<PowerChainHandler> getPowerChainHanlder(Set<String> handlers);

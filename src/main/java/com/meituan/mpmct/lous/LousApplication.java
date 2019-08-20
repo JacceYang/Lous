@@ -19,7 +19,7 @@ public class LousApplication {
 
         LoginService loginServiceImpl = (LoginService) run.getBean("loginServiceImpl");
 
-        loginServiceImpl.login("yang", 15);
+        loginServiceImpl.login("ang", 15);
 
         loginServiceImpl.login("yang", 15);
 
