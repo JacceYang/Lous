@@ -2,7 +2,10 @@ package com.meituan.mpmct.lous.keep.support;
 
 import com.meituan.mpmct.lous.keep.interceptor.PowerInvoker;
 import org.springframework.aop.framework.AopProxyUtils;
+import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.SmartInitializingSingleton;
+import org.springframework.core.DefaultParameterNameDiscoverer;
+import org.springframework.core.ParameterNameDiscoverer;
 
 import java.lang.reflect.Method;
 
@@ -18,6 +21,7 @@ public class PowerAspectSupport implements SmartInitializingSingleton{
 
     private GlobalPowerHandler globalPowerHandler;
 
+    private ParameterNameDiscoverer parameterNameDiscoverer= new DefaultParameterNameDiscoverer();
     /**
      * 可以后面提供扩展功能
      */
@@ -37,7 +41,7 @@ public class PowerAspectSupport implements SmartInitializingSingleton{
 
 
         //3 .构造请求的InvokerContext 为每一个 Handler
-        PowerInvokeContext powerInvokeContext=new DefaultPowerInvokeContext();
+        PowerInvokeContext powerInvokeContext=new DefaultPowerInvokeContext(getTargetMethod(method,targetObject.getClass()),parameters,parameterNameDiscoverer);
         powerHandlerRunContainer.preRun(powerSource,powerInvokeContext);
 
 
@@ -55,6 +59,10 @@ public class PowerAspectSupport implements SmartInitializingSingleton{
 
     private Class<?> getTargetClass(Object target) {
         return AopProxyUtils.ultimateTargetClass(target);
+    }
+
+    private Method getTargetMethod(Method method,Class<?> targetClass){
+        return AopUtils.getMostSpecificMethod(method,targetClass);
     }
 
     public GlobalPowerHandler getGlobalPowerHandler() {

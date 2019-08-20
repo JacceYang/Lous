@@ -1,6 +1,7 @@
 package com.meituan.mpmct.lous.keep.ext;
 
 import com.meituan.mpmct.lous.keep.interceptor.AbstractPrePowerHandler;
+import com.meituan.mpmct.lous.keep.support.PowerInvokeContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,7 +14,13 @@ public class AgeChecker extends AbstractPrePowerHandler<Integer> {
 
     @Override
     public Object filter() {
-        invokeResult=28;
+
+        PowerInvokeContext context = getContext();
+
+        context.getMethodParameterCount();
+
+
+        invokeResult=context.getMethodParameter(1,Integer.class);
         return null;
     }
 
