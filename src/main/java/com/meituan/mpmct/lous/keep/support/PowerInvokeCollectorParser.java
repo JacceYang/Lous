@@ -1,5 +1,6 @@
 package com.meituan.mpmct.lous.keep.support;
 
+import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
@@ -47,29 +48,36 @@ public class PowerInvokeCollectorParser {
     }
 
     private PowerInvokeCollector calculateThisExecutor(PowerInvokeCollectorContext context) {
+        String methodName = findCandidate(context.getCollector(), TOKEN_DOM, TOKEN_RBACKET);
+        if (!StringUtils.hasText(methodName)) {
+            throw new IllegalArgumentException("Can't parse method name, expression [" + context.getCollector() + "]");
+        }
 
-
-        String collector = context.getCollector();
-        int begin = collector.indexOf(TOKEN_DOM);
-        int end = collector.indexOf(TOKEN_RBACKET);
-        String methodName = collector.substring(begin + 1, end);
         Method exeMethod = ClassUtils.getMethod(context.getTargetClass(), methodName);
-
         return new ThisPowerInvokeCollector(exeMethod, context.getTargetClass(), context.getTargetObject(), context.getParameters());
     }
 
 
     private PowerInvokeCollector calculateBeanExecutor(PowerInvokeCollectorContext context, BeanFactory beanFactory) {
 
-        String collector = context.getCollector();
-        int begin = collector.indexOf(TOKEN_AT);
-        int end = collector.indexOf(TOKEN_DOM);
-        String beanName = collector.substring(begin, end);
+        String beanName = findCandidate(context.getCollector(), TOKEN_AT, TOKEN_DOM);
+        String methodName = findCandidate(context.getCollector(), TOKEN_DOM, TOKEN_RBACKET);
+        if (!StringUtils.hasText(beanName) || !StringUtils.hasText(methodName)) {
+            throw new IllegalArgumentException("Either method name or bean name parse error, expression [" + context.getCollector() + "]");
+        }
 
         Object bean = beanFactory.getBean(beanName);
+        Class<?> targetClass = AopProxyUtils.ultimateTargetClass(bean);
+        Method exeMethod = ClassUtils.getMethod(targetClass, methodName);
 
-        return new BeanPowerInvokeCollector(context.getMethod(), context.getTargetClass(), context.getTargetObject(), context.getParameters(), beanFactory);
+        return new BeanPowerInvokeCollector(exeMethod, context.getTargetClass(), context.getTargetObject(), context.getParameters());
     }
 
+
+    private String findCandidate(String source, String beginToken, String endToken) {
+        int begin = source.indexOf(beginToken);
+        int end = source.indexOf(endToken);
+        return source.substring(begin + 1, end);
+    }
 
 }

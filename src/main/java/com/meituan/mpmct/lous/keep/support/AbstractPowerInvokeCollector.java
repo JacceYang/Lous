@@ -21,6 +21,4 @@ public abstract class AbstractPowerInvokeCollector implements PowerInvokeCollect
         this.targetObject = targetObject;
         this.parameters = parameters;
     }
-
-    protected abstract Object getExecutorObject();
 }

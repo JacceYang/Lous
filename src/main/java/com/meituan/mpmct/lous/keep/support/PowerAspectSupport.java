@@ -32,22 +32,13 @@ public class PowerAspectSupport implements SmartInitializingSingleton, BeanFacto
      */
     private PowerHandlerRunContainer powerHandlerRunContainer = new PowerHandlerRunContainer();
 
-    private PowerInvokeCollectorParser powerInvokeCollectorParser = new PowerInvokeCollectorParser();
-
-    protected Object execute(PowerInvoker invoker, Method method, Object[] parameters, Object targetObject) {
-
-
-        // 1. 依据请求的 方法 ，获取@Power 注解的具体内容
+    protected Object execute(PowerInvoker invoker, Method method, Object[] parameters, Object targetObject) throws IllegalAccessException, InstantiationException {
 
         PowerSourceContext powerSource = annotationPowerSource.getPowerSource(method, targetObject.getClass(), targetObject, parameters);
-
-
-        // 2. 解析 @Power 注解的内容为系统能够理解的,求解上下文环境
 
         //3 .构造请求的InvokerContext 为每一个 Handler
         PowerInvokeContext propertyInvokeContext = new DefaultPowerInvokeContext(getTargetMethod(method, targetObject.getClass()), parameters, parameterNameDiscoverer);
         powerHandlerRunContainer.preRun(powerSource, propertyInvokeContext);
-
 
         //4. 执行 filter 逻辑
         Object invokeResult = null;
@@ -56,7 +47,7 @@ public class PowerAspectSupport implements SmartInitializingSingleton, BeanFacto
             powerHandlerRunContainer.afterRun(powerSource, propertyInvokeContext);
         }
 
-        return invokeResult;
+        return safeReturn(invokeResult, method.getReturnType());
     }
 
 
@@ -85,5 +76,26 @@ public class PowerAspectSupport implements SmartInitializingSingleton, BeanFacto
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         this.beanFactory = beanFactory;
+    }
+
+    private Object safeReturn(Object obj, Class<?> returnType) {
+        boolean primitive = returnType.isPrimitive();
+        if (primitive && obj == null) {
+            switch (returnType.getName()) {
+                case "boolean":
+                    return Boolean.FALSE;
+                case "int":
+                    return 0;
+                case "float":
+                    return 0.0f;
+                case "double":
+                    return 0.0d;
+                case "bit":
+                    return 0;
+                default:
+                    return 0;
+            }
+        }
+        return obj;
     }
 }

@@ -23,6 +23,7 @@ public class LousApplication {
 
         loginServiceImpl.login("yang", 15);
 
+        System.out.println("-------end---------");
 
     }
 

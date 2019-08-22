@@ -11,7 +11,7 @@ import org.springframework.util.CollectionUtils;
  **/
 public class PowerHandlerRunContainer {
 
-    private int status;
+    private int status = 0;
 
     private void collect(PowerSourceContext powerSourceContext, PowerInvokeContext context) {
         Object collect = powerSourceContext.getInvokeCollector().collect();
@@ -33,11 +33,10 @@ public class PowerHandlerRunContainer {
                 abstractPrePowerHandler.filter();
                 if (!abstractPrePowerHandler.proceed()) {
                     abstractPrePowerHandler.getErrorHandler().message("处理失败！");
-                    status = 1;
+                    stop();
                 }
             }
         }
-        status = 0;
     }
 
     public void afterRun(PowerSourceContext powerSourceContext, PowerInvokeContext context) {
@@ -48,11 +47,14 @@ public class PowerHandlerRunContainer {
                 postPowerHandler.filter();
                 if (!postPowerHandler.proceed()) {
                     postPowerHandler.getErrorHandler().message("处理失败!");
-                    status = 1;
+                    stop();
                 }
             }
         }
-        status = 0;
+    }
+
+    private void stop() {
+        status = 1;
     }
 
     public boolean canRun() {
