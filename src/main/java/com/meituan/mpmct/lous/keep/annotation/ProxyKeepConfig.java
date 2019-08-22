@@ -18,10 +18,7 @@ import org.springframework.context.annotation.Role;
 public class ProxyKeepConfig extends AbstractKeepConfig {
 
 
-
-
-
-//    @Configuration    todo 完善条件配置化逻辑
+    //    @Configuration    todo 完善条件配置化逻辑
     public class ProxyDuplicaConfig {
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
@@ -38,8 +35,8 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
 
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-        public BeanFactoryPowerAdvisor beanFactoryPowerAdvisor(){
-            BeanFactoryPowerAdvisor beanFactoryPowerAdvisor=new BeanFactoryPowerAdvisor();
+        public BeanFactoryPowerAdvisor beanFactoryPowerAdvisor() {
+            BeanFactoryPowerAdvisor beanFactoryPowerAdvisor = new BeanFactoryPowerAdvisor();
             beanFactoryPowerAdvisor.setAdvice(powerIntercepter());
             return beanFactoryPowerAdvisor;
         }
@@ -56,8 +53,8 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
 
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-        public GlobalPowerHandlerRepository globlePowerHandlerRepository(){
-            GlobalPowerHandlerRepository globlePowerHandlerRepository=new GlobalPowerHandlerRepository();
+        public GlobalPowerHandlerRepository globlePowerHandlerRepository() {
+            GlobalPowerHandlerRepository globlePowerHandlerRepository = new GlobalPowerHandlerRepository();
 
 
             return globlePowerHandlerRepository;

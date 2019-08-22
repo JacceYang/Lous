@@ -1,7 +1,6 @@
 package com.meituan.mpmct.lous.keep.interceptor;
 
 import com.meituan.mpmct.lous.keep.support.PowerInvokeContext;
-import com.meituan.mpmct.lous.keep.support.PropertyInvokeContext;
 
 /**
  * @Author:Yangchao16
@@ -10,11 +9,8 @@ import com.meituan.mpmct.lous.keep.support.PropertyInvokeContext;
  **/
 public abstract class AbstractPrePowerHandler<T> implements ConfigurablePowerHandler {
 
-    private PowerErrorHandler  powerErrorHandler=new DefaultPowerErrorHandler();
-
     protected T invokeResult;
-
-
+    private PowerErrorHandler powerErrorHandler = new DefaultPowerErrorHandler();
     /**
      * method invoke context. it contains method context and dependency context data.
      */
@@ -27,7 +23,7 @@ public abstract class AbstractPrePowerHandler<T> implements ConfigurablePowerHan
 
     @Override
     public void setErrorHandler(PowerErrorHandler errorHandler) {
-        this.powerErrorHandler=errorHandler;
+        this.powerErrorHandler = errorHandler;
     }
 
     @Override
@@ -37,6 +33,6 @@ public abstract class AbstractPrePowerHandler<T> implements ConfigurablePowerHan
 
     @Override
     public void setContext(PowerInvokeContext context) {
-        this.context=context;
+        this.context = context;
     }
 }

@@ -1,7 +1,5 @@
 package com.meituan.mpmct.lous.keep.support;
 
-import org.springframework.core.MethodClassKey;
-
 import java.lang.reflect.Method;
 
 /**
@@ -15,15 +13,18 @@ public class PowerInvokeCollectorContext {
 
     private Method method;
 
-    private Class<?>  targetClass;
+    private Class<?> targetClass;
 
     private Object targetObject;
 
-    public PowerInvokeCollectorContext(String collector, Method method,Class targetClass, Object targetObject) {
+    private Object[] parameters;
+
+    public PowerInvokeCollectorContext(String collector, Method method, Class targetClass, Object targetObject, Object[] parameters) {
         this.collector = collector;
         this.method = method;
-        this.targetClass=targetClass;
+        this.targetClass = targetClass;
         this.targetObject = targetObject;
+        this.parameters = parameters;
     }
 
     public String getCollector() {
@@ -40,5 +41,9 @@ public class PowerInvokeCollectorContext {
 
     public Object getTargetObject() {
         return targetObject;
+    }
+
+    public Object[] getParameters() {
+        return parameters;
     }
 }

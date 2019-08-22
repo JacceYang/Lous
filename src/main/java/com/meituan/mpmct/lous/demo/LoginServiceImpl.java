@@ -3,6 +3,7 @@ package com.meituan.mpmct.lous.demo;
 import com.meituan.mpmct.lous.cache.annotation.CachingMode;
 import com.meituan.mpmct.lous.cache.annotation.GetCache;
 import com.meituan.mpmct.lous.keep.annotation.Power;
+import com.meituan.mpmct.lous.keep.support.PropertyValueWrapper;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -28,8 +29,8 @@ public class LoginServiceImpl implements LoginService {
         return false;
     }
 
-    public String country(){
-
-        return "US";
+    public Object country(){
+        Object us = PropertyValueWrapper.wrapValue(new String[]{"contry"}, "US");
+        return us;
     }
 }

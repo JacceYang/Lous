@@ -3,6 +3,9 @@ package com.meituan.mpmct.lous.keep.support;
 import org.springframework.core.ParameterNameDiscoverer;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -12,6 +15,16 @@ import java.util.Set;
  **/
 public abstract class AbstractPowerInvokeContext extends AbstractMethodInvokeContext implements PropertyInvokeContext {
 
+
+    /**
+     * It should be initialized with new or keep null.
+     */
+    protected List<PropertyValue> propertyValues = new ArrayList<>();
+
+    /**
+     * The property name's from propertyValues .
+     */
+    protected Set<String> propertyName = new LinkedHashSet<>();
 
     public AbstractPowerInvokeContext(Method method, Object[] arguments, ParameterNameDiscoverer parameterNameDiscoverer) {
         super(method, arguments, parameterNameDiscoverer);
@@ -35,5 +48,10 @@ public abstract class AbstractPowerInvokeContext extends AbstractMethodInvokeCon
     @Override
     public Set<String> getAllPropertiesName() {
         return null;
+    }
+
+    @Override
+    public void addProperties(PropertyValue[] propertyValues) {
+
     }
 }

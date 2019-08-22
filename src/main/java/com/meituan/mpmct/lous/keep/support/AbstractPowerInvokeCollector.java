@@ -8,16 +8,18 @@ import java.lang.reflect.Method;
  * @Description:
  * @Data:Initialized in 9:43 AM 2019/8/22
  **/
-public abstract class AbstractPowerInvokeCollector implements PowerInvokeCollector{
+public abstract class AbstractPowerInvokeCollector implements PowerInvokeCollector {
 
-    private Method method;
-    private Class<?> targetClass;
-    private Object targetObject;
+    protected Method method;
+    protected Class<?> targetClass;
+    protected Object targetObject;
+    Object[] parameters;
 
-    public AbstractPowerInvokeCollector(Method method, Class<?> targetClass,Object targetObject) {
+    public AbstractPowerInvokeCollector(Method method, Class<?> targetClass, Object targetObject, Object[] parameters) {
         this.method = method;
         this.targetClass = targetClass;
-        this.targetObject=targetObject;
+        this.targetObject = targetObject;
+        this.parameters = parameters;
     }
 
     protected abstract Object getExecutorObject();

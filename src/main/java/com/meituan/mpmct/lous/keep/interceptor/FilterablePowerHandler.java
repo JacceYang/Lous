@@ -5,9 +5,9 @@ package com.meituan.mpmct.lous.keep.interceptor;
  * @Description:
  * @Data:Initialized in 8:34 PM 2019/8/19
  **/
-public interface FilterablePowerHandler extends PowerHandler{
+public interface FilterablePowerHandler extends PowerHandler {
 
-     Object filter();
+    Object filter();
 
-     boolean proceed();
+    boolean proceed();
 }

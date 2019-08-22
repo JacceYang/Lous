@@ -8,6 +8,7 @@ package com.meituan.mpmct.lous.keep.interceptor;
 public interface PowerHandler {
     /**
      * the power handler name
+     *
      * @return
      */
     String getName();

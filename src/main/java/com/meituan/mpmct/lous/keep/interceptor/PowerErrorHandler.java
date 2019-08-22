@@ -7,7 +7,7 @@ package com.meituan.mpmct.lous.keep.interceptor;
  **/
 public interface PowerErrorHandler extends PowerHandler {
 
-   void error(Throwable throwable);
+    void error(Throwable throwable);
 
-   void message(String msg);
+    void message(String msg);
 }

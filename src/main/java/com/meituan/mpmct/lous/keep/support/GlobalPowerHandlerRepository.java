@@ -1,9 +1,9 @@
 package com.meituan.mpmct.lous.keep.support;
 
+import com.meituan.mpmct.lous.keep.interceptor.AbstractPrePowerHandler;
 import com.meituan.mpmct.lous.keep.interceptor.PostPowerHandler;
 import com.meituan.mpmct.lous.keep.interceptor.PowerChainHandler;
 import com.meituan.mpmct.lous.keep.interceptor.PowerErrorHandler;
-import com.meituan.mpmct.lous.keep.interceptor.AbstractPrePowerHandler;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -21,17 +21,17 @@ import java.util.*;
  * @Description:
  * @Data:Initialized in 5:12 PM 2019/8/19
  **/
-public class GlobalPowerHandlerRepository implements SmartInitializingSingleton, BeanFactoryAware,GlobalPowerHandler {
+public class GlobalPowerHandlerRepository implements SmartInitializingSingleton, BeanFactoryAware, GlobalPowerHandler {
 
     private Map<String, AbstractPrePowerHandler> prePowerHandlerRepositry;
 
     private Map<String, PostPowerHandler> postPowerHandlerRepositry;
 
-    private Map<String,PowerErrorHandler> powerErrorHandlerRepository;
+    private Map<String, PowerErrorHandler> powerErrorHandlerRepository;
 
-    private Map<String,PowerChainHandler> powerChainHandlerRepositry;
+    private Map<String, PowerChainHandler> powerChainHandlerRepositry;
 
-    private Map<String,PowerInvokeCollector> powerInvokeCollectorReposity;
+    private Map<String, PowerInvokeCollector> powerInvokeCollectorReposity;
 
     private BeanFactory beanFactory;
 
@@ -40,7 +40,7 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
      * do not exposer too more information to outer user ,keep simple and keep
      * secret.
      */
-    private PowerInvokeCollectorParser powerInvokeCollectorParser=new PowerInvokeCollectorParser();
+    private PowerInvokeCollectorParser powerInvokeCollectorParser = new PowerInvokeCollectorParser();
 
     @Override
     public List<AbstractPrePowerHandler> getPrePowerHandler(Set<String> handlers) {
@@ -81,7 +81,7 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
     @Override
     @Nullable
     public PowerErrorHandler getErrorHandler(String errorHandler) {
-        if (powerErrorHandlerRepository==null || !StringUtils.hasText(errorHandler)){
+        if (powerErrorHandlerRepository == null || !StringUtils.hasText(errorHandler)) {
             return null;
         }
         return powerErrorHandlerRepository.get(errorHandler);
@@ -89,14 +89,14 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
 
     @Override
     public List<PowerChainHandler> getPowerChainHandler(Set<String> handlers) {
-        if (powerChainHandlerRepositry==null || handlers==null) {
+        if (powerChainHandlerRepositry == null || handlers == null) {
             return Collections.EMPTY_LIST;
         }
 
-        List<PowerChainHandler> powerChainHandlers=new ArrayList<>();
-        for (String handler:handlers) {
+        List<PowerChainHandler> powerChainHandlers = new ArrayList<>();
+        for (String handler : handlers) {
             PowerChainHandler powerChainHandler = powerChainHandlerRepositry.get(handler);
-            if (powerChainHandler!=null) {
+            if (powerChainHandler != null) {
                 powerChainHandlers.add(powerChainHandler);
             }
         }
@@ -108,7 +108,7 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
     @Nullable
     public PowerInvokeCollector getPowerInvokeCollector(PowerInvokeCollectorContext collector) {
         // To do for performance.
-        return  powerInvokeCollectorParser.parseInvokeCollector(collector,beanFactory);
+        return powerInvokeCollectorParser.parseInvokeCollector(collector, beanFactory);
     }
 
 
@@ -135,27 +135,27 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
         }
     }
 
-    void registryErrorHandler(Collection<PowerErrorHandler> powerErrorHandlers){
+    void registryErrorHandler(Collection<PowerErrorHandler> powerErrorHandlers) {
 
-        if (CollectionUtils.isEmpty(powerErrorHandlers)){
+        if (CollectionUtils.isEmpty(powerErrorHandlers)) {
             return;
         }
-        powerErrorHandlerRepository=new HashMap<>(8);
-        for (PowerErrorHandler errorHandler:powerErrorHandlers) {
-            Assert.hasText(errorHandler.getName(),errorHandler.getClass().getName()+"doesn't define a handler name");
-            powerErrorHandlerRepository.put(errorHandler.getName(),errorHandler);
+        powerErrorHandlerRepository = new HashMap<>(8);
+        for (PowerErrorHandler errorHandler : powerErrorHandlers) {
+            Assert.hasText(errorHandler.getName(), errorHandler.getClass().getName() + "doesn't define a handler name");
+            powerErrorHandlerRepository.put(errorHandler.getName(), errorHandler);
         }
 
     }
 
-    void registryChain(Collection<PowerChainHandler> powerChainHandlers){
+    void registryChain(Collection<PowerChainHandler> powerChainHandlers) {
         if (CollectionUtils.isEmpty(powerChainHandlers)) {
             return;
         }
-        powerChainHandlerRepositry =new HashMap<>(8);
-        for (PowerChainHandler chainHandler:powerChainHandlers) {
-            Assert.hasText(chainHandler.getName(),chainHandler.getClass().getName()+"doesn't define a handler name");
-            powerChainHandlerRepositry.put(chainHandler.getName(),chainHandler);
+        powerChainHandlerRepositry = new HashMap<>(8);
+        for (PowerChainHandler chainHandler : powerChainHandlers) {
+            Assert.hasText(chainHandler.getName(), chainHandler.getClass().getName() + "doesn't define a handler name");
+            powerChainHandlerRepositry.put(chainHandler.getName(), chainHandler);
         }
     }
 
@@ -170,14 +170,14 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 
-        this.beanFactory=beanFactory;
-        if (beanFactory instanceof ListableBeanFactory){
-            ListableBeanFactory listableBeanFactory=(ListableBeanFactory)beanFactory;
+        this.beanFactory = beanFactory;
+        if (beanFactory instanceof ListableBeanFactory) {
+            ListableBeanFactory listableBeanFactory = (ListableBeanFactory) beanFactory;
             initialize(listableBeanFactory);
         }
     }
 
-    private void initialize(ListableBeanFactory listableBeanFactory){
+    private void initialize(ListableBeanFactory listableBeanFactory) {
 
         Map<String, AbstractPrePowerHandler> preHandlers = listableBeanFactory.getBeansOfType(AbstractPrePowerHandler.class);
         registryPreHandlers(preHandlers.values());
