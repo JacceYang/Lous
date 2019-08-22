@@ -1,8 +1,6 @@
 package com.meituan.mpmct.lous.keep.interceptor;
 
 
-import com.meituan.mpmct.lous.keep.interceptor.AbstractPowerInvokeCollector;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -19,14 +17,7 @@ public class ThisPowerInvokeCollector extends AbstractPowerInvokeCollector {
     }
 
     @Override
-    public <T> T collect() {
-        try {
-            return (T) method.invoke(targetObject, null);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        return null;
+    public <T> T collect()  throws InvocationTargetException,IllegalAccessException{
+        return (T) method.invoke(targetObject, null);
     }
 }

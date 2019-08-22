@@ -25,6 +25,13 @@ public interface MethodInvokeContext {
      */
     Object getMethodParameter(int index);
 
+    /**
+     *
+     * @param index
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     <T> T getMethodParameter(int index, Class<T> clazz);
 
 }

@@ -20,10 +20,10 @@ import java.util.Set;
 public class PowerSourceParser {
 
     public PowerElement computePowerElement(Method method, Class<?> targetClass) {
-        Method specifed = AopUtils.getMostSpecificMethod(method, targetClass);
-        if (specifed != null) {
-            if (specifed.isAnnotationPresent(Power.class)) {
-                return parsePower(specifed);
+        Method specified = AopUtils.getMostSpecificMethod(method, targetClass);
+        if (specified != null) {
+            if (specified.isAnnotationPresent(Power.class)) {
+                return parsePower(specified);
             }
         }
         return null;

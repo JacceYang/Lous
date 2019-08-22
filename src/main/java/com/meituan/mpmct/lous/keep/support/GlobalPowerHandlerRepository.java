@@ -1,6 +1,8 @@
 package com.meituan.mpmct.lous.keep.support;
 
 import com.meituan.mpmct.lous.keep.interceptor.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -18,7 +20,9 @@ import java.util.*;
  * @Description:
  * @Data:Initialized in 5:12 PM 2019/8/19
  **/
+
 public class GlobalPowerHandlerRepository implements SmartInitializingSingleton, BeanFactoryAware, GlobalPowerHandler {
+    private final Log logger = LogFactory.getLog(getClass());
 
     private Map<String, AbstractPrePowerHandler> prePowerHandlerRepositry;
 
@@ -161,6 +165,8 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
      */
     @Override
     public void afterSingletonsInstantiated() {
+
+
 
     }
 

@@ -1,5 +1,7 @@
 package com.meituan.mpmct.lous.keep.interceptor;
 
+import java.lang.reflect.InvocationTargetException;
+
 /**
  * @Author:Yangchao16
  * @Description:
@@ -8,9 +10,8 @@ package com.meituan.mpmct.lous.keep.interceptor;
 public interface PowerInvokeCollector {
 
     /**
-     *
      * @param <T>
      * @return return the collect value from outer bean or target object.
      */
-    <T> T collect();
+    <T> T collect() throws InvocationTargetException,IllegalAccessException;
 }

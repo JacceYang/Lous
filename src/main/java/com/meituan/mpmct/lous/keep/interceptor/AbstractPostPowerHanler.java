@@ -10,6 +10,7 @@ import com.meituan.mpmct.lous.keep.support.PowerInvokeContext;
 public abstract class AbstractPostPowerHanler<T> implements ConfigurablePowerHandler {
 
     protected T invokeResult;
+
     private PowerErrorHandler powerErrorHandler = new DefaultPowerErrorHandler();
     /**
      * method invoke context. it contains method context and dependency context data.

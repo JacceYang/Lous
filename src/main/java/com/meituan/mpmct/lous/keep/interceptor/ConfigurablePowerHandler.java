@@ -7,6 +7,11 @@ package com.meituan.mpmct.lous.keep.interceptor;
  **/
 public interface ConfigurablePowerHandler extends FilterablePowerHandler, PowerHandlerContext {
 
+    /**
+     * config error handler for power handler
+     *
+     * @return
+     */
     PowerErrorHandler getErrorHandler();
 
     void setErrorHandler(PowerErrorHandler errorHandler);

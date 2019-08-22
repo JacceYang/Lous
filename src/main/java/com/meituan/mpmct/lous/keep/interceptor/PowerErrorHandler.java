@@ -8,13 +8,11 @@ package com.meituan.mpmct.lous.keep.interceptor;
 public interface PowerErrorHandler extends PowerHandler {
 
     /**
-     *
      * @param throwable
      */
     void error(Throwable throwable);
 
     /**
-     *
      * @param msg
      */
     void message(String msg);

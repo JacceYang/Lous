@@ -6,7 +6,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Annotation indicating that the  a frequently invoking of on method will be prevent .
  *
- *
  * @Author:Yangchao16
  * @Description: duplicate submit or call.
  * @Data:Initialized in 6:01 PM 2019/8/11
