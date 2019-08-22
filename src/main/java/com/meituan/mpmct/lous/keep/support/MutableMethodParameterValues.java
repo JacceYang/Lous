@@ -9,7 +9,7 @@ import java.util.List;
  * @Description:
  * @Data:Initialized in 5:50 PM 2019/8/20
  **/
-public class MultMethodParameterValues implements MethodParameterValues, Iterable {
+public class MutableMethodParameterValues implements MethodParameterValues, Iterable {
 
     List<PropertyValue> propertyValues;
 

@@ -18,10 +18,12 @@ public class AnnotationPowerSource implements PowerSource {
     @Override
     public PowerSourceContext getPowerSource(Method method, Class<?> targetClass, Object targetObject, Object[] parameters) {
 
-
         PowerElement powerElement = powerSourceParser.computePowerElement(method, targetClass);
-        PowerInvokeCollectorContext collectorContext = new PowerInvokeCollectorContext(powerElement.getCollector(), method, targetClass, targetObject, parameters);
+        if (powerElement==null) {
+          return null;
+        }
 
+        PowerInvokeCollectorContext collectorContext = new PowerInvokeCollectorContext(powerElement.getCollector(), method, targetClass, targetObject, parameters);
         PowerSourceParser.PowerSourceParserContext powerSourceParserContext = new PowerSourceParser.PowerSourceParserContext(globalPowerHandler, powerElement, collectorContext);
 
         PowerSourceContext sourceContext = powerSourceParser.parsePowerSourceContext(powerSourceParserContext);

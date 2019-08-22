@@ -1,7 +1,5 @@
 package com.meituan.mpmct.lous.keep.interceptor;
 
-import com.meituan.mpmct.lous.keep.interceptor.PowerHandlerRunContainer;
-import com.meituan.mpmct.lous.keep.interceptor.PowerInvoker;
 import com.meituan.mpmct.lous.keep.support.*;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.aop.support.AopUtils;
@@ -38,8 +36,15 @@ public class PowerAspectSupport implements SmartInitializingSingleton, BeanFacto
 
         PowerSourceContext powerSource = annotationPowerSource.getPowerSource(method, targetObject.getClass(), targetObject, parameters);
 
+        if (powerSource==null) {
+            return invoker.invoke();
+        }
+
         //3 .构造请求的InvokerContext 为每一个 Handler
         PowerInvokeContext propertyInvokeContext = new DefaultPowerInvokeContext(getTargetMethod(method, targetObject.getClass()), parameters, parameterNameDiscoverer);
+        if (propertyInvokeContext==null) {
+            return invoker.invoke();
+        }
         powerHandlerRunContainer.preRun(powerSource, propertyInvokeContext);
 
         //4. 执行 filter 逻辑
@@ -51,7 +56,6 @@ public class PowerAspectSupport implements SmartInitializingSingleton, BeanFacto
 
         return safeReturn(invokeResult, method.getReturnType());
     }
-
 
     private Class<?> getTargetClass(Object target) {
         return AopProxyUtils.ultimateTargetClass(target);
@@ -73,7 +77,6 @@ public class PowerAspectSupport implements SmartInitializingSingleton, BeanFacto
     public void afterSingletonsInstantiated() {
         annotationPowerSource.setGlobalPowerHandler(globalPowerHandler);
     }
-
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {

@@ -15,7 +15,7 @@ public abstract class AbstractMethodInvokeContext implements MethodInvokeContext
     private final Method method;
     private final Object[] arguments;
     private final ParameterNameDiscoverer parameterNameDiscoverer;
-    MultMethodParameterValues methodParameterValues = new MultMethodParameterValues();
+    MutableMethodParameterValues methodParameterValues = new MutableMethodParameterValues();
     private boolean argumentsLoaded = false;
 
 
