@@ -30,6 +30,11 @@ public class PowerElement {
      */
     private String errorHandler;
 
+    /**
+     * the collector expression used to construction invoke context.
+     */
+    private String collector;
+
 
     public LinkedHashSet<String> getPreHandlers() {
         return preHandlers;
@@ -47,11 +52,16 @@ public class PowerElement {
         return errorHandler;
     }
 
+    public String getCollector() {
+        return collector;
+    }
+
     public PowerElement(Builder builder) {
         this.preHandlers = builder.preHandlers;
         this.postHandlers = builder.postHandlers;
         this.chains = builder.chains;
         this.errorHandler = builder.errorHandler;
+        this.collector=builder.collector;
     }
 
     public static class Builder {
@@ -63,6 +73,8 @@ public class PowerElement {
         private LinkedHashSet<String> chains;
 
         private String errorHandler;
+
+        private String collector;
 
         public void setPreHandlers(String... preHandlers) {
             if (preHandlers != null) {
@@ -93,6 +105,10 @@ public class PowerElement {
 
         public void setErrorHandler(String errorHandler) {
             this.errorHandler = errorHandler;
+        }
+
+        public void setCollector(String collector) {
+            this.collector = collector;
         }
 
         public PowerElement build() {

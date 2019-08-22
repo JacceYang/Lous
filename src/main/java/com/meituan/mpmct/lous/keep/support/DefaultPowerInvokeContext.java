@@ -14,7 +14,7 @@ import java.util.Set;
  * @Description:
  * @Data:Initialized in 1:54 PM 2019/8/20
  **/
-public class DefaultPowerInvokeContext extends AbstractMethodInvokeContext implements PowerInvokeContext, MethodInvokeContext {
+public class DefaultPowerInvokeContext extends AbstractPowerInvokeContext implements PowerInvokeContext {
 
     /**
      * It should be initialized with new or keep null.

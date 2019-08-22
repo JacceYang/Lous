@@ -22,6 +22,8 @@ public class PowerSourceContext {
 
     private PowerErrorHandler errorHandler;
 
+    private PowerInvokeCollector invokeCollector;
+
 
     public List<AbstractPrePowerHandler> getPreHandlers() {
         return preHandlers;
@@ -53,5 +55,13 @@ public class PowerSourceContext {
 
     public void setErrorHandler(PowerErrorHandler errorHandler) {
         this.errorHandler = errorHandler;
+    }
+
+    public PowerInvokeCollector getInvokeCollector() {
+        return invokeCollector;
+    }
+
+    public void setInvokeCollector(PowerInvokeCollector invokeCollector) {
+        this.invokeCollector = invokeCollector;
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -29,6 +30,17 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
     private Map<String,PowerErrorHandler> powerErrorHandlerRepository;
 
     private Map<String,PowerChainHandler> powerChainHandlerRepositry;
+
+    private Map<String,PowerInvokeCollector> powerInvokeCollectorReposity;
+
+    private BeanFactory beanFactory;
+
+    /**
+     * you will not expose the parser to the up lever of a design princeple:
+     * do not exposer too more information to outer user ,keep simple and keep
+     * secret.
+     */
+    private PowerInvokeCollectorParser powerInvokeCollectorParser=new PowerInvokeCollectorParser();
 
     @Override
     public List<AbstractPrePowerHandler> getPrePowerHandler(Set<String> handlers) {
@@ -67,13 +79,36 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
     }
 
     @Override
+    @Nullable
     public PowerErrorHandler getErrorHandler(String errorHandler) {
-        return null;
+        if (powerErrorHandlerRepository==null || !StringUtils.hasText(errorHandler)){
+            return null;
+        }
+        return powerErrorHandlerRepository.get(errorHandler);
     }
 
     @Override
-    public List<PowerChainHandler> getPowerChainHanlder(Set<String> handlers) {
-        return null;
+    public List<PowerChainHandler> getPowerChainHandler(Set<String> handlers) {
+        if (powerChainHandlerRepositry==null || handlers==null) {
+            return Collections.EMPTY_LIST;
+        }
+
+        List<PowerChainHandler> powerChainHandlers=new ArrayList<>();
+        for (String handler:handlers) {
+            PowerChainHandler powerChainHandler = powerChainHandlerRepositry.get(handler);
+            if (powerChainHandler!=null) {
+                powerChainHandlers.add(powerChainHandler);
+            }
+        }
+
+        return powerChainHandlers;
+    }
+
+    @Override
+    @Nullable
+    public PowerInvokeCollector getPowerInvokeCollector(PowerInvokeCollectorContext collector) {
+        // To do for performance.
+        return  powerInvokeCollectorParser.parseInvokeCollector(collector,beanFactory);
     }
 
 
@@ -135,21 +170,25 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 
+        this.beanFactory=beanFactory;
         if (beanFactory instanceof ListableBeanFactory){
             ListableBeanFactory listableBeanFactory=(ListableBeanFactory)beanFactory;
-
-            Map<String, AbstractPrePowerHandler> preHandlers = listableBeanFactory.getBeansOfType(AbstractPrePowerHandler.class);
-            registryPreHandlers(preHandlers.values());
-
-            Map<String, PostPowerHandler> postHandlers = listableBeanFactory.getBeansOfType(PostPowerHandler.class);
-            registryPostHandlers(postHandlers.values());
-
-            Map<String, PowerErrorHandler> powerErrorHandlers = listableBeanFactory.getBeansOfType(PowerErrorHandler.class);
-            registryErrorHandler(powerErrorHandlers.values());
-
-            Map<String, PowerChainHandler> powerChainHandlers = listableBeanFactory.getBeansOfType(PowerChainHandler.class);
-            registryChain(powerChainHandlers.values());
+            initialize(listableBeanFactory);
         }
+    }
 
+    private void initialize(ListableBeanFactory listableBeanFactory){
+
+        Map<String, AbstractPrePowerHandler> preHandlers = listableBeanFactory.getBeansOfType(AbstractPrePowerHandler.class);
+        registryPreHandlers(preHandlers.values());
+
+        Map<String, PostPowerHandler> postHandlers = listableBeanFactory.getBeansOfType(PostPowerHandler.class);
+        registryPostHandlers(postHandlers.values());
+
+        Map<String, PowerErrorHandler> powerErrorHandlers = listableBeanFactory.getBeansOfType(PowerErrorHandler.class);
+        registryErrorHandler(powerErrorHandlers.values());
+
+        Map<String, PowerChainHandler> powerChainHandlers = listableBeanFactory.getBeansOfType(PowerChainHandler.class);
+        registryChain(powerChainHandlers.values());
     }
 }
