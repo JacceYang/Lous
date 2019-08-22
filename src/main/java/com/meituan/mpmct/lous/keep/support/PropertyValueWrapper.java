@@ -14,10 +14,9 @@ public final class PropertyValueWrapper {
             for (int idx = 0; idx < names.length; idx++) {
                 propertyValues[idx] = new PropertyValue(names[idx], values[idx]);
             }
-
             return propertyValues;
         }
 
-        throw new IllegalArgumentException("either names or values is null or they are different size ");
+        throw new IllegalArgumentException("Either names or values is null or they are different size ");
     }
 }

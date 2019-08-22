@@ -17,11 +17,6 @@ public class ThisPowerInvokeCollector extends AbstractPowerInvokeCollector {
     }
 
     @Override
-    protected Object getExecutorObject() {
-        return null;
-    }
-
-    @Override
     public <T> T collect() {
         try {
             return (T) method.invoke(targetObject, null);

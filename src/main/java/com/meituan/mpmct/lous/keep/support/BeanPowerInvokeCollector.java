@@ -1,7 +1,5 @@
 package com.meituan.mpmct.lous.keep.support;
 
-import org.springframework.beans.factory.BeanFactory;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -12,12 +10,8 @@ import java.lang.reflect.Method;
  **/
 public class BeanPowerInvokeCollector extends AbstractPowerInvokeCollector {
 
-
-    private BeanFactory beanFactory;
-
-    public BeanPowerInvokeCollector(Method method, Class<?> targetClass, Object targetObject, Object[] parameters, BeanFactory beanFactory) {
+    public BeanPowerInvokeCollector(Method method, Class<?> targetClass, Object targetObject, Object[] parameters) {
         super(method, targetClass, targetObject, parameters);
-        this.beanFactory = beanFactory;
     }
 
     @Override
@@ -31,11 +25,5 @@ public class BeanPowerInvokeCollector extends AbstractPowerInvokeCollector {
             e.printStackTrace();
         }
         return result == null ? null : (T) result;
-    }
-
-
-    @Override
-    protected Object getExecutorObject() {
-        return null;
     }
 }
