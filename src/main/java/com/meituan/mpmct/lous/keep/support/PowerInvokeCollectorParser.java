@@ -1,5 +1,8 @@
 package com.meituan.mpmct.lous.keep.support;
 
+import com.meituan.mpmct.lous.keep.interceptor.BeanPowerInvokeCollector;
+import com.meituan.mpmct.lous.keep.interceptor.PowerInvokeCollector;
+import com.meituan.mpmct.lous.keep.interceptor.ThisPowerInvokeCollector;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.util.ClassUtils;

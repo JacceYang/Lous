@@ -1,5 +1,7 @@
-package com.meituan.mpmct.lous.keep.support;
+package com.meituan.mpmct.lous.keep.interceptor;
 
+
+import com.meituan.mpmct.lous.keep.interceptor.AbstractPowerInvokeCollector;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,7 +27,6 @@ public class ThisPowerInvokeCollector extends AbstractPowerInvokeCollector {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }

@@ -4,6 +4,9 @@ import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Annotation indicating that the  a frequently invoking of on method will be prevent .
+ *
+ *
  * @Author:Yangchao16
  * @Description: duplicate submit or call.
  * @Data:Initialized in 6:01 PM 2019/8/11
@@ -15,28 +18,30 @@ import java.util.concurrent.TimeUnit;
 public @interface Duplica {
 
     /**
-     * 分为web 层和 service 层两种场景
+     * The scenario the {@link Duplica} used .
+     * Supported scene defined in {@link Scene}
      *
      * @return
      */
     Scene scene() default Scene.WEB;
 
     /**
-     * Spel 动态介些的key
+     * Spel define for generate id for request.
+     * Same id will be treated as a same request.
      *
      * @return
      */
     String key() default "";
 
     /**
-     * 时间窗口单位
+     * Time window unite define
      *
      * @return
      */
     TimeUnit unit() default TimeUnit.SECONDS;
 
     /**
-     * 时间窗口长度
+     * Time window expire time.
      *
      * @return
      */

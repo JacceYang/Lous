@@ -1,5 +1,7 @@
 package com.meituan.mpmct.lous.keep.interceptor;
 
+import org.springframework.lang.Nullable;
+
 import java.util.LinkedHashSet;
 
 /**
@@ -11,23 +13,27 @@ import java.util.LinkedHashSet;
 public class PowerElement {
 
     /**
-     * duplication preHandler doesn't permmit.
+     * Bean names's of pre handler. duplicated name will be merged.
      */
+    @Nullable
     private LinkedHashSet<String> preHandlers;
 
     /**
      *
      */
+    @Nullable
     private LinkedHashSet<String> postHandlers;
 
     /**
      *
      */
+    @Nullable
     private LinkedHashSet<String> chains;
 
     /**
      *
      */
+    @Nullable
     private String errorHandler;
 
     /**

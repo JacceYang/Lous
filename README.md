@@ -18,19 +18,22 @@ Lous(劳斯) 取名来自项目建立时作者的一直的精神状态不太好�
 
 #版本发布
 ## V0.1.0Beta (初始化版本)
-### 时间[2019-08-11 ~]
+### 时间[2019-08-11 ~2019-08-22]
 * EnbleMCache,EnableKeep 注解功能实现.
 * 分级缓存Cache 基础注解GetCache，PutCache 实现，注解的解析器。
 * 基于注解的缓存拦截器
+* API 网关 功能实现, 主要包括:
+ 方法级别请求前置和后置处理。
+ 
 
 
 ## V1.0 Release (发布版本)
 
 
 # 作者简介
-一个机械专业程序源，喜欢捣鼓事情，但是又比较低调。总感觉天将降大运与斯人。
+一个机械专业程序源，喜欢捣鼓事情，但是又比较低调。
 
 技术交流加微信：
-<img src="https://github.com/JacceYang/PersonProfile/blob/master/WechatIMG147.jpeg" withd="480px">
+<img src="https://github.com/JacceYang/PersonProfile/blob/master/WechatIMG147.jpeg" withd="240px">
 
 邮箱：chaoyang_sjtu@126.com
