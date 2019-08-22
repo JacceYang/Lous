@@ -1,6 +1,7 @@
 package com.meituan.mpmct.lous.keep.interceptor;
 
 import com.meituan.mpmct.lous.keep.support.PowerInvokeContext;
+import com.meituan.mpmct.lous.keep.support.PropertyInvokeContext;
 
 /**
  * @Author:Yangchao16

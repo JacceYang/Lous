@@ -13,6 +13,22 @@ import java.lang.annotation.*;
 @Inherited
 public @interface Power {
 
+
+    /**
+     * @INFO:
+     *  before the invoke of method, some environment parameters may get from
+     *  a method invoke ,configuration properties,and so on. this collector can collect data
+     *  from those data source。
+     *  I don't want expose a array of collectors for one collector also can replace multiple ones  in logical.
+     *
+     *  @NOTE :the collector currently support:
+     *  1. class instance invoke #{this.methodName}
+     *  2. Bean instance method invoke #{beanName.methodName}
+     *  the method should be public .
+     * @return
+     */
+    String collector() default "";
+
     /**
      * 前处理
      *

@@ -45,11 +45,13 @@ public class MultMethodParameterValues implements MethodParameterValues, Iterabl
             throw new IndexOutOfBoundsException();
         }
         int count = 0;
-        while (iterator().hasNext() && count < index) {
-            iterator().next();
+        Iterator<PropertyValue> iterator = iterator();
+        while (iterator.hasNext() && count < index) {
+            count++;
+            iterator.next();
         }
 
-        return iterator().next();
+        return iterator.next();
     }
 
     public int getParameterCount() {

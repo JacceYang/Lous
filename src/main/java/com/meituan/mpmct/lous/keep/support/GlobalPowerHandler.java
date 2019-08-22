@@ -21,5 +21,7 @@ public interface GlobalPowerHandler {
 
     PowerErrorHandler getErrorHandler(String errorHandler);
 
-    List<PowerChainHandler> getPowerChainHanlder(Set<String> handlers);
+    List<PowerChainHandler> getPowerChainHandler(Set<String> handlers);
+
+    PowerInvokeCollector getPowerInvokeCollector(PowerInvokeCollectorContext collector);
 }

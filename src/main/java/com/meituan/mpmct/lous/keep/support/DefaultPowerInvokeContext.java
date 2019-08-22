@@ -1,7 +1,9 @@
 package com.meituan.mpmct.lous.keep.support;
 
+import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.Assert;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.Set;
  * @Description:
  * @Data:Initialized in 1:54 PM 2019/8/20
  **/
-public class DefaultPowerInvokeContext extends AbstractMethodInvokeContext implements PowerInvokeContext, MethodInvokeContext {
+public class DefaultPowerInvokeContext extends AbstractPowerInvokeContext implements PowerInvokeContext {
 
     /**
      * It should be initialized with new or keep null.
@@ -23,6 +25,10 @@ public class DefaultPowerInvokeContext extends AbstractMethodInvokeContext imple
      *
      */
     Set<String> propertyName=new LinkedHashSet<>();
+
+    public DefaultPowerInvokeContext(Method method, Object[] arguments, ParameterNameDiscoverer parameterNameDiscoverer) {
+        super(method, arguments, parameterNameDiscoverer);
+    }
 
     @Override
     public void addProperty(String name, Object value) {

@@ -32,6 +32,9 @@ public abstract class AbstractMethodInvokeContext implements MethodInvokeContext
 
     @Override
     public Object[] getMethodParameters() {
+        if (!argumentsLoaded) {
+            lazyLoadArguments();
+        }
         Object[] result = new Object[getMethodParameterCount()];
         int idx = 0;
         while (methodParameterValues.iterator().hasNext()) {
@@ -43,15 +46,27 @@ public abstract class AbstractMethodInvokeContext implements MethodInvokeContext
 
     @Override
     public int getMethodParameterCount() {
+        if (!argumentsLoaded) {
+            lazyLoadArguments();
+        }
         return methodParameterValues.getParameterCount();
     }
 
     @Override
     public Object getMethodParameter(int index) {
-        return methodParameterValues.index(index);
+        if (!argumentsLoaded) {
+            lazyLoadArguments();
+        }
+        return methodParameterValues.index(index).getValue();
     }
 
-    protected void lazyLoadArguments(){
+    @Override
+    public <T> T getMethodParameter(int index, Class<T> clazz) {
+        Object result = getMethodParameter(index);
+        return result == null ? null : (T) result;
+    }
+
+    protected void lazyLoadArguments() {
         // Shortcut if no args need to be loaded
         if (ObjectUtils.isEmpty(this.arguments)) {
             return;
@@ -66,12 +81,14 @@ public abstract class AbstractMethodInvokeContext implements MethodInvokeContext
             if (argsCount > paramCount && i == paramCount - 1) {
                 // Expose remaining arguments as vararg array for last parameter
                 value = Arrays.copyOfRange(this.arguments, i, argsCount);
-            }
-            else if (argsCount > i) {
+            } else if (argsCount > i) {
                 // Actual argument found - otherwise left as null
                 value = this.arguments[i];
             }
-
+            if (paramNames != null && paramNames[i] != null) {
+                methodParameterValues.addMethodValue(new PropertyValue(paramNames[i], value));
+            }
         }
+        argumentsLoaded = true;
     }
 }

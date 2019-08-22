@@ -20,11 +20,16 @@ public class LoginServiceImpl implements LoginService {
 
 //    @GetCache(key = "#name+#age", cacheName = "login-record",cacheMode = CachingMode.LOCAL)
     @Override
-    @Power(preHandler = {"user","age"})
+    @Power(preHandler = {"user","age"},collector = "#{this.country}")
     public boolean login(String name, Integer age) {
         if(name.contains("yang")){
             return true;
         }
         return false;
+    }
+
+    public String country(){
+
+        return "US";
     }
 }

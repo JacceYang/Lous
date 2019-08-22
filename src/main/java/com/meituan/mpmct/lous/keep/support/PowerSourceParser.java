@@ -35,11 +35,13 @@ public class PowerSourceParser {
         if (allMergedAnnotations != null) {
             Assert.that(allMergedAnnotations.size() == 1, "multiple @power configure on method [" + method.getName() + "] is prohibit!!!");
             PowerElement.Builder builder = new PowerElement.Builder();
+
             allMergedAnnotations.stream().forEach(power -> {
                 builder.setChains(power.chain());
                 builder.setErrorHandler(power.errorHandler());
                 builder.setPreHandlers(power.preHandler());
                 builder.setPostHandlers(power.postHandler());
+                builder.setCollector(power.collector());
             });
 
             return builder.build();
@@ -47,30 +49,76 @@ public class PowerSourceParser {
         return null;
     }
 
-    public PowerSourceContext parsePowerSourceContext(GlobalPowerHandler globalPowerHandler,PowerElement powerElement){
-        Assert.that(powerElement!=null,"parse powerElement equals null");
+    public PowerSourceContext parsePowerSourceContext(PowerSourceParserContext sourceParserContext){
+        Assert.that(sourceParserContext.getPowerElement()!=null,"parse powerElement equals null");
         PowerSourceContext sourceContext=new PowerSourceContext();
 
-        if (!CollectionUtils.isEmpty(powerElement.getPostHandlers())) {
-            List<PostPowerHandler> postPowerHandlers = globalPowerHandler.getPostPowerHandler(powerElement.getPostHandlers());
+        if (!CollectionUtils.isEmpty(sourceParserContext.getPowerElement().getPostHandlers())) {
+            List<PostPowerHandler> postPowerHandlers = sourceParserContext.getGlobalPowerHandler()
+                    .getPostPowerHandler(sourceParserContext.getPowerElement().getPostHandlers());
             sourceContext.setPostPowerHandlers(postPowerHandlers);
         }
 
-        if (!CollectionUtils.isEmpty(powerElement.getPreHandlers())) {
-            List<AbstractPrePowerHandler> abstractPrePowerHandlers = globalPowerHandler.getPrePowerHandler(powerElement.getPreHandlers());
+        if (!CollectionUtils.isEmpty(sourceParserContext.getPowerElement().getPreHandlers())) {
+            List<AbstractPrePowerHandler> abstractPrePowerHandlers = sourceParserContext.getGlobalPowerHandler()
+                    .getPrePowerHandler(sourceParserContext.getPowerElement().getPreHandlers());
             sourceContext.setPreHandlers(abstractPrePowerHandlers);
         }
 
-        if (!CollectionUtils.isEmpty(powerElement.getChains())) {
-            List<PowerChainHandler> powerChainHanlder = globalPowerHandler.getPowerChainHanlder(powerElement.getChains());
+        if (!CollectionUtils.isEmpty(sourceParserContext.getPowerElement().getChains())) {
+            List<PowerChainHandler> powerChainHanlder = sourceParserContext.getGlobalPowerHandler()
+                    .getPowerChainHandler(sourceParserContext.getPowerElement().getChains());
             sourceContext.setPowerChainHandlers(powerChainHanlder);
         }
 
-        if (StringUtils.hasText(powerElement.getErrorHandler())){
-            PowerErrorHandler errorHandler = globalPowerHandler.getErrorHandler(powerElement.getErrorHandler());
+        if (StringUtils.hasText(sourceParserContext.getPowerElement().getErrorHandler())){
+            PowerErrorHandler errorHandler = sourceParserContext.getGlobalPowerHandler()
+                    .getErrorHandler(sourceParserContext.getPowerElement().getErrorHandler());
             sourceContext.setErrorHandler(errorHandler);
         }
 
+        if (StringUtils.hasText(sourceParserContext.getPowerElement().getCollector())){
+            PowerInvokeCollector powerInvokeCollector = sourceParserContext.getGlobalPowerHandler().getPowerInvokeCollector(sourceParserContext.getCollectorContext());
+            sourceContext.setInvokeCollector(powerInvokeCollector);
+        }
+
         return sourceContext;
+    }
+
+
+    public static class PowerSourceParserContext{
+        private GlobalPowerHandler globalPowerHandler;
+        private PowerElement powerElement;
+        private PowerInvokeCollectorContext collectorContext;
+
+        public PowerSourceParserContext(GlobalPowerHandler globalPowerHandler, PowerElement powerElement, PowerInvokeCollectorContext collectorContext) {
+            this.globalPowerHandler = globalPowerHandler;
+            this.powerElement = powerElement;
+            this.collectorContext = collectorContext;
+        }
+
+        public GlobalPowerHandler getGlobalPowerHandler() {
+            return globalPowerHandler;
+        }
+
+        public void setGlobalPowerHandler(GlobalPowerHandler globalPowerHandler) {
+            this.globalPowerHandler = globalPowerHandler;
+        }
+
+        public PowerElement getPowerElement() {
+            return powerElement;
+        }
+
+        public void setPowerElement(PowerElement powerElement) {
+            this.powerElement = powerElement;
+        }
+
+        public PowerInvokeCollectorContext getCollectorContext() {
+            return collectorContext;
+        }
+
+        public void setCollectorContext(PowerInvokeCollectorContext collectorContext) {
+            this.collectorContext = collectorContext;
+        }
     }
 }
