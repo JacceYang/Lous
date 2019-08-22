@@ -1,8 +1,16 @@
 package com.meituan.mpmct.lous.keep.annotation;
 
+import com.meituan.mpmct.lous.keep.interceptor.AbstractPostPowerHanler;
+import com.meituan.mpmct.lous.keep.interceptor.AbstractPrePowerHandler;
+import com.meituan.mpmct.lous.keep.interceptor.PowerErrorHandler;
+
 import java.lang.annotation.*;
 
 /**
+ * Annotation indicating that the invoking of a method can be intercepted and do filter.
+ *
+ *
+ *
  * @Author:Yangchao16
  * @Description:
  * @Data:Initialized in 6:02 PM 2019/8/11
@@ -18,38 +26,48 @@ public @interface Power {
      * @return
      * @INFO: before the invoke of method, some environment parameters may get from
      * a method invoke ,configuration properties,and so on. this collector can collect data
-     * from those data source。
+     * from those data source.
      * I don't want expose a array of collectors for one collector also can replace multiple ones  in logical.
      * @NOTE :the collector currently support:
      * 1. class instance invoke #{this.methodName}
      * 2. Bean instance method invoke #{beanName.methodName}
-     * the method should be public .
+     * the method should be public and currently not parameters method support
+     * :
+     *
+     *public foo(){
+     *
+     * }.
      */
     String collector() default "";
 
     /**
-     * 前处理
-     *
+     * The bean names of pre-handlers {@link AbstractPrePowerHandler} invoked before the advice method .
+     * if the pre handler{@link AbstractPrePowerHandler#proceed()} return a false value. the pre-handler
+     * behind will be invoked. the method and post-handler will not be invoke also.
+     * @NOTE : The value define in preHandler[] indicates the call order of pre-handler.
      * @return
      */
     String[] preHandler() default {};
 
     /**
-     * 处理链
+     * The bean names of chains , currently not support.it designed just for scalability.
      *
      * @return
      */
     String[] chain() default {};
 
     /**
-     * 后处理
-     *
+     * The bean names of post-handlers {@link AbstractPostPowerHanler} invoked before the advice method .
+     *  The post-handlers will be invoke after the method invoke ,if the method throw a exception. the
+     *  post-handler will not be invoke . Any handler in post-handlers return a false value when  call
+     *  {@link AbstractPostPowerHanler#proceed()} handler's behind will not be call.
+     *   @NOTE : The value define in preHandler[] indicates the call order of post-handler.
      * @return
      */
     String[] postHandler() default {};
 
     /**
-     * 错误处理器
+     * The bean name of error handler {@link PowerErrorHandler} invoked when a error/warn/info occ .
      *
      * @return
      */

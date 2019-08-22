@@ -16,8 +16,6 @@ public abstract class AbstractKeepConfig implements ImportAware {
     @Override
     public void setImportMetadata(AnnotationMetadata importMetadata) {
         annotationAttributes = AnnotationAttributes.fromMap(importMetadata.getAnnotationAttributes(EnableKeep.class.getName(), false));
-
-
     }
 
 

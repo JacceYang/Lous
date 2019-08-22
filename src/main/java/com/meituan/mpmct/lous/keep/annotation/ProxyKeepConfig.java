@@ -24,11 +24,9 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
         public DuplicaIntercepter duplicaIntercepter() {
             DuplicaIntercepter duplicaIntercepter = new DuplicaIntercepter();
-
             return duplicaIntercepter;
         }
     }
-
 
     @Configuration
     public class ProxyPowerConfig {
@@ -37,27 +35,24 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
         public BeanFactoryPowerAdvisor beanFactoryPowerAdvisor() {
             BeanFactoryPowerAdvisor beanFactoryPowerAdvisor = new BeanFactoryPowerAdvisor();
-            beanFactoryPowerAdvisor.setAdvice(powerIntercepter());
+            beanFactoryPowerAdvisor.setAdvice(powerInterceptor());
             return beanFactoryPowerAdvisor;
         }
 
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-        public PowerInterceptor powerIntercepter() {
+        public PowerInterceptor powerInterceptor() {
             PowerInterceptor powerInterceptor = new PowerInterceptor();
-            powerInterceptor.setGlobalPowerHandler(globlePowerHandlerRepository());
+            powerInterceptor.setGlobalPowerHandler(globalPowerHandlerRepository());
             return powerInterceptor;
 
         }
 
-
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-        public GlobalPowerHandlerRepository globlePowerHandlerRepository() {
-            GlobalPowerHandlerRepository globlePowerHandlerRepository = new GlobalPowerHandlerRepository();
-
-
-            return globlePowerHandlerRepository;
+        public GlobalPowerHandlerRepository globalPowerHandlerRepository() {
+            GlobalPowerHandlerRepository globalPowerHandlerRepository = new GlobalPowerHandlerRepository();
+            return globalPowerHandlerRepository;
         }
     }
 }

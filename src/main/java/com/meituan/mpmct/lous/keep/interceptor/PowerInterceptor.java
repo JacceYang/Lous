@@ -1,6 +1,5 @@
 package com.meituan.mpmct.lous.keep.interceptor;
 
-import com.meituan.mpmct.lous.keep.support.PowerAspectSupport;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 
