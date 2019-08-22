@@ -3,11 +3,7 @@ package com.meituan.mpmct.lous.keep.support;
 import java.util.Set;
 
 /**
- *
  * This Power Invoke context provide a invoke context for PowerHandler.
- *
- *
- *
  *
  * @Author:Yangchao16
  * @Description:
@@ -22,6 +18,13 @@ public interface PropertyInvokeContext {
      * @param value
      */
     void addProperty(String name, Object value);
+
+    /**
+     * add properties values one time.
+     *
+     * @param propertyValues
+     */
+    void addProperties(PropertyValue[] propertyValues);
 
     /**
      * get the property with name name
@@ -41,7 +44,8 @@ public interface PropertyInvokeContext {
 
 
     /**
-     *  Get all the properties name
+     * Get all the properties name
+     *
      * @return
      */
     Set<String> getAllPropertiesName();

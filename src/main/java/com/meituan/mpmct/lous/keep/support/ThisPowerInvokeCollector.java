@@ -12,8 +12,8 @@ import java.lang.reflect.Method;
 public class ThisPowerInvokeCollector extends AbstractPowerInvokeCollector {
 
 
-    public ThisPowerInvokeCollector(Method method, Class<?> targetClass, Object targetObject,Object[] parameters) {
-        super(method, targetClass, targetObject,parameters);
+    public ThisPowerInvokeCollector(Method method, Class<?> targetClass, Object targetObject, Object[] parameters) {
+        super(method, targetClass, targetObject, parameters);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class ThisPowerInvokeCollector extends AbstractPowerInvokeCollector {
     @Override
     public <T> T collect() {
         try {
-            return (T) method.invoke(targetObject,null);
+            return (T) method.invoke(targetObject, null);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

@@ -49,9 +49,9 @@ public class PowerSourceParser {
         return null;
     }
 
-    public PowerSourceContext parsePowerSourceContext(PowerSourceParserContext sourceParserContext){
-        Assert.that(sourceParserContext.getPowerElement()!=null,"parse powerElement equals null");
-        PowerSourceContext sourceContext=new PowerSourceContext();
+    public PowerSourceContext parsePowerSourceContext(PowerSourceParserContext sourceParserContext) {
+        Assert.that(sourceParserContext.getPowerElement() != null, "parse powerElement equals null");
+        PowerSourceContext sourceContext = new PowerSourceContext();
 
         if (!CollectionUtils.isEmpty(sourceParserContext.getPowerElement().getPostHandlers())) {
             List<PostPowerHandler> postPowerHandlers = sourceParserContext.getGlobalPowerHandler()
@@ -71,13 +71,13 @@ public class PowerSourceParser {
             sourceContext.setPowerChainHandlers(powerChainHanlder);
         }
 
-        if (StringUtils.hasText(sourceParserContext.getPowerElement().getErrorHandler())){
+        if (StringUtils.hasText(sourceParserContext.getPowerElement().getErrorHandler())) {
             PowerErrorHandler errorHandler = sourceParserContext.getGlobalPowerHandler()
                     .getErrorHandler(sourceParserContext.getPowerElement().getErrorHandler());
             sourceContext.setErrorHandler(errorHandler);
         }
 
-        if (StringUtils.hasText(sourceParserContext.getPowerElement().getCollector())){
+        if (StringUtils.hasText(sourceParserContext.getPowerElement().getCollector())) {
             PowerInvokeCollector powerInvokeCollector = sourceParserContext.getGlobalPowerHandler().getPowerInvokeCollector(sourceParserContext.getCollectorContext());
             sourceContext.setInvokeCollector(powerInvokeCollector);
         }
@@ -86,7 +86,7 @@ public class PowerSourceParser {
     }
 
 
-    public static class PowerSourceParserContext{
+    public static class PowerSourceParserContext {
         private GlobalPowerHandler globalPowerHandler;
         private PowerElement powerElement;
         private PowerInvokeCollectorContext collectorContext;

@@ -8,24 +8,23 @@ package com.meituan.mpmct.lous.keep.support;
 public interface MethodInvokeContext {
 
     /**
-     *  Get the method invoke parameters ,the order is consistent with the current method
+     * Get the method invoke parameters ,the order is consistent with the current method
+     *
      * @return
      */
     Object[] getMethodParameters();
 
     /**
-     *
      * @return
      */
     int getMethodParameterCount();
 
     /**
-     *
      * @param index
      * @return
      */
     Object getMethodParameter(int index);
 
-    <T> T getMethodParameter(int index,Class<T> clazz);
+    <T> T getMethodParameter(int index, Class<T> clazz);
 
 }

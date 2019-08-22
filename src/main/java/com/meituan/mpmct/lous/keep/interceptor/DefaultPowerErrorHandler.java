@@ -7,9 +7,9 @@ import com.meituan.mpmct.lous.keep.support.RunStatus;
  * @Description:
  * @Data:Initialized in 1:36 PM 2019/8/19
  **/
-public class DefaultPowerErrorHandler implements PowerErrorHandler{
+public class DefaultPowerErrorHandler implements PowerErrorHandler {
 
-    RunStatus status=new RunStatus();
+    RunStatus status = new RunStatus();
 
     @Override
     public String getName() {

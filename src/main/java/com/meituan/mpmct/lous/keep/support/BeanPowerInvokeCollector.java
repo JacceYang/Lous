@@ -13,24 +13,24 @@ import java.lang.reflect.Method;
 public class BeanPowerInvokeCollector extends AbstractPowerInvokeCollector {
 
 
-    private BeanFactory  beanFactory;
+    private BeanFactory beanFactory;
 
-    public BeanPowerInvokeCollector(Method method, Class<?> targetClass, Object targetObject,Object[] parameters, BeanFactory beanFactory) {
-        super(method, targetClass, targetObject,parameters);
+    public BeanPowerInvokeCollector(Method method, Class<?> targetClass, Object targetObject, Object[] parameters, BeanFactory beanFactory) {
+        super(method, targetClass, targetObject, parameters);
         this.beanFactory = beanFactory;
     }
 
     @Override
     public <T> T collect() {
-        Object result=null;
+        Object result = null;
         try {
-            result= method.invoke(targetObject,null);
+            result = method.invoke(targetObject, null);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        return result==null ?null :(T)result;
+        return result == null ? null : (T) result;
     }
 
 

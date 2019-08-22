@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
  * @Description:
  * @Data:Initialized in 9:28 PM 2019/8/20
  **/
-public class DefaultPowerInvokeCollector implements PowerInvokeCollector{
+public class DefaultPowerInvokeCollector implements PowerInvokeCollector {
 
     private Method method;
 
@@ -25,7 +25,7 @@ public class DefaultPowerInvokeCollector implements PowerInvokeCollector{
     @Override
     public <T> T collect() {
         try {
-            return (T) method.invoke(targetObject,parameters);
+            return (T) method.invoke(targetObject, parameters);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {

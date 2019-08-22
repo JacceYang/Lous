@@ -7,7 +7,7 @@ package com.meituan.mpmct.lous.keep.interceptor;
  **/
 public abstract class PostPowerHandler implements ConfigurablePowerHandler {
 
-    private PowerErrorHandler  powerErrorHandler=new DefaultPowerErrorHandler();
+    private PowerErrorHandler powerErrorHandler = new DefaultPowerErrorHandler();
 
     @Override
     public PowerErrorHandler getErrorHandler() {
@@ -16,6 +16,6 @@ public abstract class PostPowerHandler implements ConfigurablePowerHandler {
 
     @Override
     public void setErrorHandler(PowerErrorHandler errorHandler) {
-        this.powerErrorHandler=errorHandler;
+        this.powerErrorHandler = errorHandler;
     }
 }

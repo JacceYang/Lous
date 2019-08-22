@@ -1,7 +1,6 @@
 package com.meituan.mpmct.lous.keep.interceptor;
 
 import com.meituan.mpmct.lous.keep.support.PowerInvokeContext;
-import com.meituan.mpmct.lous.keep.support.PropertyInvokeContext;
 
 /**
  * @Author:Yangchao16
@@ -12,5 +11,5 @@ public interface PowerHandlerContext {
 
     PowerInvokeContext getContext();
 
-     void setContext(PowerInvokeContext context) ;
+    void setContext(PowerInvokeContext context);
 }

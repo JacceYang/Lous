@@ -26,7 +26,7 @@ public class PowerInvokeCollectorParser {
 
     private static String TOKEN_DOM = ".";
 
-    private static String TOKEN_AT="@";
+    private static String TOKEN_AT = "@";
 
     private static String TOKEN_THIS_REG = "[#|$]\\{this.*";
 
@@ -52,10 +52,10 @@ public class PowerInvokeCollectorParser {
         String collector = context.getCollector();
         int begin = collector.indexOf(TOKEN_DOM);
         int end = collector.indexOf(TOKEN_RBACKET);
-        String methodName=collector.substring(begin+1,end);
+        String methodName = collector.substring(begin + 1, end);
         Method exeMethod = ClassUtils.getMethod(context.getTargetClass(), methodName);
 
-        return new ThisPowerInvokeCollector(exeMethod, context.getTargetClass(),context.getTargetObject(),context.getParameters());
+        return new ThisPowerInvokeCollector(exeMethod, context.getTargetClass(), context.getTargetObject(), context.getParameters());
     }
 
 
@@ -64,11 +64,11 @@ public class PowerInvokeCollectorParser {
         String collector = context.getCollector();
         int begin = collector.indexOf(TOKEN_AT);
         int end = collector.indexOf(TOKEN_DOM);
-        String beanName=collector.substring(begin,end);
+        String beanName = collector.substring(begin, end);
 
         Object bean = beanFactory.getBean(beanName);
 
-        return new BeanPowerInvokeCollector(context.getMethod(), context.getTargetClass(),context.getTargetObject(),context.getParameters(), beanFactory);
+        return new BeanPowerInvokeCollector(context.getMethod(), context.getTargetClass(), context.getTargetObject(), context.getParameters(), beanFactory);
     }
 
 

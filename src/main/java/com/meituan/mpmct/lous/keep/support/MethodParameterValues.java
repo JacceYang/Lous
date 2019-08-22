@@ -8,9 +8,9 @@ package com.meituan.mpmct.lous.keep.support;
 public interface MethodParameterValues {
 
 
-    void  addMethodValue(PropertyValue methodParameter);
+    void addMethodValue(PropertyValue methodParameter);
 
-    void  deleteMethodValue(String name);
+    void deleteMethodValue(String name);
 
     PropertyValue getMethodValue(String name);
 

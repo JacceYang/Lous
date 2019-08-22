@@ -12,15 +12,10 @@ import java.util.Arrays;
  * @Data:Initialized in 5:34 PM 2019/8/20
  **/
 public abstract class AbstractMethodInvokeContext implements MethodInvokeContext {
-    MultMethodParameterValues methodParameterValues = new MultMethodParameterValues();
-
-
     private final Method method;
-
     private final Object[] arguments;
-
     private final ParameterNameDiscoverer parameterNameDiscoverer;
-
+    MultMethodParameterValues methodParameterValues = new MultMethodParameterValues();
     private boolean argumentsLoaded = false;
 
 

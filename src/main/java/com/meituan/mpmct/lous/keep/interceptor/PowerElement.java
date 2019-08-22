@@ -11,7 +11,7 @@ import java.util.LinkedHashSet;
 public class PowerElement {
 
     /**
-     *  duplication preHandler doesn't permmit.
+     * duplication preHandler doesn't permmit.
      */
     private LinkedHashSet<String> preHandlers;
 
@@ -36,6 +36,14 @@ public class PowerElement {
     private String collector;
 
 
+    public PowerElement(Builder builder) {
+        this.preHandlers = builder.preHandlers;
+        this.postHandlers = builder.postHandlers;
+        this.chains = builder.chains;
+        this.errorHandler = builder.errorHandler;
+        this.collector = builder.collector;
+    }
+
     public LinkedHashSet<String> getPreHandlers() {
         return preHandlers;
     }
@@ -54,14 +62,6 @@ public class PowerElement {
 
     public String getCollector() {
         return collector;
-    }
-
-    public PowerElement(Builder builder) {
-        this.preHandlers = builder.preHandlers;
-        this.postHandlers = builder.postHandlers;
-        this.chains = builder.chains;
-        this.errorHandler = builder.errorHandler;
-        this.collector=builder.collector;
     }
 
     public static class Builder {

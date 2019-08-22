@@ -14,7 +14,7 @@ public class PowerInterceptor extends PowerAspectSupport implements MethodInterc
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
         // 回调方法
-        PowerInvoker invoker= () -> {
+        PowerInvoker invoker = () -> {
             try {
                 return invocation.proceed();
             } catch (Throwable throwable) {
@@ -23,6 +23,6 @@ public class PowerInterceptor extends PowerAspectSupport implements MethodInterc
             return null;
         };
 
-        return execute(invoker,invocation.getMethod(),invocation.getArguments(),invocation.getThis());
+        return execute(invoker, invocation.getMethod(), invocation.getArguments(), invocation.getThis());
     }
 }

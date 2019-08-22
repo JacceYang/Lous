@@ -4,9 +4,6 @@ import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.Assert;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,16 +12,6 @@ import java.util.Set;
  * @Data:Initialized in 1:54 PM 2019/8/20
  **/
 public class DefaultPowerInvokeContext extends AbstractPowerInvokeContext implements PowerInvokeContext {
-
-    /**
-     * It should be initialized with new or keep null.
-     */
-    List<PropertyValue> propertyValues = new ArrayList<>();
-
-    /**
-     *
-     */
-    Set<String> propertyName=new LinkedHashSet<>();
 
     public DefaultPowerInvokeContext(Method method, Object[] arguments, ParameterNameDiscoverer parameterNameDiscoverer) {
         super(method, arguments, parameterNameDiscoverer);
@@ -51,12 +38,21 @@ public class DefaultPowerInvokeContext extends AbstractPowerInvokeContext implem
 
     @Override
     public <T> T getProperty(String name, Class<T> clazz) {
-        Object property =  getProperty(name);
+        Object property = getProperty(name);
         return property == null ? null : (T) property;
     }
 
     @Override
     public Set<String> getAllPropertiesName() {
         return propertyName;
+    }
+
+    @Override
+    public void addProperties(PropertyValue[] propertyValues) {
+        if (propertyValues != null) {
+            for (PropertyValue propertyValue : propertyValues) {
+                this.propertyValues.add(propertyValue);
+            }
+        }
     }
 }
