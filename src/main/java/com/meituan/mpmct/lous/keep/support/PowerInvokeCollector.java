@@ -7,5 +7,10 @@ package com.meituan.mpmct.lous.keep.support;
  **/
 public interface PowerInvokeCollector {
 
+    /**
+     *
+     * @param <T>
+     * @return return the collect value from outer bean or target object.
+     */
     <T> T collect();
 }

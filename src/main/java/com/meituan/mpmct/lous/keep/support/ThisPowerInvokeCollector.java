@@ -25,7 +25,6 @@ public class ThisPowerInvokeCollector extends AbstractPowerInvokeCollector {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-
         return null;
     }
 }
