@@ -5,6 +5,8 @@ import com.meituan.mpmct.lous.keep.support.PowerInvokeContext;
 import com.meituan.mpmct.lous.keep.support.PropertyInvokeContext;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+
 /**
  * @Author:Yangchao16
  * @Description:
@@ -20,6 +22,8 @@ public class AgeChecker extends AbstractPrePowerHandler<Integer> {
 
         context.getMethodParameterCount();
 
+        Set<String> allPropertiesName = context.getAllPropertiesName();
+        String aDefault = context.getProperty("default", String.class);
         invokeResult=context.getMethodParameter(1,Integer.class);
         return null;
     }

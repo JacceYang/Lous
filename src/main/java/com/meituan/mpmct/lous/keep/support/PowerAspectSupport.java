@@ -40,7 +40,7 @@ public class PowerAspectSupport implements SmartInitializingSingleton,BeanFactor
 
         // 1. 依据请求的 方法 ，获取@Power 注解的具体内容
 
-        PowerSourceContext powerSource = annotationPowerSource.getPowerSource(method, targetObject.getClass(),targetObject);
+        PowerSourceContext powerSource = annotationPowerSource.getPowerSource(method, targetObject.getClass(),targetObject,parameters);
 
 
 

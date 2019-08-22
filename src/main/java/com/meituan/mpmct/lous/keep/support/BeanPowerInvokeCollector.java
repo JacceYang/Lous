@@ -2,6 +2,7 @@ package com.meituan.mpmct.lous.keep.support;
 
 import org.springframework.beans.factory.BeanFactory;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -14,14 +15,22 @@ public class BeanPowerInvokeCollector extends AbstractPowerInvokeCollector {
 
     private BeanFactory  beanFactory;
 
-    public BeanPowerInvokeCollector(Method method, Class<?> targetClass, Object targetObject, BeanFactory beanFactory) {
-        super(method, targetClass, targetObject);
+    public BeanPowerInvokeCollector(Method method, Class<?> targetClass, Object targetObject,Object[] parameters, BeanFactory beanFactory) {
+        super(method, targetClass, targetObject,parameters);
         this.beanFactory = beanFactory;
     }
 
     @Override
     public <T> T collect() {
-        return null;
+        Object result=null;
+        try {
+            result= method.invoke(targetObject,null);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return result==null ?null :(T)result;
     }
 
 

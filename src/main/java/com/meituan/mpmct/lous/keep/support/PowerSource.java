@@ -10,5 +10,5 @@ import java.lang.reflect.Method;
  **/
 public interface PowerSource {
 
-     PowerSourceContext getPowerSource(Method method,Class<?> targetClass,Object targetObject);
+     PowerSourceContext getPowerSource(Method method,Class<?> targetClass,Object targetObject,Object[] parameters);
 }

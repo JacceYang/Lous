@@ -43,7 +43,7 @@ public class DefaultPowerInvokeContext extends AbstractPowerInvokeContext implem
         while (propertyValues.iterator().hasNext()) {
             PropertyValue next = propertyValues.iterator().next();
             if (next.getName().equals(name)) {
-                return next;
+                return next.getValue();
             }
         }
         return null;
@@ -51,7 +51,7 @@ public class DefaultPowerInvokeContext extends AbstractPowerInvokeContext implem
 
     @Override
     public <T> T getProperty(String name, Class<T> clazz) {
-        Object property = getProperty(name);
+        Object property =  getProperty(name);
         return property == null ? null : (T) property;
     }
 

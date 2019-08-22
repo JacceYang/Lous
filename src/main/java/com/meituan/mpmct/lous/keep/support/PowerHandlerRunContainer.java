@@ -13,7 +13,16 @@ public class PowerHandlerRunContainer {
 
    private int status;
 
+   private void collect(PowerSourceContext powerSourceContext, PowerInvokeContext context){
+      Object collect = powerSourceContext.getInvokeCollector().collect();
+
+      context.addProperty("default",collect);
+   }
+
+
    public void preRun(PowerSourceContext powerSourceContext, PowerInvokeContext context){
+      collect(powerSourceContext,context);
+
       if (!CollectionUtils.isEmpty(powerSourceContext.getPreHandlers())) {
          for (AbstractPrePowerHandler abstractPrePowerHandler :powerSourceContext.getPreHandlers()){
             abstractPrePowerHandler.setContext(context);

@@ -19,11 +19,14 @@ public class PowerInvokeCollectorContext {
 
     private Object targetObject;
 
-    public PowerInvokeCollectorContext(String collector, Method method,Class targetClass, Object targetObject) {
+    private Object[] parameters;
+
+    public PowerInvokeCollectorContext(String collector, Method method,Class targetClass, Object targetObject,Object[] parameters) {
         this.collector = collector;
         this.method = method;
         this.targetClass=targetClass;
         this.targetObject = targetObject;
+        this.parameters=parameters;
     }
 
     public String getCollector() {
@@ -40,5 +43,9 @@ public class PowerInvokeCollectorContext {
 
     public Object getTargetObject() {
         return targetObject;
+    }
+
+    public Object[] getParameters() {
+        return parameters;
     }
 }
