@@ -15,8 +15,59 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 
 <img src="https://github.com/JacceYang/PersonProfile/blob/master/DX-20190823%402x.png" withd="240px">
 
+             
+
+                                                    Method invoke Request
+                                                  from  PrePowerHandler 
+                                                        | 
+                                                        |
+    +---------------+-----------------------------------+---------------+
+    |      Collect data and set to                     \|/              |
+    |      PowerInvokeContext       +-------------------+----------+    |
+    |                               |         Collector Method     |    |   
+    |                               +------------------------ -----+    |
+    +---------------------------------------------------+---------------+
+                                                        |
+    +---------------------------------------------------+---------------+
+    |                           PowerHandler            |               |
+    |                                                  \|/              |
+    |    +---------------------+            +-----------+----------+    |
+    |    | PostPowerHandler N  |            | PrePowerHandler   1  |    |
+    |    +----------+----------+            +-----------+----------+    |
+    |              /|\                                  |               |
+    |               |                                  \|/              |
+    |    +----------+----------+            +-----------+----------+    |
+    |    | PostPowerHandler N-1|            | PrePowerHandler   2  |    |
+    |    +----------+----------+            +-----------+----------+    |
+    |              /|\                                  .               |
+    |               .                                   .               |
+    |               .                                   .               |
+    |               .                                  \|/              |
+    |    +----------+----------+            +-----------+----------+    |
+    |    | PostPowerHandler 2  |            | PrePowerHandlerr M-1 |    |
+    |    +----------+----------+            +-----------+----------+    |
+    |              /|\                                  |               |
+    |               |                                  \|/              |
+    |    +----------+----------+            +-----------+----------+    |
+    |    | PostPowerHandler  1 |            | PrePowerHandler  M  |    |
+    |    +----------+----------+            +-----------+----------+    |
+    |              /|\                                  |               |
+    +---------------+-----------------------------------+---------------+
+                    |                                  \|/
+    +---------------+-----------------------------------+---------------+
+    |               |                                   |               |
+    |           +------------------------------------------+            |
+    |           |              Target Method               |            |
+    |           +------------------------------------------+            |
+    +-------------------------------------------------------------------+
+
+
+                    调用过程示意图
+
 > 支持应用级别 API网关，实现可配置化的拦截器，校验器和各种错误处理能力。 
 > 
+
+
 
 
 
@@ -42,6 +93,7 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 **场景说明**
 > 在实际的开发过程中(无论是Web 还是service 层),经常需要校验方法调用者的身份和特征。依据特征数据,系统判断方法调用者是否有权限做一些修改或者查阅系统信息的操作.常见的实现方法如下:
 
+*3.1 方法内部写预处理逻辑*
 ```java
 public class LoginServiceImpl implements LoginService {
     
@@ -66,9 +118,34 @@ public class LoginServiceImpl implements LoginService {
 }
 
 ```
+此种方式开发中最常见,将业务逻辑代码和校验姓名以及年龄的代码逻辑直接写在方法体内,对于少量的校验方法,此种形式也无没有太大弊端。但是当业务中大量的方法调用需要校验姓名和年龄时,此种方式就会在在代码中散落大量的相同逻辑代码，维护及其困难。为了解决此类问题,Spring 从1.x 时代就支持了AOP能力.
 
+*3.2 AOP拦截方式*
+```java
+@AspectJ
+public class LoginAdviceAspectJ {
 
-*API 方法调用*
+    @Pointcut("execution(* com.iyetoo.springdemo.aopdemo.LoginInterfaceImpl.*.login(..))")
+		@Pointcut("com.iyetoo.springdemo.aop.anotation.UserAop")
+    public void loginMethod(){} // 只是一个point cut 标示而已
+
+    @Before("loginMethod()")
+    public void beforeLogin(JoinPoint point){
+        Signature signature = point.getSignature();
+        if(name.startsWith("yang")&& age>18){
+            //xxxxx
+        }
+    }
+
+    @AfterReturning("execution(* com.iyetoo.springdemo.aopdemo.LoginInterfaceImpl.*.login(..))")
+    public void beforeThrowError(JoinPoint point){
+        
+    }
+}
+```
+此种方式就是采用注解形式的AOP解决方法拦截和注解的方式。此种方式能够解决大量方法调用时的统一拦截和处理。但是存在无法依据拦截器的执行结果判断是否执行下面的方法调用。同时多个过滤逻辑重叠校验时无法利用上下文调用执行结果的上下文数据。使得前一个拦截器执行的结果无法很好的在下一个拦截器中利用。最后此种方式需要代码中配置切面和各种切点方法。当需要拦截的方法分布在大量分散的类中时,切点逻辑较为复杂。
+
+*API 网关方法调用 高级版*
 
 ```java
 
@@ -88,7 +165,6 @@ public class LousApplication {
 
 ```
 通过以上的@EnableKeep注解,应用就开启了@Keep 组件能力.通过引入{Duplica.class, Power.class} 自组件功能,可以开启Keep 组件下的子组件能力,支持不同的系统能力.
-
 
 
 ```java
@@ -113,6 +189,15 @@ public class LoginServiceImpl implements LoginService {
 
 ```
 通过在方法上添加@Power 注解 实现方法调用API 拦截的处理器配置和处理能力。如上 @Power(preHandler = {"age","user"},collector = "#{@loginServiceImpl.country}") 中定义了login 方法调用的 预处理器定义, 聚合器定义。预处理定义了2个拦截校验逻辑bean, age 和user ，其定义顺序为处理器的执行顺序。 collector 定义了方法调用前的依赖数据收集。
+
+**特点**
+*支持前后处理拦截器,错误处理拦截器,保证了对目标方法调用的全方位的控制和调用环境控制
+*拦截器的配置化和组合化。所有的拦截器都可以灵活的在@Power 注解中组合定义。
+*拦截和影响方法调用处理结果。通过在Pre-Handler中proceed()传递逻辑,决定是否完成调用链上后续的方法调用。
+*通过定义Post-Handler 中的 proceed()传递逻辑 或者是filter() 逻辑，控制或者改写放回结果。
+*通过定义Collector 函数为 Pre|Post Handler 方法调用构造上下文环境。保证调用链路的先决条件。
+*无需配置AOP各种类或者配置文件,简化开发流程。
+*支持Spring bean 形式的处理器定义。方法级别的Collector 定义.实现简单。
 
 
 # 4.0版本发布
