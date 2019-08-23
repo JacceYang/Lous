@@ -99,6 +99,6 @@ public class LoginServiceImpl implements LoginService {
 一个机械专业程序源，喜欢捣鼓事情，但是又比较低调。
 
 技术交流加微信：
-<img src="https://github.com/JacceYang/PersonProfile/blob/master/WechatIMG147.jpeg" withd="240px">
+<img src="https://github.com/JacceYang/PersonProfile/blob/master/WechatIMG147.jpeg" withd="40px">
 
 邮箱：chaoyang_sjtu@126.com
