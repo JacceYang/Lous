@@ -1,14 +1,14 @@
 
-# 项目简介
+# 1.项目简介
 
-**项目名称**:
+**1.1项目名称**:
 *** 
 Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处理架构,其主要目的是抽离API 层方法调用时非业务逻辑的渗透。
 让代码开发更加专注(more focused)，业务代码更加整洁(more clean)。Lous 关注方法调用过程中常见的结果缓存(@EnableCache),恶意频繁攻击(@Duplica),
 方法调用拦截和预处理和后处理功能。框架借鉴了spring-boot中约定大于配置思路,开箱即用,简化开发流程。框架废弃了经典的xml 配置化引入方式,采用基于
 注解的方式引入所需的功能(more flexible)。
 
-**项目内容**:
+**1.2项目内容**:
 *** 
 主要包括API层网关中常见的操作组件
 * API 网关拦截处理器
@@ -25,12 +25,12 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 > 主要实现缓存的分级存储
 
 
-**环境说明**
+# 2.环境说明
 *** 
  >JDK Version >=JDK 8.0 
  > Spring Framework >= 4.3.17
  
-**起步**
+# 3.起步
 *** 
 *API 方法调用*
 
@@ -79,7 +79,7 @@ public class LoginServiceImpl implements LoginService {
 通过在方法上添加@Power 注解 实现方法调用API 拦截的处理器配置和处理能力。如上 @Power(preHandler = {"age","user"},collector = "#{@loginServiceImpl.country}") 中定义了login 方法调用的 预处理器定义, 聚合器定义。预处理定义了2个拦截校验逻辑bean, age 和user ，其定义顺序为处理器的执行顺序。 collector 定义了方法调用前的依赖数据收集。
 
 
-#版本发布
+# 4.0版本发布
 ## V0.1.0Beta (初始化版本)
 ### 时间[2019-08-11 ~2019-08-22]
 * EnbleMCache,EnableKeep 注解功能实现.
@@ -94,7 +94,7 @@ public class LoginServiceImpl implements LoginService {
 ## V1.0 Release (发布版本)
 
 
-# 作者简介
+# 5.0 作者简介
 *** 
 一个机械专业程序源，喜欢捣鼓事情，但是又比较低调。
 
