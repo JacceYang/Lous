@@ -13,5 +13,5 @@ public interface PowerInvokeCollector {
      * @param <T>
      * @return return the collect value from outer bean or target object.
      */
-    <T> T collect() throws InvocationTargetException,IllegalAccessException;
+    <T> T collect() throws InvocationTargetException, IllegalAccessException;
 }

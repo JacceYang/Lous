@@ -25,7 +25,7 @@ public class AgeChecker extends AbstractPrePowerHandler<Integer> {
 
     @Override
     public boolean proceed() {
-        return invokeResult > 18;
+        return invokeResult > 10;
     }
 
     @Override

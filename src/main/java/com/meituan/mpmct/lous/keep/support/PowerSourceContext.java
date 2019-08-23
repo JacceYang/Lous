@@ -11,7 +11,7 @@ import java.util.List;
  **/
 public class PowerSourceContext {
 
-    private List<AbstractPrePowerHandler> preHandlers;
+    private List<PrePowerHandler> preHandlers;
 
     private List<PostPowerHandler> postPowerHandlers;
 
@@ -22,11 +22,11 @@ public class PowerSourceContext {
     private PowerInvokeCollector invokeCollector;
 
 
-    public List<AbstractPrePowerHandler> getPreHandlers() {
+    public List<PrePowerHandler> getPreHandlers() {
         return preHandlers;
     }
 
-    public void setPreHandlers(List<AbstractPrePowerHandler> preHandlers) {
+    public void setPreHandlers(List<PrePowerHandler> preHandlers) {
         this.preHandlers = preHandlers;
     }
 

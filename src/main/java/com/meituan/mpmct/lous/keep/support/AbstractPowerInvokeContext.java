@@ -15,7 +15,6 @@ import java.util.Set;
  **/
 public abstract class AbstractPowerInvokeContext extends AbstractMethodInvokeContext implements PropertyInvokeContext {
 
-
     /**
      * It should be initialized with new or keep null.
      */

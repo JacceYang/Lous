@@ -12,10 +12,15 @@ import java.util.Arrays;
  * @Data:Initialized in 5:34 PM 2019/8/20
  **/
 public abstract class AbstractMethodInvokeContext implements MethodInvokeContext {
+
     private final Method method;
+
     private final Object[] arguments;
+
     private final ParameterNameDiscoverer parameterNameDiscoverer;
+
     MutableMethodParameterValues methodParameterValues = new MutableMethodParameterValues();
+
     private boolean argumentsLoaded = false;
 
 

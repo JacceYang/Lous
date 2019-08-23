@@ -26,7 +26,6 @@ public interface MethodInvokeContext {
     Object getMethodParameter(int index);
 
     /**
-     *
      * @param index
      * @param clazz
      * @param <T>

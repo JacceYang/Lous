@@ -60,7 +60,7 @@ public class PowerSourceParser {
         }
 
         if (!CollectionUtils.isEmpty(sourceParserContext.getPowerElement().getPreHandlers())) {
-            List<AbstractPrePowerHandler> abstractPrePowerHandlers = sourceParserContext.getGlobalPowerHandler()
+            List<PrePowerHandler> abstractPrePowerHandlers = sourceParserContext.getGlobalPowerHandler()
                     .getPrePowerHandler(sourceParserContext.getPowerElement().getPreHandlers());
             sourceContext.setPreHandlers(abstractPrePowerHandlers);
         }

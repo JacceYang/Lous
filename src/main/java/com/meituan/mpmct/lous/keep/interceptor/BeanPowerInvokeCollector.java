@@ -15,8 +15,8 @@ public class BeanPowerInvokeCollector extends AbstractPowerInvokeCollector {
     }
 
     @Override
-    public <T> T collect() throws InvocationTargetException,IllegalAccessException{
-        Object result =  method.invoke(targetObject, null);
+    public <T> T collect() throws InvocationTargetException, IllegalAccessException {
+        Object result = method.invoke(targetObject, null);
         return result == null ? null : (T) result;
     }
 }

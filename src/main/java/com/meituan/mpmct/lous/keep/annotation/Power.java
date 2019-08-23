@@ -1,6 +1,6 @@
 package com.meituan.mpmct.lous.keep.annotation;
 
-import com.meituan.mpmct.lous.keep.interceptor.AbstractPostPowerHanler;
+import com.meituan.mpmct.lous.keep.interceptor.AbstractPostPowerHandler;
 import com.meituan.mpmct.lous.keep.interceptor.AbstractPrePowerHandler;
 import com.meituan.mpmct.lous.keep.interceptor.PowerErrorHandler;
 
@@ -56,10 +56,10 @@ public @interface Power {
     String[] chain() default {};
 
     /**
-     * The bean names of post-handlers {@link AbstractPostPowerHanler} invoked before the advice method .
+     * The bean names of post-handlers {@link AbstractPostPowerHandler} invoked before the advice method .
      * The post-handlers will be invoke after the method invoke ,if the method throw a exception. the
      * post-handler will not be invoke . Any handler in post-handlers return a false value when  call
-     * {@link AbstractPostPowerHanler#proceed()} handler's behind will not be call.
+     * {@link AbstractPostPowerHandler#proceed()} handler's behind will not be call.
      *
      * @return
      * @NOTE : The value define in preHandler[] indicates the call order of post-handler.
