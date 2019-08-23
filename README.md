@@ -173,7 +173,7 @@ public class LoginServiceImpl implements LoginService {
 
 # 5.0 作者简介
 *** 
-一个机械专业程序源，喜欢捣鼓事情，为人低调低调，3年C/C++,2年Java。互联网大厂打酱油.
+一个机械专业程序源，喜欢捣鼓事情，为人低调低调，3年C/C++,2年Java,1年前端开发。互联网大厂打酱油.
 
 技术交流加微信：
 <img src="https://github.com/JacceYang/PersonProfile/blob/master/WechatIMG147.jpeg" width="240px">
