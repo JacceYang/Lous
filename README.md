@@ -82,7 +82,7 @@ public class LoginServiceImpl implements LoginService {
 # 4.0版本发布
 ## V0.1.0Beta (初始化版本)
 ### 时间[2019-08-11 ~2019-08-22]
-* EnbleMCache,EnableKeep 注解功能实现.
+* EnableKeep,EnbleMCache注解功能实现.
 * 分级缓存Cache 基础注解GetCache，PutCache 实现，注解的解析器。
 * 基于注解的缓存拦截器
 * API 网关 功能实现, 主要包括:
