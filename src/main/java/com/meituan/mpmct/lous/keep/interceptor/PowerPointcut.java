@@ -1,10 +1,12 @@
 package com.meituan.mpmct.lous.keep.interceptor;
 
 import com.meituan.mpmct.lous.keep.annotation.Power;
+import com.meituan.mpmct.lous.keep.event.ObservableEventCenter;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
 
 import java.io.Serializable;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
 /**
@@ -18,8 +20,15 @@ public class PowerPointcut extends StaticMethodMatcherPointcut implements Serial
     public boolean matches(Method method, Class<?> targetClass) {
         Method mostSpecificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
         if (mostSpecificMethod.isAnnotationPresent(Power.class)) {
+            Power annotation = method.getAnnotation(Power.class);
+            firePowerProxy(annotation);
             return true;
         }
         return false;
+    }
+
+    private void firePowerProxy(Annotation annotation) {
+        ObservableEventCenter.changed();
+        ObservableEventCenter.publishEvent(annotation);
     }
 }

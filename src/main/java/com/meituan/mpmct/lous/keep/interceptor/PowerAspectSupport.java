@@ -36,13 +36,13 @@ public class PowerAspectSupport implements SmartInitializingSingleton, BeanFacto
 
         PowerSourceContext powerSource = annotationPowerSource.getPowerSource(method, targetObject.getClass(), targetObject, parameters);
 
-        if (powerSource==null) {
+        if (powerSource == null) {
             return invoker.invoke();
         }
 
         //3 .构造请求的InvokerContext 为每一个 Handler
         PowerInvokeContext propertyInvokeContext = new DefaultPowerInvokeContext(getTargetMethod(method, targetObject.getClass()), parameters, parameterNameDiscoverer);
-        if (propertyInvokeContext==null) {
+        if (propertyInvokeContext == null) {
             return invoker.invoke();
         }
         powerHandlerRunContainer.preRun(powerSource, propertyInvokeContext);

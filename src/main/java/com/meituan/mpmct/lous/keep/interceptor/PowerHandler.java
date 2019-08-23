@@ -7,9 +7,10 @@ package com.meituan.mpmct.lous.keep.interceptor;
  **/
 public interface PowerHandler {
 
-    Integer PRE_HANDLE=1;
+    Integer PRE_HANDLE = 1;
 
-    Integer POST_HANDLE=2;
+    Integer POST_HANDLE = 2;
+
     /**
      * the power handler name
      *

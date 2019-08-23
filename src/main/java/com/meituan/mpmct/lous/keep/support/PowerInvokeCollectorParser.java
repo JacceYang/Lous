@@ -32,9 +32,9 @@ public class PowerInvokeCollectorParser {
 
     private static String TOKEN_AT = "@";
 
-    private static String TOKEN_THIS_REG = "[#|$]\\{this.*";
+    private static String TOKEN_THIS_REG = "[#|$]\\{this.*}$";
 
-    private static String TOKEN_BEAN_REG = "[#|$]\\{@\\w+.*";
+    private static String TOKEN_BEAN_REG = "[#|$]\\{@\\w+.*}$";
 
     public PowerInvokeCollector parseInvokeCollector(PowerInvokeCollectorContext context, BeanFactory beanFactory) {
 

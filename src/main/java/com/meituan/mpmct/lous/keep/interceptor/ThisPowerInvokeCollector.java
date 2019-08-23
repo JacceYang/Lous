@@ -17,7 +17,7 @@ public class ThisPowerInvokeCollector extends AbstractPowerInvokeCollector {
     }
 
     @Override
-    public <T> T collect()  throws InvocationTargetException,IllegalAccessException{
+    public <T> T collect() throws InvocationTargetException, IllegalAccessException {
         return (T) method.invoke(targetObject, null);
     }
 }
