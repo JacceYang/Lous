@@ -27,8 +27,8 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 
 # 2.环境说明
 *** 
- >JDK Version >=JDK 8.0 
- >Spring Framework >= 4.3.17
+ >JDK Version >=JDK 8.0.
+ >Spring Framework >= 4.3.17.
  
 # 3.起步
 *** 
