@@ -86,9 +86,9 @@ public class LoginServiceImpl implements LoginService {
 * 分级缓存Cache 基础注解GetCache，PutCache 实现，注解的解析器。
 * 基于注解的缓存拦截器
 * API 网关 功能实现, 主要包括:
- 方法级别请求前置和后置处理 \n
- 启动服务阶段校验 @Power 注解的正确性 \n
- 新增Collector 上下文信息聚合器。
+  *方法级别请求前置和后置处理 
+  *启动服务阶段校验 @Power 注解的正确性
+  *新增Collector 上下文信息聚合器。
  
 
 ## V1.0 Release (发布版本)
