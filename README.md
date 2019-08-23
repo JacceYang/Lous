@@ -13,6 +13,7 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 注解的方式引入所需的功能(more flexible)。
 
 **项目内容**:
+*** 
 主要包括API层网关中常见的操作组件
 * API 网关拦截处理器
 
@@ -29,12 +30,13 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 
 
 **环境说明**
+*** 
  >JDK Version >=JDK 8.0 
  > Spring Framework >= 4.3.17
  
 **起步**
-
-*** API 方法调用 ***
+*** 
+*API 方法调用*
 
 ```java
 
@@ -96,6 +98,7 @@ public class LoginServiceImpl implements LoginService {
 
 
 # 作者简介
+*** 
 一个机械专业程序源，喜欢捣鼓事情，但是又比较低调。
 
 技术交流加微信：
