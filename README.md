@@ -44,11 +44,11 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 
 # 3.起步
 *** 
-## 使用@Power注解实现API层方法调用的 拦截和处理
+## 3.1 使用@Power注解实现API层方法调用的 拦截和处理
 **场景说明**
 > 在实际的开发过程中(无论是Web 还是service 层),经常需要校验方法调用者的身份和特征。依据特征数据,系统判断方法调用者是否有权限做一些修改或者查阅系统信息的操作.常见的实现方法如下:
 
-*3.1 方法内部写预处理逻辑*
+### 3.1.1 方法内部写预处理逻辑
 ```java
 public class LoginServiceImpl implements LoginService {
     
@@ -75,7 +75,7 @@ public class LoginServiceImpl implements LoginService {
 ```
 此种方式开发中最常见,将业务逻辑代码和校验姓名以及年龄的代码逻辑直接写在方法体内,对于少量的校验方法,此种形式也无没有太大弊端。但是当业务中大量的方法调用需要校验姓名和年龄时,此种方式就会在在代码中散落大量的相同逻辑代码，维护及其困难。为了解决此类问题,Spring 从1.x 时代就支持了AOP能力.
 
-*3.2 AOP拦截方式*
+### 3.1.2 AOP拦截方式
 ```java
 @AspectJ
 public class LoginAdviceAspectJ {
