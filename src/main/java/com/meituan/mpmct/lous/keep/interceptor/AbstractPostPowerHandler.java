@@ -7,7 +7,7 @@ import com.meituan.mpmct.lous.keep.support.PowerInvokeContext;
  * @Description:
  * @Data:Initialized in 1:14 PM 2019/8/20
  **/
-public abstract class AbstractPostPowerHanler<T> implements ConfigurablePowerHandler {
+public abstract class AbstractPostPowerHandler<T> implements PostPowerHandler {
 
     protected T invokeResult;
 
@@ -35,6 +35,11 @@ public abstract class AbstractPostPowerHanler<T> implements ConfigurablePowerHan
     @Override
     public void setContext(PowerInvokeContext context) {
         this.context = context;
+    }
+
+    @Override
+    public Integer getType() {
+        return POST_HANDLE;
     }
 
 }

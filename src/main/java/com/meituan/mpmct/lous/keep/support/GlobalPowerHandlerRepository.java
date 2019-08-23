@@ -24,7 +24,7 @@ import java.util.*;
 public class GlobalPowerHandlerRepository implements SmartInitializingSingleton, BeanFactoryAware, GlobalPowerHandler {
     private final Log logger = LogFactory.getLog(getClass());
 
-    private Map<String, AbstractPrePowerHandler> prePowerHandlerRepositry;
+    private Map<String, PrePowerHandler> prePowerHandlerRepositry;
 
     private Map<String, PostPowerHandler> postPowerHandlerRepositry;
 
@@ -44,21 +44,21 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
     private PowerInvokeCollectorParser powerInvokeCollectorParser = new PowerInvokeCollectorParser();
 
     @Override
-    public List<AbstractPrePowerHandler> getPrePowerHandler(Set<String> handlers) {
+    public List<PrePowerHandler> getPrePowerHandler(Set<String> handlers) {
 
         if (prePowerHandlerRepositry == null || handlers == null) {
             return Collections.EMPTY_LIST;
         }
 
-        List<AbstractPrePowerHandler> abstractPrePowerHandlerResult = new ArrayList<>();
+        List<PrePowerHandler> prePowerHandlerResult = new ArrayList<>();
         for (String handler : handlers) {
-            AbstractPrePowerHandler abstractPrePowerHandler = prePowerHandlerRepositry.get(handler);
+            PrePowerHandler abstractPrePowerHandler = prePowerHandlerRepositry.get(handler);
             if (abstractPrePowerHandler != null) {
-                abstractPrePowerHandlerResult.add(abstractPrePowerHandler);
+                prePowerHandlerResult.add(abstractPrePowerHandler);
             }
         }
 
-        return abstractPrePowerHandlerResult;
+        return prePowerHandlerResult;
     }
 
     @Override
@@ -113,12 +113,12 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
     }
 
 
-    public void registryPreHandlers(Collection<AbstractPrePowerHandler> preHandlers) {
+    public void registryPreHandlers(Collection<PrePowerHandler> preHandlers) {
         if (CollectionUtils.isEmpty(preHandlers)) {
             return;
         }
         prePowerHandlerRepositry = new HashMap<>(8);
-        for (AbstractPrePowerHandler preHandler : preHandlers) {
+        for (PrePowerHandler preHandler : preHandlers) {
             Assert.hasText(preHandler.getName(), preHandler.getClass().getName() + "doesn't define a handler name");
             prePowerHandlerRepositry.put(preHandler.getName(), preHandler);
         }
@@ -182,7 +182,7 @@ public class GlobalPowerHandlerRepository implements SmartInitializingSingleton,
 
     private void initialize(ListableBeanFactory listableBeanFactory) {
 
-        Map<String, AbstractPrePowerHandler> preHandlers = listableBeanFactory.getBeansOfType(AbstractPrePowerHandler.class);
+        Map<String, PrePowerHandler> preHandlers = listableBeanFactory.getBeansOfType(PrePowerHandler.class);
         registryPreHandlers(preHandlers.values());
 
         Map<String, PostPowerHandler> postHandlers = listableBeanFactory.getBeansOfType(PostPowerHandler.class);

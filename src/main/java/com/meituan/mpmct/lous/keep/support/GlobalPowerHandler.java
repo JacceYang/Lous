@@ -12,7 +12,7 @@ import java.util.Set;
  **/
 public interface GlobalPowerHandler {
 
-    List<AbstractPrePowerHandler> getPrePowerHandler(Set<String> handlers);
+    List<PrePowerHandler> getPrePowerHandler(Set<String> handlers);
 
     List<PostPowerHandler> getPostPowerHandler(Set<String> handlers);
 

@@ -7,7 +7,7 @@ import com.meituan.mpmct.lous.keep.support.PowerInvokeContext;
  * @Description:
  * @Data:Initialized in 6:43 PM 2019/8/11
  **/
-public abstract class AbstractPrePowerHandler<T> implements ConfigurablePowerHandler {
+public abstract class AbstractPrePowerHandler<T> implements PrePowerHandler {
 
     protected T invokeResult;
     private PowerErrorHandler powerErrorHandler = new DefaultPowerErrorHandler();
@@ -34,5 +34,10 @@ public abstract class AbstractPrePowerHandler<T> implements ConfigurablePowerHan
     @Override
     public void setContext(PowerInvokeContext context) {
         this.context = context;
+    }
+
+    @Override
+    public Integer getType() {
+        return PRE_HANDLE;
     }
 }
