@@ -13,7 +13,7 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 主要包括API层网关中常见的操作组件
 * API 网关拦截处理器(@EnableKeep--@Power)
 
-<img src="https://github.com/JacceYang/PersonProfile/blob/master/DX-20190823%402x.png" withd="240px">
+<img src="https://github.com/JacceYang/PersonProfile/blob/master/Power%20model.png" withd="240px">
 
 > 支持应用级别 API网关，实现可配置化的拦截器，校验器和各种错误处理能力。 
 
