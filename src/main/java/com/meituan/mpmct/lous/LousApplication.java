@@ -10,21 +10,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 @SpringBootApplication
-@EnableMCaching
 @EnableKeep(annotation = {Duplica.class, Power.class})
 public class LousApplication {
 
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(LousApplication.class, args);
-
         LoginService loginServiceImpl = (LoginService) run.getBean("loginServiceImpl");
-
         loginServiceImpl.login("ang", 15);
-
-        loginServiceImpl.login("yang", 15);
-
         System.out.println("-------end---------");
 
     }
-
 }
