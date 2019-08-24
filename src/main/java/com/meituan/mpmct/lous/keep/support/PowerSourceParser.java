@@ -4,9 +4,9 @@ import com.meituan.mpmct.lous.keep.annotation.Power;
 import com.meituan.mpmct.lous.keep.interceptor.*;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import sun.jvm.hotspot.utilities.Assert;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -33,7 +33,7 @@ public class PowerSourceParser {
         Set<Power> allMergedAnnotations = AnnotatedElementUtils.findAllMergedAnnotations(method, Power.class);
 
         if (allMergedAnnotations != null) {
-            Assert.that(allMergedAnnotations.size() == 1, "multiple @power configure on method [" + method.getName() + "] is prohibit!!!");
+            Assert.isTrue(allMergedAnnotations.size() == 1,"multiple @power configure on method [" + method.getName() + "] is prohibit!!!");
             PowerElement.Builder builder = new PowerElement.Builder();
 
             allMergedAnnotations.stream().forEach(power -> {
@@ -50,7 +50,7 @@ public class PowerSourceParser {
     }
 
     public PowerSourceContext parsePowerSourceContext(PowerSourceParserContext sourceParserContext) {
-        Assert.that(sourceParserContext.getPowerElement() != null, "parse powerElement equals null");
+        Assert.isTrue(sourceParserContext.getPowerElement() != null, "parse powerElement equals null");
         PowerSourceContext sourceContext = new PowerSourceContext();
 
         if (!CollectionUtils.isEmpty(sourceParserContext.getPowerElement().getPostHandlers())) {

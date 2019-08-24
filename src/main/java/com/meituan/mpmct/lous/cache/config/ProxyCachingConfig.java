@@ -50,15 +50,15 @@ public class ProxyCachingConfig extends AbstractCachingConfig {
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public CacheManagerSolver cacheManagerSolver(){
-        CacheManagerSolver cacheManagerSolver=new CacheManagerSolverSupport();
+    public CacheManagerSolver cacheManagerSolver() {
+        CacheManagerSolver cacheManagerSolver = new CacheManagerSolverSupport();
         return cacheManagerSolver;
     }
 
     @Bean
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-    public CacheSolver cacheSolver(){
-        CacheSolver cacheSolver=new CacheSolverSupport() ;
+    public CacheSolver cacheSolver() {
+        CacheSolver cacheSolver = new CacheSolverSupport();
         return cacheSolver;
 
     }

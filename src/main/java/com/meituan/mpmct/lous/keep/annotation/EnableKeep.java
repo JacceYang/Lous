@@ -17,6 +17,8 @@ import java.lang.annotation.*;
 @Import(KeepConfigurationSelector.class)
 public @interface EnableKeep {
 
+    boolean proxyTargetClass() default false;
+
     AdviceMode mode() default AdviceMode.PROXY;
 
     Class<? extends Annotation>[] annotation() default {};

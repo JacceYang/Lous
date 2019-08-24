@@ -2,15 +2,10 @@ package com.meituan.mpmct.lous.cache.support;
 
 import com.meituan.mpmct.lous.cache.CacheManager;
 import com.meituan.mpmct.lous.cache.annotation.CachingMode;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -21,7 +16,7 @@ import java.util.stream.Collectors;
  * @Description:
  * @Data:Initialized in 5:49 PM 2019/8/11
  **/
-public class CacheManagerSolverSupport implements CacheManagerSolver,InitializingBean {
+public class CacheManagerSolverSupport implements CacheManagerSolver, InitializingBean {
 
     private Collection<CacheManager> cacheManagers;
 
@@ -45,14 +40,13 @@ public class CacheManagerSolverSupport implements CacheManagerSolver,Initializin
     }
 
     @Autowired
-    void setCacheManger(Collection<CacheManager> cacheManagers){
-        if (CollectionUtils.isEmpty(cacheManagers)){
+    void setCacheManger(Collection<CacheManager> cacheManagers) {
+        if (CollectionUtils.isEmpty(cacheManagers)) {
             return;
         }
 
-        this.cacheManagers=cacheManagers;
+        this.cacheManagers = cacheManagers;
     }
-
 
 
     public Collection<CacheManager> getCacheManagers() {

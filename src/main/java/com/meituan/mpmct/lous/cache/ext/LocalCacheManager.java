@@ -22,8 +22,8 @@ public class LocalCacheManager implements CacheManager {
     @Override
     public Cache getCache(String cacheName) {
         Cache cache = cacheManger.get(cacheName);
-        if (cache==null){
-            cacheManger.put(cacheName,new LocalCache());
+        if (cache == null) {
+            cacheManger.put(cacheName, new LocalCache());
         }
         return cacheManger.get(cacheName);
     }

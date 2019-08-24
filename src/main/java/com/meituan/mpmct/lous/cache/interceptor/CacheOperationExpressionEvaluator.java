@@ -1,7 +1,5 @@
 package com.meituan.mpmct.lous.cache.interceptor;
 
-import com.meituan.mpmct.lous.cache.operation.CacheOperationContext;
-import com.sun.org.apache.xalan.internal.extensions.ExpressionContext;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.MethodClassKey;
@@ -41,8 +39,6 @@ public class CacheOperationExpressionEvaluator {
         }
         return operationExp.get(methodClassKey);
     }
-
-
 
 
 }

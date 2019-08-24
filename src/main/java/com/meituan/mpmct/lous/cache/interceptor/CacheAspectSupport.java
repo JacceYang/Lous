@@ -6,15 +6,12 @@ import com.meituan.mpmct.lous.cache.operation.CacheOperation;
 import com.meituan.mpmct.lous.cache.operation.CacheOperationContext;
 import com.meituan.mpmct.lous.cache.operation.CacheOperationSource;
 import com.meituan.mpmct.lous.cache.support.CacheManagerSolver;
-import com.meituan.mpmct.lous.cache.support.CacheManagerSolverSupport;
 import com.meituan.mpmct.lous.cache.support.CacheSolver;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
-import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.core.DefaultParameterNameDiscoverer;
-import org.springframework.core.MethodClassKey;
 import org.springframework.expression.Expression;
 
 import java.lang.reflect.Method;
@@ -25,7 +22,7 @@ import java.util.List;
  * @Description:
  * @Data:Initialized in 3:11 PM 2019/8/11
  **/
-public class CacheAspectSupport implements BeanFactoryAware{
+public class CacheAspectSupport implements BeanFactoryAware {
 
     private CacheManagerSolver cacheManagerSolver;
     private CacheSolver cacheSolver;
@@ -48,31 +45,31 @@ public class CacheAspectSupport implements BeanFactoryAware{
         CacheOperationSource cacheOperationSource = getCacheOperationSource();
         CacheOperation cacheOperation = cacheOperationSource.getCacheOperation(targetClass, method);
         CacheOperationContext cacheOperationContext = new CacheOperationContext(method, target, args, cacheOperation);
-        Object execute = execute(method,cacheOperationContext);
+        Object execute = execute(method, cacheOperationContext);
         if (execute != null) {
             return execute;
         }
 
         Object invokeValue = invoker.invoke();
 
-        storeCacheAfter(cacheOperationContext,cacheOperationContext.getValueKey(),invokeValue);
+        storeCacheAfter(cacheOperationContext, cacheOperationContext.getValueKey(), invokeValue);
 
         return invokeValue;
     }
 
 
-    protected void storeCacheAfter(CacheOperationContext operationContext,Object key,Object value){
+    protected void storeCacheAfter(CacheOperationContext operationContext, Object key, Object value) {
 
         List<CacheManager> cacheManager = getCacheManagerSolver().getCacheManager(operationContext.getCachingModes());
 
-        for (Cache cache : getCacheSolver().determineUltimateCache(cacheManager,operationContext.getCacheName())) {
+        for (Cache cache : getCacheSolver().determineUltimateCache(cacheManager, operationContext.getCacheName())) {
 
-            cache.pubIfAbsent(key,value);
+            cache.pubIfAbsent(key, value);
         }
 
     }
 
-    private Object execute(Method method,CacheOperationContext operationContext) {
+    private Object execute(Method method, CacheOperationContext operationContext) {
 
 
         Expression expression = getCacheOperationExpressionEvaluator().getExpression(method,
@@ -82,7 +79,7 @@ public class CacheAspectSupport implements BeanFactoryAware{
         operationContext.setValueKey(valueKey);
         List<CacheManager> cacheManager = getCacheManagerSolver().getCacheManager(operationContext.getCachingModes());
 
-        for (Cache cache : getCacheSolver().determineUltimateCache(cacheManager,operationContext.getCacheName())) {
+        for (Cache cache : getCacheSolver().determineUltimateCache(cacheManager, operationContext.getCacheName())) {
             Object value = cache.getValue(valueKey);
             if (value != null) {
                 return value;
@@ -92,8 +89,8 @@ public class CacheAspectSupport implements BeanFactoryAware{
     }
 
     public CacheOperationExpressionEvaluator getCacheOperationExpressionEvaluator() {
-        if (cacheOperationExpressionEvaluator==null){
-            cacheOperationExpressionEvaluator=new CacheOperationExpressionEvaluator();
+        if (cacheOperationExpressionEvaluator == null) {
+            cacheOperationExpressionEvaluator = new CacheOperationExpressionEvaluator();
         }
         return cacheOperationExpressionEvaluator;
     }
@@ -124,6 +121,6 @@ public class CacheAspectSupport implements BeanFactoryAware{
 
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-        this.beanFactory=beanFactory;
+        this.beanFactory = beanFactory;
     }
 }
