@@ -14,7 +14,7 @@ import java.util.List;
  * @Description:
  * @Data:Initialized in 6:14 PM 2019/8/9
  **/
-public class CachingConfigurationSelector extends AdviceModeImportSelector<EnableMCaching> {
+public class CachingConfigurationSelector extends AdviceModeImportSelector<EnableSmartCaching> {
 
     @Override
     protected String[] selectImports(AdviceMode adviceMode) {

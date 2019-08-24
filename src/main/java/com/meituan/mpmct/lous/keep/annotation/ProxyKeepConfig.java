@@ -1,9 +1,9 @@
 package com.meituan.mpmct.lous.keep.annotation;
 
-import com.meituan.mpmct.lous.keep.interceptor.BeanFactoryPowerAdvisor;
-import com.meituan.mpmct.lous.keep.interceptor.DuplicaIntercepter;
-import com.meituan.mpmct.lous.keep.interceptor.PowerInterceptor;
-import com.meituan.mpmct.lous.keep.support.GlobalPowerHandlerRepository;
+import com.meituan.mpmct.lous.keep.power.interceptor.BeanFactoryPowerAdvisor;
+import com.meituan.mpmct.lous.keep.duplica.interceptor.DuplicaIntercepter;
+import com.meituan.mpmct.lous.keep.power.interceptor.PowerInterceptor;
+import com.meituan.mpmct.lous.keep.power.support.GlobalPowerHandlerRepository;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
