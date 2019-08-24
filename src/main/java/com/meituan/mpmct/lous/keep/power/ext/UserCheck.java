@@ -14,13 +14,13 @@ public class UserCheck extends AbstractPrePowerHandler<Boolean> {
 
     @Override
     public Object filter() {
-        invokeResult = true;
+        criterion = true;
         return null;
     }
 
     @Override
     public boolean proceed() {
-        return invokeResult;
+        return criterion;
     }
 
     @Override

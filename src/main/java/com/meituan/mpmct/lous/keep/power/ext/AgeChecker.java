@@ -19,17 +19,17 @@ public class AgeChecker extends AbstractPrePowerHandler<Integer> {
 
         context.getMethodParameterCount();
         String aDefault = context.getProperty("contry", String.class);
-        invokeResult = context.getMethodParameter(1, Integer.class);
-        return invokeResult;
+        criterion = context.getMethodParameter(1, Integer.class);
+
+        if (criterion<18){
+
+        }
+        return criterion;
     }
 
     @Override
     public boolean proceed() {
-        return invokeResult > 10;
+        return criterion > 18;
     }
 
-    @Override
-    public String getName() {
-        return "age";
-    }
 }

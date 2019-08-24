@@ -14,5 +14,10 @@ public interface ConfigurablePowerHandler extends FilterablePowerHandler, PowerH
      */
     PowerErrorHandler getErrorHandler();
 
+    /**
+     * set error handler for {@link ConfigurablePowerHandler#proceed()}, when a error throw
+     * use this handler will be called to  handle error。
+     * @param errorHandler
+     */
     void setErrorHandler(PowerErrorHandler errorHandler);
 }

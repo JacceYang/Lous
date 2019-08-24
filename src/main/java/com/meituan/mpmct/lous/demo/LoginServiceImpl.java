@@ -1,6 +1,8 @@
 package com.meituan.mpmct.lous.demo;
 
+import com.meituan.mpmct.lous.keep.annotation.Duplica;
 import com.meituan.mpmct.lous.keep.annotation.Power;
+import com.meituan.mpmct.lous.keep.annotation.Scene;
 import com.meituan.mpmct.lous.keep.power.support.PropertyValueWrapper;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +21,8 @@ public class LoginServiceImpl implements LoginService {
 
     //    @GetCache(key = "#name+#age", cacheName = "login-record",cacheMode = CachingMode.LOCAL)
     @Override
-    @Power(preHandler = {"age", "user"}, collector = "#{@loginServiceImpl.country}")
+    //@Power(preHandler = {"ageChecker", "user"}, collector = "#{@loginServiceImpl.country}")
+    @Duplica(scene = Scene.METHOD,key = "#{#name+#age}",expire = 10)
     public boolean login(String name, Integer age) {
         if (name.contains("yang")) {
             return true;

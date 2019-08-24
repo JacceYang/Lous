@@ -46,4 +46,10 @@ public @interface Duplica {
      */
     int expire() default 5;
 
+    /**
+     * call times
+     * @return
+     */
+    int times() default 0;
+
 }
