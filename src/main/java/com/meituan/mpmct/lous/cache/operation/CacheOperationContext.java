@@ -1,17 +1,10 @@
 package com.meituan.mpmct.lous.cache.operation;
 
-import com.meituan.mpmct.lous.cache.Cache;
-import com.meituan.mpmct.lous.cache.CacheManager;
 import com.meituan.mpmct.lous.cache.annotation.CachingMode;
-import com.meituan.mpmct.lous.cache.interceptor.CacheOperationExpressionEvaluator;
-import com.meituan.mpmct.lous.cache.support.CacheManagerSolverSupport;
-import com.meituan.mpmct.lous.cache.support.CacheSolver;
 import org.springframework.aop.support.AopUtils;
-import org.springframework.core.MethodClassKey;
 
 import java.lang.reflect.Method;
 import java.util.LinkedHashSet;
-import java.util.List;
 
 /**
  * @Author:Yangchao16
@@ -35,8 +28,8 @@ public class CacheOperationContext {
 
     public CacheOperationContext(Method method, Object targetObject, Object[] parameters, CacheOperation cacheOperation) {
         this.method = method;
-        this.targetClass=targetObject.getClass();
-        this.targetMethod= AopUtils.getMostSpecificMethod(method,targetObject.getClass());
+        this.targetClass = targetObject.getClass();
+        this.targetMethod = AopUtils.getMostSpecificMethod(method, targetObject.getClass());
         this.cacheName = cacheOperation.getCacheName();
         this.cachingModes = cacheOperation.getCachingModes();
         this.method = method;

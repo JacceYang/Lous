@@ -1,6 +1,5 @@
 package com.meituan.mpmct.lous;
 
-import com.meituan.mpmct.lous.cache.annotation.EnableMCaching;
 import com.meituan.mpmct.lous.demo.LoginService;
 import com.meituan.mpmct.lous.keep.annotation.Duplica;
 import com.meituan.mpmct.lous.keep.annotation.EnableKeep;

@@ -1,6 +1,6 @@
 package com.meituan.mpmct.lous.cache.config;
 
-import com.meituan.mpmct.lous.cache.annotation.EnableMCaching;
+import com.meituan.mpmct.lous.cache.annotation.EnableSmartCaching;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportAware;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -19,7 +19,7 @@ public abstract class AbstractCachingConfig implements ImportAware {
     @Override
     public void setImportMetadata(AnnotationMetadata annotationMetadata) {
 
-        enableMCaching = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(EnableMCaching.class.getName(), false));
+        enableMCaching = AnnotationAttributes.fromMap(annotationMetadata.getAnnotationAttributes(EnableSmartCaching.class.getName(), false));
 
     }
 }
