@@ -13,13 +13,13 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 主要包括API层网关中常见的操作组件
 * API 网关拦截处理器(@EnableKeep--@Power)
 
-<img src="https://github.com/JacceYang/PersonProfile/blob/master/Power%20model.png" withd="180px">
+<img src="https://github.com/JacceYang/PersonProfile/blob/master/Power%20model.png" width="90%">
 
 > 支持应用级别 API网关，实现可配置化的拦截器，校验器和各种错误处理能力。 
 
 
 * 重复频繁调用阻止器(@EnableKeep--@Duplica) 
-<img src="https://github.com/JacceYang/PersonProfile/blob/master/WX20190824-111939%402x.png" withd="180px">
+<img src="https://github.com/JacceYang/PersonProfile/blob/master/WX20190824-111939%402x.png" width="80%" vertical-align="middle">
 使用场景:针对Web层或者Service层对大量恶意或者重复请求做重复性校验。通过定义重复判定规则,对每一次请求做身份判断。通过定义时间窗口范围,将时间窗口内的一此或者自定义次数后的请求判定为重复请求，从而让系统执行拒绝请求逻辑。
 
 特点：
