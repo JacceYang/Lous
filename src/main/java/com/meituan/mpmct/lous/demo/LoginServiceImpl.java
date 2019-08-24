@@ -3,7 +3,7 @@ package com.meituan.mpmct.lous.demo;
 import com.meituan.mpmct.lous.cache.annotation.CachingMode;
 import com.meituan.mpmct.lous.cache.annotation.GetCache;
 import com.meituan.mpmct.lous.keep.annotation.Power;
-import com.meituan.mpmct.lous.keep.support.PropertyValueWrapper;
+import com.meituan.mpmct.lous.keep.power.support.PropertyValueWrapper;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicInteger;

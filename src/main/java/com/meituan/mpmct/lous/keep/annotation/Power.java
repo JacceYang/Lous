@@ -1,8 +1,8 @@
 package com.meituan.mpmct.lous.keep.annotation;
 
-import com.meituan.mpmct.lous.keep.interceptor.AbstractPostPowerHandler;
-import com.meituan.mpmct.lous.keep.interceptor.AbstractPrePowerHandler;
-import com.meituan.mpmct.lous.keep.interceptor.PowerErrorHandler;
+import com.meituan.mpmct.lous.keep.power.interceptor.AbstractPostPowerHandler;
+import com.meituan.mpmct.lous.keep.power.interceptor.AbstractPrePowerHandler;
+import com.meituan.mpmct.lous.keep.power.interceptor.PowerErrorHandler;
 
 import java.lang.annotation.*;
 
