@@ -16,9 +16,6 @@ import java.util.Iterator;
  **/
 public class PowerHandlerRunContainer {
 
-    /******************************************* Run status define ****************************************/
-    private int status = 0;
-
     public void preRun(PowerSourceContext powerSourceContext, PowerInvokeContext context) {
         collect(powerSourceContext, context);
         Assert.notNull(context, "run context be null");
@@ -67,6 +64,10 @@ public class PowerHandlerRunContainer {
             }
         }
     }
+
+
+    /******************************************* Run status define ****************************************/
+    private int status = 0;
 
     private void stop() {
         status = 1;
