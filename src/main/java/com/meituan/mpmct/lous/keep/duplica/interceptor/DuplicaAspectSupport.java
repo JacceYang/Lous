@@ -1,6 +1,7 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 /**
  * @Author:Yangchao16
@@ -10,7 +11,11 @@ import java.lang.reflect.Method;
 public class DuplicaAspectSupport {
 
 
-    public Object execute(DuplicaInvoker invoker) throws Throwable {
+    public Object execute(DuplicaInvoker invoker, Method method, Object targetObject, Object[] prameter) throws Throwable {
+
+
+
+
 
 
         return invoker.invoke();

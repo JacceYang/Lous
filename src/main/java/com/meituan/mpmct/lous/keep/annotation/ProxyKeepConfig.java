@@ -1,6 +1,7 @@
 package com.meituan.mpmct.lous.keep.annotation;
 
 import com.meituan.mpmct.lous.keep.duplica.interceptor.BeanFactoryDuplicaAdvisor;
+import com.meituan.mpmct.lous.keep.duplica.interceptor.WebHandlerInterceptor;
 import com.meituan.mpmct.lous.keep.power.interceptor.BeanFactoryPowerAdvisor;
 import com.meituan.mpmct.lous.keep.duplica.interceptor.DuplicaIntercepter;
 import com.meituan.mpmct.lous.keep.power.interceptor.PowerInterceptor;
@@ -33,6 +34,13 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
             BeanFactoryDuplicaAdvisor beanFactoryDuplicaAdvisor=new BeanFactoryDuplicaAdvisor();
             beanFactoryDuplicaAdvisor.setAdvice(duplicaIntercepter());
             return beanFactoryDuplicaAdvisor;
+        }
+
+        @Bean
+        @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+        public WebHandlerInterceptor webHandlerInterceptor(){
+            WebHandlerInterceptor webHandlerInterceptor=new WebHandlerInterceptor();
+            return webHandlerInterceptor;
         }
     }
 
