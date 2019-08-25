@@ -14,11 +14,9 @@ public class WebRequestURI implements RequestURI{
 
     private String webUrl;
 
-    private String key;
 
     public WebRequestURI(HttpServletRequest request, String key) {
         this.webUrl = unWrapperUrl(request);
-        this.key = key;
     }
 
     private String unWrapperUrl(HttpServletRequest request){
@@ -29,17 +27,10 @@ public class WebRequestURI implements RequestURI{
         return uri;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 
     @Override
-    public String key() {
-        return getKey();
+    public Object anchor() {
+        return webUrl;
     }
 
 
@@ -48,13 +39,12 @@ public class WebRequestURI implements RequestURI{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WebRequestURI that = (WebRequestURI) o;
-        return Objects.equals(webUrl, that.webUrl) &&
-                Objects.equals(key, that.key);
+        return Objects.equals(webUrl, that.webUrl);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(webUrl, key);
+        return Objects.hash(webUrl);
     }
 }

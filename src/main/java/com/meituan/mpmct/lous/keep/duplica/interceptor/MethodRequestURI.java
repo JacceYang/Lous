@@ -13,25 +13,14 @@ public class MethodRequestURI implements RequestURI{
 
     private MethodClassKey methodClassKey;
 
-    private String key;
-
     public MethodRequestURI(MethodClassKey methodClassKey, String key) {
         this.methodClassKey = methodClassKey;
-        this.key = key;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
 
     @Override
-    public String key() {
-        return getKey();
+    public Object anchor() {
+        return methodClassKey;
     }
 
     @Override
@@ -39,12 +28,12 @@ public class MethodRequestURI implements RequestURI{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MethodRequestURI that = (MethodRequestURI) o;
-        return Objects.equals(methodClassKey, that.methodClassKey) &&
-                Objects.equals(key, that.key);
+        return Objects.equals(methodClassKey, that.methodClassKey);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(methodClassKey, key);
+
+        return Objects.hash(methodClassKey);
     }
 }

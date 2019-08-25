@@ -20,4 +20,69 @@ public class DuplicaElement {
     private int expire;
 
     private int times;
+
+
+    public DuplicaElement(Builder builder) {
+        this.scene=builder.getScene();
+        this.key=builder.getKey();
+        this.times=builder.getTimes();
+        this.expire=builder.expire;
+    }
+
+    static class Builder{
+
+        private Scene scene;
+
+        private String key;
+
+        private TimeUnit unit;
+
+        private int expire;
+
+        private int times;
+
+        public Scene getScene() {
+            return scene;
+        }
+
+        public void setScene(Scene scene) {
+            this.scene = scene;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public TimeUnit getUnit() {
+            return unit;
+        }
+
+        public void setUnit(TimeUnit unit) {
+            this.unit = unit;
+        }
+
+        public int getExpire() {
+            return expire;
+        }
+
+        public void setExpire(int expire) {
+            this.expire = expire;
+        }
+
+        public int getTimes() {
+            return times;
+        }
+
+        public void setTimes(int times) {
+            this.times = times;
+        }
+
+       public DuplicaElement build(){
+            return new DuplicaElement(this);
+       }
+    }
 }

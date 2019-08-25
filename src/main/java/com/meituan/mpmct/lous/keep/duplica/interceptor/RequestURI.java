@@ -7,5 +7,5 @@ package com.meituan.mpmct.lous.keep.duplica.interceptor;
  **/
 public interface RequestURI {
 
-    String key();
+    Object anchor();
 }
