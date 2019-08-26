@@ -1,6 +1,7 @@
 package com.meituan.mpmct.lous.keep.duplica.config;
 
 import com.meituan.mpmct.lous.keep.duplica.interceptor.WebHandlerInterceptor;
+import com.meituan.mpmct.lous.keep.duplica.support.DuplicaAnnotationUtils;
 import com.meituan.mpmct.lous.keep.event.ObservableEventCenter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
@@ -43,36 +44,11 @@ public class WebAppConfigure implements WebMvcConfigurer,Observer,InstantiationA
     public void update(Observable o, Object arg) {
         if (arg instanceof DuplicaEvent){
             DuplicaEvent duplicaEvent= (DuplicaEvent) arg;
-            String[] extractedPath = extractPath(duplicaEvent.getMethod());
+            String[] extractedPath = DuplicaAnnotationUtils.extractPath(duplicaEvent.getMethod());
             if (extractedPath!=null && extractedPath.length>0){
                 CollectionUtils.mergeArrayIntoCollection(extractedPath,includePath);
             }
         }
-    }
-
-
-    private String[] extractPath(Method method){
-        GetMapping methodAnnotation = method.getAnnotation(GetMapping.class);
-        String baseUrl[]=null;
-        if (method.getDeclaringClass().isAnnotationPresent(RequestMapping.class)) {
-            RequestMapping classRequestMapping = method.getDeclaringClass().getAnnotation(RequestMapping.class);
-            baseUrl=classRequestMapping.value();
-        }
-        String[] subUrl = methodAnnotation.value();
-
-        return  combineUlr(baseUrl!=null?baseUrl[0]:"",subUrl);
-    }
-
-    private String[] combineUlr(String base,String[] subUrl ){
-        if (subUrl!=null && subUrl.length>0){
-            String[] path=new String[subUrl.length];
-            for (int idx=0;idx<subUrl.length;idx++){
-                StringBuilder builder=new StringBuilder(base);
-                path[idx]=builder.append(subUrl[idx]).toString();
-            }
-            return path;
-        }
-        return null;
     }
 
     @Override

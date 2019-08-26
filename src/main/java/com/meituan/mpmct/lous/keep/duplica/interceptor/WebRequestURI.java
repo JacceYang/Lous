@@ -1,8 +1,11 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
+import com.meituan.mpmct.lous.keep.duplica.support.DuplicaAnnotationUtils;
+import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
@@ -17,6 +20,17 @@ public class WebRequestURI implements RequestURI{
 
     public WebRequestURI(HttpServletRequest request, String key) {
         this.webUrl = unWrapperUrl(request);
+    }
+
+    public WebRequestURI(Method method,Class<?> targetClass ,String key) {
+        this.webUrl=unWrapperUrl(method,targetClass);
+    }
+
+    private String unWrapperUrl(Method method,Class<?> targetClass){
+        String[] extractPath = DuplicaAnnotationUtils.extractPath(method);
+        Assert.notNull(extractPath,"more url configured");
+        Assert.isTrue(extractPath!=null &&extractPath.length>1,"unsupport more than one url in method");
+        return extractPath[0];
     }
 
     private String unWrapperUrl(HttpServletRequest request){

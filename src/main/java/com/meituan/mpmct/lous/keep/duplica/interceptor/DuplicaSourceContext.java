@@ -1,6 +1,5 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -14,9 +13,7 @@ public class DuplicaSourceContext {
 
     private String key;
 
-    private TimeUnit timeUnit;
-
-    private int expire;
+    private long expire;
 
     private int times;
 
@@ -36,19 +33,11 @@ public class DuplicaSourceContext {
         this.key = key;
     }
 
-    public TimeUnit getTimeUnit() {
-        return timeUnit;
-    }
-
-    public void setTimeUnit(TimeUnit timeUnit) {
-        this.timeUnit = timeUnit;
-    }
-
-    public int getExpire() {
+    public long getExpire() {
         return expire;
     }
 
-    public void setExpire(int expire) {
+    public void setExpire(long expire) {
         this.expire = expire;
     }
 
