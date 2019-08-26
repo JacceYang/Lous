@@ -132,50 +132,58 @@ public class GlobalPowerHandlerRepository implements BeanFactoryAware, GlobalPow
         return powerInvokeCollectorParser.parseInvokeCollector(collector, beanFactory);
     }
 
-    public void registryPreHandlers(Collection<PrePowerHandler> preHandlers) {
+     private void registryPreHandlers(Map<String, PrePowerHandler> preHandlers) {
         if (CollectionUtils.isEmpty(preHandlers)) {
             return;
         }
         prePowerHandlerRepositry = new HashMap<>(8);
-        for (PrePowerHandler preHandler : preHandlers) {
-            Assert.hasText(preHandler.getName(), preHandler.getClass().getName() + "doesn't define a handler name");
-            prePowerHandlerRepositry.put(preHandler.getName(), preHandler);
+        for (Map.Entry<String, PrePowerHandler> preHandler : preHandlers.entrySet()) {
+            String handlerName =  preHandler.getValue().getName();
+            if (!StringUtils.hasText(handlerName)){
+                handlerName=preHandler.getKey();
+            }
+            prePowerHandlerRepositry.put(handlerName, preHandler.getValue());
         }
     }
 
-
-    void registryPostHandlers(@Nullable Collection<PostPowerHandler> postHandlers) {
+    private void registryPostHandlers(@Nullable Map<String,PostPowerHandler> postHandlers) {
         if (CollectionUtils.isEmpty(postHandlers)) {
             return;
         }
         postPowerHandlerRepositry = new HashMap<>(8);
-        for (PostPowerHandler postHandler : postHandlers) {
-            Assert.hasText(postHandler.getName(), postHandler.getClass().getName() + "doesn't define a handler name");
-            postPowerHandlerRepositry.put(postHandler.getName(), postHandler);
+        for (Map.Entry<String,PostPowerHandler> postHandler : postHandlers.entrySet()) {
+            String handlerName=postHandler.getValue().getName();
+            if (!StringUtils.hasText(handlerName)){
+                handlerName=postHandler.getKey();
+            }
+            postPowerHandlerRepositry.put(handlerName, postHandler.getValue());
         }
     }
 
-    void registryErrorHandler(Collection<PowerErrorHandler> powerErrorHandlers) {
+    void registryErrorHandler(Map<String,PowerErrorHandler>  powerErrorHandlers) {
 
         if (CollectionUtils.isEmpty(powerErrorHandlers)) {
             return;
         }
         powerErrorHandlerRepository = new HashMap<>(8);
-        for (PowerErrorHandler errorHandler : powerErrorHandlers) {
-            Assert.hasText(errorHandler.getName(), errorHandler.getClass().getName() + "doesn't define a handler name");
-            powerErrorHandlerRepository.put(errorHandler.getName(), errorHandler);
+        for (Map.Entry<String,PowerErrorHandler> errorHandler : powerErrorHandlers.entrySet()) {
+            String handlerName = errorHandler.getValue().getName();
+            if (!StringUtils.hasText(handlerName)){
+                handlerName= errorHandler.getKey();
+            }
+            powerErrorHandlerRepository.put(handlerName, errorHandler.getValue());
         }
 
     }
 
-    void registryChain(Collection<PowerChainHandler> powerChainHandlers) {
+    void registryChain(Map<String,PowerChainHandler> powerChainHandlers) {
         if (CollectionUtils.isEmpty(powerChainHandlers)) {
             return;
         }
         powerChainHandlerRepositry = new HashMap<>(8);
-        for (PowerChainHandler chainHandler : powerChainHandlers) {
-            Assert.hasText(chainHandler.getName(), chainHandler.getClass().getName() + "doesn't define a handler name");
-            powerChainHandlerRepositry.put(chainHandler.getName(), chainHandler);
+        for (Map.Entry<String,PowerChainHandler> chainHandler : powerChainHandlers.entrySet()) {
+            String handlerName = StringUtils.hasText(chainHandler.getValue().getName()) ? chainHandler.getValue().getName() : chainHandler.getKey();
+            powerChainHandlerRepositry.put(handlerName, chainHandler.getValue());
         }
     }
 
@@ -193,16 +201,16 @@ public class GlobalPowerHandlerRepository implements BeanFactoryAware, GlobalPow
     private void initialize(ListableBeanFactory listableBeanFactory) {
 
         Map<String, PrePowerHandler> preHandlers = listableBeanFactory.getBeansOfType(PrePowerHandler.class);
-        registryPreHandlers(preHandlers.values());
+        registryPreHandlers(preHandlers);
 
         Map<String, PostPowerHandler> postHandlers = listableBeanFactory.getBeansOfType(PostPowerHandler.class);
-        registryPostHandlers(postHandlers.values());
+        registryPostHandlers(postHandlers);
 
         Map<String, PowerErrorHandler> powerErrorHandlers = listableBeanFactory.getBeansOfType(PowerErrorHandler.class);
-        registryErrorHandler(powerErrorHandlers.values());
+        registryErrorHandler(powerErrorHandlers);
 
         Map<String, PowerChainHandler> powerChainHandlers = listableBeanFactory.getBeansOfType(PowerChainHandler.class);
-        registryChain(powerChainHandlers.values());
+        registryChain(powerChainHandlers);
     }
 
     @Override

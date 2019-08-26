@@ -160,7 +160,7 @@ public class LoginServiceImpl implements LoginService {
 # 4.0版本发布
 ## 4.1 V0.1.0Beta (测试版)
 ### 时间[2019-08-11 ~2019-08-22]
-* EnableKeep,EnbleMCache注解功能实现.
+* EnableKeep,EnableSmartCaching注解功能实现.
 * 分级缓存Cache 基础注解GetCache，PutCache 实现，注解的解析器。
 * 基于注解的缓存拦截器
 * API 网关 功能实现, 主要包括:
@@ -171,6 +171,13 @@ public class LoginServiceImpl implements LoginService {
 ## 4.2 V1.0 Release (发布版)
 ### 时间[2019-08-31 ~2019-09-07]
 
+## 4.3 V2.0.0 beta 
+### 时间[2019-xx-xx ~2019-xx-xx]
+* [Cache]本地缓存快照和快照加载能力,序列化和反序列化本地缓存在程序推出和启动时,本项功能默认不开启。
+* [Cache]缓存Promotion 功能实现,多级缓存时,内存基于默认规则和用户定义规则的缓存数据迁移。保证最热缓存在最高速存储介质。
+* [Cache] 本地缓存使用空间控制.
+* [Duplica] 分布式请求数据同步能力。保证相同请求到不同的物理机器上依然能够被拦截.
+* [Duplica] 支持高并发下幂等逻辑控制。
 
 
 # 5.0 作者简介

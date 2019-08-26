@@ -1,5 +1,7 @@
 package com.meituan.mpmct.lous.keep.annotation;
 
+import com.meituan.mpmct.lous.keep.duplica.interceptor.BeanFactoryDuplicaAdvisor;
+import com.meituan.mpmct.lous.keep.duplica.interceptor.WebHandlerInterceptor;
 import com.meituan.mpmct.lous.keep.power.interceptor.BeanFactoryPowerAdvisor;
 import com.meituan.mpmct.lous.keep.duplica.interceptor.DuplicaIntercepter;
 import com.meituan.mpmct.lous.keep.power.interceptor.PowerInterceptor;
@@ -17,8 +19,7 @@ import org.springframework.context.annotation.Role;
 @Configuration
 public class ProxyKeepConfig extends AbstractKeepConfig {
 
-
-    //    @Configuration    todo 完善条件配置化逻辑
+    @Configuration    //todo 完善条件配置化逻辑
     public class ProxyDuplicaConfig {
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
@@ -26,9 +27,24 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
             DuplicaIntercepter duplicaIntercepter = new DuplicaIntercepter();
             return duplicaIntercepter;
         }
+
+        @Bean
+        @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+        public BeanFactoryDuplicaAdvisor beanFactoryDuplicaAdvisor(){
+            BeanFactoryDuplicaAdvisor beanFactoryDuplicaAdvisor=new BeanFactoryDuplicaAdvisor();
+            beanFactoryDuplicaAdvisor.setAdvice(duplicaIntercepter());
+            return beanFactoryDuplicaAdvisor;
+        }
+
+        @Bean
+        @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+        public WebHandlerInterceptor webHandlerInterceptor(){
+            WebHandlerInterceptor webHandlerInterceptor=new WebHandlerInterceptor();
+            return webHandlerInterceptor;
+        }
     }
 
-    @Configuration
+    //@Configuration
     public class ProxyPowerConfig {
 
         @Bean

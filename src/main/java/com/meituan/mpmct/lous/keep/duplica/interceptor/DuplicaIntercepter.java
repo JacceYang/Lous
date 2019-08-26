@@ -8,10 +8,20 @@ import org.aopalliance.intercept.MethodInvocation;
  * @Description:
  * @Data:Initialized in 10:36 PM 2019/8/18
  **/
-public class DuplicaIntercepter implements MethodInterceptor {
+public class DuplicaIntercepter extends DuplicaAspectSupport implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        return null;
+
+        DuplicaInvoker invoker=new DuplicaInvoker() {
+            @Override
+            public Object invoke() throws Throwable {
+                return invocation.proceed();
+            }
+        };
+
+        return execute(invoker,invocation.getMethod(),invocation.getStaticPart(),invocation.getArguments());
     }
+
+
 }

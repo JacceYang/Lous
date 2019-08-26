@@ -37,9 +37,4 @@ public abstract class AbstractPostPowerHandler<T> implements PostPowerHandler {
         this.context = context;
     }
 
-    @Override
-    public Integer getType() {
-        return POST_HANDLE;
-    }
-
 }

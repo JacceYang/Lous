@@ -7,4 +7,5 @@ package com.meituan.mpmct.lous.keep.power.support;
  **/
 public interface PowerInvokeContext extends MethodInvokeContext, PropertyInvokeContext {
 
+
 }
