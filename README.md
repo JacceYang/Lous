@@ -29,7 +29,7 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 
 原理：
 
-* 分级缓存(@EnableMCache)
+* 分级缓存(@EnableSmartCaching)
 > 主要实现缓存的分级存储
 
 # 2.环境说明

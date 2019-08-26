@@ -1,5 +1,7 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
+import com.meituan.mpmct.lous.keep.duplica.support.MemCache;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
@@ -14,6 +16,8 @@ public class DuplicaAspectSupport {
 
     private DuplicaInvokeContextParser invokeContextParser=new DuplicaInvokeContextParser();
 
+    private MemCache memCache;
+
     public Object execute(DuplicaInvoker invoker, Method method, Object targetObject, Object[] parameter) throws Throwable {
 
         // 1. 解析请求的元数据部分,确认请求来源
@@ -25,9 +29,9 @@ public class DuplicaAspectSupport {
 
         // 3. 检查请求是否
 
-        DuplicaInvokeContainer invokeContainer=new DuplicaInvokeContainer();
+        DuplicaInvokeContainer invokeContainer=new DuplicaInvokeContainer(memCache,invokeContext,duplicaSourceContext );
 
-        if (!invokeContainer.runCheck()){
+        if (invokeContainer.runCheck()){
            return invokeContainer.fastAck();
         }
 
