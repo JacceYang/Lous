@@ -1,5 +1,8 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
+import com.meituan.mpmct.lous.keep.duplica.ext.RedisMemCache;
+import com.meituan.mpmct.lous.keep.duplica.support.MemCache;
+
 /**
  * @Author:Yangchao16
  * @Description:
@@ -7,10 +10,30 @@ package com.meituan.mpmct.lous.keep.duplica.interceptor;
  **/
 public class DuplicaInvokeContainer {
 
+    private MemCache  memCache;
 
+    private DuplicaInvokeContext invokeContext;
+
+    private DuplicaSourceContext sourceContext;
+
+    public DuplicaInvokeContainer(MemCache memCache, DuplicaInvokeContext invokeContext, DuplicaSourceContext sourceContext) {
+        this.memCache = memCache;
+        this.invokeContext = invokeContext;
+        this.sourceContext = sourceContext;
+    }
+
+    /**
+     * if the content is in mem and the same with the  request .
+     * @return
+     */
     boolean runCheck(){
-
-        return true;
+        String cache = memCache.getCache(invokeContext.getKey());
+        if (cache==null){
+            memCache.putCache(invokeContext.getKey(),invokeContext.getContent(),sourceContext.getExpire());
+        }else {
+           return cache.equals(invokeContext.getContent());
+        }
+        return false;
     }
 
      <T>  T fastAck(){

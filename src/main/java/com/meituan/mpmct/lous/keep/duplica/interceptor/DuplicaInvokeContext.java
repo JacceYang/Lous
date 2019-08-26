@@ -21,4 +21,28 @@ public class DuplicaInvokeContext {
      * the request content used to just the same request.
      */
     private String content;
+
+    public String getAnchor() {
+        return anchor;
+    }
+
+    public void setAnchor(String anchor) {
+        this.anchor = anchor;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
