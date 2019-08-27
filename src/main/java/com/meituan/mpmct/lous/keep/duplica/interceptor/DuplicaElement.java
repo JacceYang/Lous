@@ -65,7 +65,8 @@ public class DuplicaElement {
         this.scene=builder.getScene();
         this.key=builder.getKey();
         this.times=builder.getTimes();
-        this.expire=builder.expire;
+        this.expire=builder.getExpire();
+        this.unit=builder.getUnit();
     }
 
    public  static class Builder{

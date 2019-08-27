@@ -50,7 +50,7 @@ public class DuplicaSourceContextParser {
         return null;
     }
 
-    public DuplicaSourceContext parseDuplicaSourceContext(Method method,Class<?> targetClass,DuplicaElement element){
+    public DuplicaSourceContext parseDuplicaSourceContext(Method method,Class<?> targetClass,Object[] parameters,DuplicaElement element){
 
         Assert.notNull(element,"duplicate element shouldn't be null");
         DuplicaSourceContext sourceContext=new DuplicaSourceContext();
@@ -65,6 +65,7 @@ public class DuplicaSourceContextParser {
         sourceContext.setExpire(ms);
         sourceContext.setKey(storeKey);
         sourceContext.setTimes(element.getTimes());
+        sourceContext.setParameters(new DuplicaSourceContext.RequestParameter(parameters));
         return sourceContext;
     }
 

@@ -27,11 +27,11 @@ public class DuplicaInvokeContainer {
      * @return
      */
     boolean runCheck(){
-        String cache = memCache.getCache(invokeContext.getKey());
-        if (cache==null){
+        String cacheValue = memCache.getCache(invokeContext.getKey());
+        if (cacheValue==null){
             memCache.putCache(invokeContext.getKey(),invokeContext.getContent(),sourceContext.getExpire());
         }else {
-           return cache.equals(invokeContext.getContent());
+           return cacheValue.equals(invokeContext.getContent());
         }
         return false;
     }

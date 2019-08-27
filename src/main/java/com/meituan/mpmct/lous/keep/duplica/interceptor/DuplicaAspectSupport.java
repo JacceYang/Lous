@@ -23,12 +23,10 @@ public class DuplicaAspectSupport {
         // 1. 解析请求的元数据部分,确认请求来源
         DuplicaSourceContext duplicaSourceContext = duplicaSource.getDuplicaSourceContext(method, targetObject, parameter);
 
-
         // 2. 构建请求的实际上线文
-        DuplicaInvokeContext invokeContext = invokeContextParser.parseInvokeContext();
+        DuplicaInvokeContext invokeContext = invokeContextParser.parseInvokeContext(duplicaSourceContext);
 
         // 3. 检查请求是否
-
         DuplicaInvokeContainer invokeContainer=new DuplicaInvokeContainer(memCache,invokeContext,duplicaSourceContext );
 
         if (invokeContainer.runCheck()){

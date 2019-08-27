@@ -1,5 +1,6 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,6 +17,8 @@ public class DuplicaSourceContext {
     private long expire;
 
     private int times;
+
+    private RequestParameter parameter;
 
     public RequestURI getRequestURI() {
         return requestURI;
@@ -47,5 +50,28 @@ public class DuplicaSourceContext {
 
     public void setTimes(int times) {
         this.times = times;
+    }
+
+    public RequestParameter getParameters() {
+        return parameter;
+    }
+
+    public void setParameters(RequestParameter parameter) {
+        this.parameter = parameter;
+    }
+
+    public static class RequestParameter{
+        private Object[] parameters;
+
+        public RequestParameter(Object[] parameters) {
+            this.parameters = parameters;
+        }
+
+        @Override
+        public String toString() {
+            return "{" +
+                    "parameters=" + Arrays.toString(parameters) +
+                    '}';
+        }
     }
 }

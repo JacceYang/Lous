@@ -20,8 +20,7 @@ public class AnnotationDuplicaSource implements DuplicaSource {
         if (duplicaElement==null){
             return null;
         }
-
-        DuplicaSourceContext duplicaSourceContext = sourceContextParser.parseDuplicaSourceContext(method,targetObject.getClass(),duplicaElement);
+        DuplicaSourceContext duplicaSourceContext = sourceContextParser.parseDuplicaSourceContext(method,targetObject.getClass(),parameters,duplicaElement);
         return duplicaSourceContext;
     }
 }

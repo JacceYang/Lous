@@ -1,5 +1,8 @@
 package com.meituan.mpmct.lous.keep.duplica.support;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /**
  * @Author:Yangchao16
  * @Description:
@@ -14,9 +17,8 @@ public class DefaultInvokeContentEncode implements InvokeContentEncode {
         if (content.length() < 32) {
             return content;
         } else {
-
-            // md5 加密
+            ContentEncoder encoder=new  MD5ContentEncoder();
+            return encoder.encode(content.getBytes());
         }
-        return null;
     }
 }

@@ -20,7 +20,7 @@ public class DuplicaIntercepter extends DuplicaAspectSupport implements MethodIn
             }
         };
 
-        return execute(invoker,invocation.getMethod(),invocation.getStaticPart(),invocation.getArguments());
+        return execute(invoker,invocation.getMethod(),invocation.getThis(),invocation.getArguments());
     }
 
 
