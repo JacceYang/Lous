@@ -10,6 +10,7 @@ public interface PrePowerHandler extends ConfigurablePowerHandler {
     /**
      * Power Handler name will be presented by Bean name if this method doesn't been
      * Override, Otherwise the sub class getName() method result will be the handler name.
+     *
      * @return
      */
     @Override

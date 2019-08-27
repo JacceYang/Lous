@@ -19,15 +19,15 @@ public class DuplicaPointcut extends StaticMethodMatcherPointcut {
     @Override
     public boolean matches(Method method, Class<?> targetClass) {
         Method mostSpecificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
-        if (mostSpecificMethod.isAnnotationPresent(Duplica.class)){
-            fireDuplicaProxy(new  DuplicaEvent(mostSpecificMethod));
+        if (mostSpecificMethod.isAnnotationPresent(Duplica.class)) {
+            fireDuplicaProxy(new DuplicaEvent(mostSpecificMethod));
             return true;
         }
         return false;
     }
 
-    private void fireDuplicaProxy(DuplicaEvent duplicaEvent){
-        if (duplicaEvent.getMethod().isAnnotationPresent(GetMapping.class)){
+    private void fireDuplicaProxy(DuplicaEvent duplicaEvent) {
+        if (duplicaEvent.getMethod().isAnnotationPresent(GetMapping.class)) {
             ObservableEventCenter.changed();
             ObservableEventCenter.publishEvent(duplicaEvent);
         }

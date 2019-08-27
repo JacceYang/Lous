@@ -7,5 +7,5 @@ package com.meituan.mpmct.lous.keep.duplica.support;
  **/
 public interface InvokeContentEncode {
 
-    String encode (String content);
+    String encode(String content);
 }

@@ -1,7 +1,10 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
-import com.meituan.mpmct.lous.keep.duplica.ext.RedisMemCache;
 import com.meituan.mpmct.lous.keep.duplica.support.MemCache;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+
+import java.lang.reflect.Field;
 
 /**
  * @Author:Yangchao16
@@ -10,7 +13,7 @@ import com.meituan.mpmct.lous.keep.duplica.support.MemCache;
  **/
 public class DuplicaInvokeContainer {
 
-    private MemCache  memCache;
+    private MemCache memCache;
 
     private DuplicaInvokeContext invokeContext;
 
@@ -24,20 +27,35 @@ public class DuplicaInvokeContainer {
 
     /**
      * if the content is in mem and the same with the  request .
+     *
      * @return
      */
-    boolean runCheck(){
+    boolean runCheck() {
         String cacheValue = memCache.getCache(invokeContext.getKey());
-        if (cacheValue==null){
-            memCache.putCache(invokeContext.getKey(),invokeContext.getContent(),sourceContext.getExpire());
-        }else {
-           return cacheValue.equals(invokeContext.getContent());
+        if (cacheValue == null) {
+            memCache.putCache(invokeContext.getKey(), invokeContext.getContent(), sourceContext.getExpire());
+        } else {
+            return cacheValue.equals(invokeContext.getContent());
         }
         return false;
     }
 
-     <T>  T fastAck(){
+    Object fastAck() throws IllegalAccessException, InstantiationException, NoSuchFieldException {
 
-        return (T)new Object();
+        Class<?> returnType = invokeContext.getReturnType();
+        Object o = returnType.newInstance();
+
+        if (invokeContext.getMsg() != null) {
+            String[] fieldValue = getFieldValue(invokeContext.getMsg());
+            Assert.isTrue(fieldValue.length == 2, "msg expression on duplica is invalid.");
+            Field declaredField = returnType.getDeclaredField(fieldValue[0]);
+            declaredField.setAccessible(true);
+            declaredField.set(o, fieldValue[1]);
+        }
+        return o;
+    }
+
+    private String[] getFieldValue(String msg) {
+        return StringUtils.split(msg, ":");
     }
 }

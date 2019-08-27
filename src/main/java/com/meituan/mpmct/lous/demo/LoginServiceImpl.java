@@ -22,7 +22,7 @@ public class LoginServiceImpl implements LoginService {
     //    @GetCache(key = "#name+#age", cacheName = "login-record",cacheMode = CachingMode.LOCAL)
     @Override
     //@Power(preHandler = {"ageChecker", "user"}, collector = "#{@loginServiceImpl.country}")
-    @Duplica(scene = Scene.METHOD,key = "#{#name+#age}",expire = 10)
+    @Duplica(scene = Scene.METHOD,key = "#name+#age",expire = 10)
     public boolean login(String name, Integer age) {
         if (name.contains("yang")) {
             return true;

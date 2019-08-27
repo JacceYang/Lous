@@ -8,12 +8,11 @@ package com.meituan.mpmct.lous.keep.duplica.support;
 public interface MemCache {
 
     /**
-     *
-     * @param key  Key 数据
+     * @param key   Key 数据
      * @param value 保存的内容
-     * @param ms  时间毫秒
+     * @param ms    时间毫秒
      */
-    void putCache(Object key,String value,long ms);
+    void putCache(Object key, String value, long ms);
 
     String getCache(Object key);
 

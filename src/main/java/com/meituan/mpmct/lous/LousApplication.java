@@ -15,7 +15,8 @@ public class LousApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(LousApplication.class, args);
         LoginService loginServiceImpl = (LoginService) run.getBean("loginServiceImpl");
-        loginServiceImpl.login("afewfsdfsdfs16位hex值，用字符串yangsdfsddfsfng", 15);
+//        loginServiceImpl.login("afewfsdfsdfs16位hex值，用字符串yangsdfsddfsfng", 15);
+//        loginServiceImpl.login("afewfsdfsdfs16位hex值，用字符串yangsdfsddfsfng", 15);
         System.out.println("-------end---------");
 
     }

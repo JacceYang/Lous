@@ -8,7 +8,7 @@ import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
  * @Description:
  * @Data:Initialized in 10:57 PM 2019/8/24
  **/
-public class BeanFactoryDuplicaAdvisor extends AbstractBeanFactoryPointcutAdvisor{
+public class BeanFactoryDuplicaAdvisor extends AbstractBeanFactoryPointcutAdvisor {
     @Override
     public Pointcut getPointcut() {
         return new DuplicaPointcut();

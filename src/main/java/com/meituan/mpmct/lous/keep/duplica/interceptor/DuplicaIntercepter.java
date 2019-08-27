@@ -13,14 +13,14 @@ public class DuplicaIntercepter extends DuplicaAspectSupport implements MethodIn
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
 
-        DuplicaInvoker invoker=new DuplicaInvoker() {
+        DuplicaInvoker invoker = new DuplicaInvoker() {
             @Override
             public Object invoke() throws Throwable {
                 return invocation.proceed();
             }
         };
 
-        return execute(invoker,invocation.getMethod(),invocation.getThis(),invocation.getArguments());
+        return execute(invoker, invocation.getMethod(), invocation.getThis(), invocation.getArguments());
     }
 
 

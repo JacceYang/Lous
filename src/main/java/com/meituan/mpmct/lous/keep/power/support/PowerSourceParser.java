@@ -33,7 +33,7 @@ public class PowerSourceParser {
         Set<Power> allMergedAnnotations = AnnotatedElementUtils.findAllMergedAnnotations(method, Power.class);
 
         if (allMergedAnnotations != null) {
-            Assert.isTrue(allMergedAnnotations.size() == 1,"multiple @power configure on method [" + method.getName() + "] is prohibit!!!");
+            Assert.isTrue(allMergedAnnotations.size() == 1, "multiple @power configure on method [" + method.getName() + "] is prohibit!!!");
             PowerElement.Builder builder = new PowerElement.Builder();
 
             allMergedAnnotations.stream().forEach(power -> {

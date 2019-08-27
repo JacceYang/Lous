@@ -12,8 +12,8 @@ import com.meituan.mpmct.lous.keep.power.support.PowerInvokeContext;
 public abstract class AbstractPrePowerHandler<T> implements PrePowerHandler {
 
     /**
-     *  @criterion is recommended being assigned a value in {@link AbstractPrePowerHandler#filter} function,
-     *  so you can use it in {@link AbstractPrePowerHandler#proceed()}
+     * @criterion is recommended being assigned a value in {@link AbstractPrePowerHandler#filter} function,
+     * so you can use it in {@link AbstractPrePowerHandler#proceed()}
      */
     protected T criterion;
 

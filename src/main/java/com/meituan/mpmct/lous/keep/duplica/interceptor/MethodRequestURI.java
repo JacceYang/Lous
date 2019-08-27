@@ -9,7 +9,7 @@ import java.util.Objects;
  * @Description:
  * @Data:Initialized in 9:01 AM 2019/8/25
  **/
-public class MethodRequestURI implements RequestURI{
+public class MethodRequestURI implements RequestURI {
 
     private MethodClassKey methodClassKey;
 

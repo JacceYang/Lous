@@ -21,7 +21,7 @@ public class AgeChecker extends AbstractPrePowerHandler<Integer> {
         String aDefault = context.getProperty("contry", String.class);
         criterion = context.getMethodParameter(1, Integer.class);
 
-        if (criterion<18){
+        if (criterion < 18) {
 
         }
         return criterion;

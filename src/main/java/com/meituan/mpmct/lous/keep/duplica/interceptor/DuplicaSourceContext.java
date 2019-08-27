@@ -1,7 +1,6 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Author:Yangchao16
@@ -19,6 +18,8 @@ public class DuplicaSourceContext {
     private int times;
 
     private RequestParameter parameter;
+
+    private String msg;
 
     public RequestURI getRequestURI() {
         return requestURI;
@@ -60,7 +61,15 @@ public class DuplicaSourceContext {
         this.parameter = parameter;
     }
 
-    public static class RequestParameter{
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public static class RequestParameter {
         private Object[] parameters;
 
         public RequestParameter(Object[] parameters) {

@@ -21,6 +21,17 @@ public class DuplicaElement {
 
     private int times;
 
+    private String msg;
+
+    public DuplicaElement(Builder builder) {
+        this.scene = builder.getScene();
+        this.key = builder.getKey();
+        this.times = builder.getTimes();
+        this.expire = builder.getExpire();
+        this.unit = builder.getUnit();
+        this.msg = builder.getMsg();
+    }
+
     public Scene getScene() {
         return scene;
     }
@@ -61,15 +72,15 @@ public class DuplicaElement {
         this.times = times;
     }
 
-    public DuplicaElement(Builder builder) {
-        this.scene=builder.getScene();
-        this.key=builder.getKey();
-        this.times=builder.getTimes();
-        this.expire=builder.getExpire();
-        this.unit=builder.getUnit();
+    public String getMsg() {
+        return msg;
     }
 
-   public  static class Builder{
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public static class Builder {
 
         private Scene scene;
 
@@ -80,6 +91,8 @@ public class DuplicaElement {
         private int expire;
 
         private int times;
+
+        private String msg;
 
         public Scene getScene() {
             return scene;
@@ -121,8 +134,18 @@ public class DuplicaElement {
             this.times = times;
         }
 
-       public DuplicaElement build(){
+        public String getMsg() {
+            return msg;
+        }
+
+        public void setMsg(String msg) {
+            this.msg = msg;
+        }
+
+        public DuplicaElement build() {
             return new DuplicaElement(this);
-       }
+        }
+
+
     }
 }
