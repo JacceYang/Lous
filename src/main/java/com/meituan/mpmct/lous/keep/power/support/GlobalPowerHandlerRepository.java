@@ -10,7 +10,6 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.lang.Nullable;
-import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -132,56 +131,56 @@ public class GlobalPowerHandlerRepository implements BeanFactoryAware, GlobalPow
         return powerInvokeCollectorParser.parseInvokeCollector(collector, beanFactory);
     }
 
-     private void registryPreHandlers(Map<String, PrePowerHandler> preHandlers) {
+    private void registryPreHandlers(Map<String, PrePowerHandler> preHandlers) {
         if (CollectionUtils.isEmpty(preHandlers)) {
             return;
         }
         prePowerHandlerRepositry = new HashMap<>(8);
         for (Map.Entry<String, PrePowerHandler> preHandler : preHandlers.entrySet()) {
-            String handlerName =  preHandler.getValue().getName();
-            if (!StringUtils.hasText(handlerName)){
-                handlerName=preHandler.getKey();
+            String handlerName = preHandler.getValue().getName();
+            if (!StringUtils.hasText(handlerName)) {
+                handlerName = preHandler.getKey();
             }
             prePowerHandlerRepositry.put(handlerName, preHandler.getValue());
         }
     }
 
-    private void registryPostHandlers(@Nullable Map<String,PostPowerHandler> postHandlers) {
+    private void registryPostHandlers(@Nullable Map<String, PostPowerHandler> postHandlers) {
         if (CollectionUtils.isEmpty(postHandlers)) {
             return;
         }
         postPowerHandlerRepositry = new HashMap<>(8);
-        for (Map.Entry<String,PostPowerHandler> postHandler : postHandlers.entrySet()) {
-            String handlerName=postHandler.getValue().getName();
-            if (!StringUtils.hasText(handlerName)){
-                handlerName=postHandler.getKey();
+        for (Map.Entry<String, PostPowerHandler> postHandler : postHandlers.entrySet()) {
+            String handlerName = postHandler.getValue().getName();
+            if (!StringUtils.hasText(handlerName)) {
+                handlerName = postHandler.getKey();
             }
             postPowerHandlerRepositry.put(handlerName, postHandler.getValue());
         }
     }
 
-    void registryErrorHandler(Map<String,PowerErrorHandler>  powerErrorHandlers) {
+    void registryErrorHandler(Map<String, PowerErrorHandler> powerErrorHandlers) {
 
         if (CollectionUtils.isEmpty(powerErrorHandlers)) {
             return;
         }
         powerErrorHandlerRepository = new HashMap<>(8);
-        for (Map.Entry<String,PowerErrorHandler> errorHandler : powerErrorHandlers.entrySet()) {
+        for (Map.Entry<String, PowerErrorHandler> errorHandler : powerErrorHandlers.entrySet()) {
             String handlerName = errorHandler.getValue().getName();
-            if (!StringUtils.hasText(handlerName)){
-                handlerName= errorHandler.getKey();
+            if (!StringUtils.hasText(handlerName)) {
+                handlerName = errorHandler.getKey();
             }
             powerErrorHandlerRepository.put(handlerName, errorHandler.getValue());
         }
 
     }
 
-    void registryChain(Map<String,PowerChainHandler> powerChainHandlers) {
+    void registryChain(Map<String, PowerChainHandler> powerChainHandlers) {
         if (CollectionUtils.isEmpty(powerChainHandlers)) {
             return;
         }
         powerChainHandlerRepositry = new HashMap<>(8);
-        for (Map.Entry<String,PowerChainHandler> chainHandler : powerChainHandlers.entrySet()) {
+        for (Map.Entry<String, PowerChainHandler> chainHandler : powerChainHandlers.entrySet()) {
             String handlerName = StringUtils.hasText(chainHandler.getValue().getName()) ? chainHandler.getValue().getName() : chainHandler.getKey();
             powerChainHandlerRepositry.put(handlerName, chainHandler.getValue());
         }

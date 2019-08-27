@@ -7,6 +7,12 @@ package com.meituan.mpmct.lous.keep.duplica.interceptor;
  **/
 public class DuplicaInvokeContext {
 
+
+    /**
+     * the return value Type for faskAck.
+     */
+    Class<?> returnType;
+
     /**
      * the request againts object。
      */
@@ -21,6 +27,9 @@ public class DuplicaInvokeContext {
      * the request content used to just the same request.
      */
     private String content;
+
+
+    private String msg;
 
     public String getAnchor() {
         return anchor;
@@ -44,5 +53,21 @@ public class DuplicaInvokeContext {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Class<?> getReturnType() {
+        return returnType;
+    }
+
+    public void setReturnType(Class<?> returnType) {
+        this.returnType = returnType;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }

@@ -48,8 +48,16 @@ public @interface Duplica {
 
     /**
      * call times
+     *
      * @return
      */
     int times() default 0;
+
+    /**
+     * failAck msg;
+     *
+     * @return
+     */
+    String msg() default "";
 
 }

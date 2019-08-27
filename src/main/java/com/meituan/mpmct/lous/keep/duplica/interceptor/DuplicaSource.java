@@ -1,5 +1,7 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
+import org.springframework.beans.factory.BeanFactory;
+
 import java.lang.reflect.Method;
 
 /**
@@ -9,5 +11,5 @@ import java.lang.reflect.Method;
  **/
 public interface DuplicaSource {
 
-    DuplicaSourceContext getDuplicaSourceContext(Method method,Object targetObject,Object[] parameters);
+    DuplicaSourceContext getDuplicaSourceContext(Method method, Object targetObject, Object[] parameters, BeanFactory beanFactory);
 }

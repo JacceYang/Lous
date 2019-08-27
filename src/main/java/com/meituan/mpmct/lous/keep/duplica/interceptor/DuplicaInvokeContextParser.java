@@ -2,6 +2,8 @@ package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
 import com.meituan.mpmct.lous.keep.duplica.support.DefaultInvokeContentEncode;
 
+import java.lang.reflect.Method;
+
 /**
  * @Author:Yangchao16
  * @Description:
@@ -9,14 +11,16 @@ import com.meituan.mpmct.lous.keep.duplica.support.DefaultInvokeContentEncode;
  **/
 public class DuplicaInvokeContextParser {
 
-    DefaultInvokeContentEncode  defaultInvokeContentEncode=new DefaultInvokeContentEncode();
+    DefaultInvokeContentEncode defaultInvokeContentEncode = new DefaultInvokeContentEncode();
 
-    public DuplicaInvokeContext parseInvokeContext(DuplicaSourceContext duplicaSourceContext){
-        DuplicaInvokeContext invokeContext=new DuplicaInvokeContext();
+    public DuplicaInvokeContext parseInvokeContext(Method method, DuplicaSourceContext duplicaSourceContext) {
+
+        DuplicaInvokeContext invokeContext = new DuplicaInvokeContext();
         invokeContext.setAnchor(duplicaSourceContext.getRequestURI().anchor().toString());
         invokeContext.setContent(defaultInvokeContentEncode.encode(duplicaSourceContext.getParameters().toString()));
         invokeContext.setKey(duplicaSourceContext.getKey());
-
+        invokeContext.setReturnType(method.getReturnType());
+        invokeContext.setMsg(duplicaSourceContext.getMsg());
         return invokeContext;
 
     }

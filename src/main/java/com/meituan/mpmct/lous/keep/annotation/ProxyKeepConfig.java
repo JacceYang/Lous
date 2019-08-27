@@ -1,9 +1,9 @@
 package com.meituan.mpmct.lous.keep.annotation;
 
 import com.meituan.mpmct.lous.keep.duplica.interceptor.BeanFactoryDuplicaAdvisor;
+import com.meituan.mpmct.lous.keep.duplica.interceptor.DuplicaIntercepter;
 import com.meituan.mpmct.lous.keep.duplica.interceptor.WebHandlerInterceptor;
 import com.meituan.mpmct.lous.keep.power.interceptor.BeanFactoryPowerAdvisor;
-import com.meituan.mpmct.lous.keep.duplica.interceptor.DuplicaIntercepter;
 import com.meituan.mpmct.lous.keep.power.interceptor.PowerInterceptor;
 import com.meituan.mpmct.lous.keep.power.support.GlobalPowerHandlerRepository;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -30,16 +30,16 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
 
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-        public BeanFactoryDuplicaAdvisor beanFactoryDuplicaAdvisor(){
-            BeanFactoryDuplicaAdvisor beanFactoryDuplicaAdvisor=new BeanFactoryDuplicaAdvisor();
+        public BeanFactoryDuplicaAdvisor beanFactoryDuplicaAdvisor() {
+            BeanFactoryDuplicaAdvisor beanFactoryDuplicaAdvisor = new BeanFactoryDuplicaAdvisor();
             beanFactoryDuplicaAdvisor.setAdvice(duplicaIntercepter());
             return beanFactoryDuplicaAdvisor;
         }
 
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-        public WebHandlerInterceptor webHandlerInterceptor(){
-            WebHandlerInterceptor webHandlerInterceptor=new WebHandlerInterceptor();
+        public WebHandlerInterceptor webHandlerInterceptor() {
+            WebHandlerInterceptor webHandlerInterceptor = new WebHandlerInterceptor();
             return webHandlerInterceptor;
         }
     }

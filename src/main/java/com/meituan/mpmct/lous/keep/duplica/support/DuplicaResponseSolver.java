@@ -9,10 +9,11 @@ public interface DuplicaResponseSolver {
 
     /**
      * 拒绝处理
+     *
      * @param <T>
      * @return
      */
-      <T>  T reject();
+    <T> T reject();
 
     /**
      * 继续处理
