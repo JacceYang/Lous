@@ -1,6 +1,6 @@
 package com.meituan.mpmct.lous.keep.duplica.interceptor;
 
-import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -14,11 +14,11 @@ public class DuplicaSourceContext {
 
     private String key;
 
-    private TimeUnit timeUnit;
-
-    private int expire;
+    private long expire;
 
     private int times;
+
+    private RequestParameter parameter;
 
     public RequestURI getRequestURI() {
         return requestURI;
@@ -36,19 +36,11 @@ public class DuplicaSourceContext {
         this.key = key;
     }
 
-    public TimeUnit getTimeUnit() {
-        return timeUnit;
-    }
-
-    public void setTimeUnit(TimeUnit timeUnit) {
-        this.timeUnit = timeUnit;
-    }
-
-    public int getExpire() {
+    public long getExpire() {
         return expire;
     }
 
-    public void setExpire(int expire) {
+    public void setExpire(long expire) {
         this.expire = expire;
     }
 
@@ -58,5 +50,28 @@ public class DuplicaSourceContext {
 
     public void setTimes(int times) {
         this.times = times;
+    }
+
+    public RequestParameter getParameters() {
+        return parameter;
+    }
+
+    public void setParameters(RequestParameter parameter) {
+        this.parameter = parameter;
+    }
+
+    public static class RequestParameter{
+        private Object[] parameters;
+
+        public RequestParameter(Object[] parameters) {
+            this.parameters = parameters;
+        }
+
+        @Override
+        public String toString() {
+            return "{" +
+                    "parameters=" + Arrays.toString(parameters) +
+                    '}';
+        }
     }
 }

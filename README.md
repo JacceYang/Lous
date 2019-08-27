@@ -38,7 +38,7 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 |------------ | ------- | ------------------ |
 |JDK Version  | >8.x   | :white_check_mark: |
 |Spring Framework| >4.3.17   | :white_check_mark: |
-|Spring Boot | >2.1.7   | :white_check_mark: |
+|Spring Boot | >2.0.7   | :white_check_mark: |
 
 项目中使用了极少量 lambda 表达式, 所以建议使用JDK >8.0 的开发环境,低版本需求请单🔨。
 项目暂时没有精力支持xml标签解析,所以无法支持xml 配置化的能力,后面看情况支持。
