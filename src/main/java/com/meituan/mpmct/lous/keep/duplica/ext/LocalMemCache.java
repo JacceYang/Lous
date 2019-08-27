@@ -1,26 +1,35 @@
 package com.meituan.mpmct.lous.keep.duplica.ext;
 
 import com.meituan.mpmct.lous.keep.duplica.support.MemCache;
+import org.springframework.beans.factory.SmartInitializingSingleton;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @Author:Yangchao16
  * @Description:
  * @Data:Initialized in 10:12 PM 2019/8/25
  **/
+//@ConditionalOnMissingBean(value = MemCache.class
 @Component
-public class LocalMemCache implements MemCache {
-
+public class LocalMemCache implements MemCache,SmartInitializingSingleton{
 
     /**
      * The key should be comparable and
      */
-    Map<Object, Object> cache = new HashMap<>(16);
+    private volatile Map<Object, WrappedValue> cache = new ConcurrentHashMap<>(16);
 
+    @Value("${lous.duplica.cache.maxsize}")
+    private String maxMemSize;
+
+    @Value("${lous.duplica.cache.step}")
+    private Integer step;
+
+    private LocalMemCacheMonitor monitor =null;
 
     @Override
     public void putCache(Object key, String value, long ms) {
@@ -29,12 +38,16 @@ public class LocalMemCache implements MemCache {
 
     @Override
     public String getCache(Object key) {
-        WrappedValue wrappedValue = (WrappedValue) cache.get(key);
-
+        WrappedValue wrappedValue =cache.get(key);
         return wrappedValue == null ? null : WrappedValue.unWrappValue(wrappedValue);
     }
 
-    public static class WrappedValue {
+    @Override
+    public void afterSingletonsInstantiated() {
+        monitor = new LocalMemCacheMonitor(cache,maxMemSize,step);
+    }
+
+    public static class WrappedValue implements Comparable<WrappedValue> {
 
         /**
          * store content
@@ -74,6 +87,13 @@ public class LocalMemCache implements MemCache {
 
         public long getIn() {
             return in;
+        }
+
+
+        @Override
+        public int compareTo(WrappedValue o) {
+            return ((this.ms + this.in) - (o.getMs() + o.getIn())) > 0 ? 1
+                    : ((this.ms + this.in) - (o.getMs() + o.getIn())) == 0 ? 0 : -1;
         }
     }
 }
