@@ -1,9 +1,8 @@
 package com.meituan.mpmct.lous.demo;
 
-import com.meituan.mpmct.lous.keep.annotation.Duplica;
+import com.meituan.mpmct.lous.keep.annotation.Duplix;
 import com.meituan.mpmct.lous.keep.annotation.Scene;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author:Yangchao16
@@ -13,9 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FunctionController2 {
 
-    @GetMapping("/demo/fun2")
-    public String getName(String name,Integer age){
+    @PostMapping("/demo/fun2")
+    @Duplix(scene = Scene.METHOD,key = "#person.id",times = 4,expire=15, msg = "提交太频繁!")
+    public String getName(@RequestBody Person person){
 
-        return name+age;
+        return person.getName()+person.getId();
     }
 }
