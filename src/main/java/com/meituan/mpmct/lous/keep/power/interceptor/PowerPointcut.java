@@ -1,7 +1,7 @@
 package com.meituan.mpmct.lous.keep.power.interceptor;
 
 import com.meituan.mpmct.lous.keep.annotation.Power;
-import com.meituan.mpmct.lous.keep.event.ObservableEventCenter;
+import com.meituan.mpmct.lous.keep.event.KeepEventCenter;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
 
@@ -28,7 +28,7 @@ public class PowerPointcut extends StaticMethodMatcherPointcut implements Serial
     }
 
     private void firePowerProxy(Annotation annotation) {
-        ObservableEventCenter.changed();
-        ObservableEventCenter.publishEvent(annotation);
+        KeepEventCenter.changed();
+        KeepEventCenter.publishEvent(annotation);
     }
 }

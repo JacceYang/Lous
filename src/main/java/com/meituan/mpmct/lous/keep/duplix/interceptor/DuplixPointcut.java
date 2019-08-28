@@ -2,7 +2,7 @@ package com.meituan.mpmct.lous.keep.duplix.interceptor;
 
 import com.meituan.mpmct.lous.keep.annotation.Duplix;
 import com.meituan.mpmct.lous.keep.duplix.config.DuplixEvent;
-import com.meituan.mpmct.lous.keep.event.ObservableEventCenter;
+import com.meituan.mpmct.lous.keep.event.KeepEventCenter;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
 import org.springframework.core.annotation.AnnotatedElementUtils;
@@ -30,8 +30,8 @@ public class DuplixPointcut extends StaticMethodMatcherPointcut {
     private void fireDuplixProxy(DuplixEvent duplixEvent) {
         RequestMapping webRequest = AnnotatedElementUtils.getMergedAnnotation(duplixEvent.getMethod(), RequestMapping.class);
         if (webRequest != null) {
-            ObservableEventCenter.changed();
-            ObservableEventCenter.publishEvent(duplixEvent);
+            KeepEventCenter.changed();
+            KeepEventCenter.publishEvent(duplixEvent);
         }
     }
 }

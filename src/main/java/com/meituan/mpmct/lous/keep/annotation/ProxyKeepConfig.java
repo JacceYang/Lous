@@ -64,7 +64,6 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
             PowerInterceptor powerInterceptor = new PowerInterceptor();
             powerInterceptor.setGlobalPowerHandler(globalPowerHandlerRepository());
             return powerInterceptor;
-
         }
 
         @Bean

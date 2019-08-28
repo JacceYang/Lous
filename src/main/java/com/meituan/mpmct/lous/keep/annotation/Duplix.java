@@ -47,15 +47,21 @@ public @interface Duplix {
     int expire() default 5;
 
     /**
-     * call times
+     * call times during period of expire() .
+     * when it is set value. request during period of expire time can only call the times set
+     * by this value.
      *
      * @return
      */
     int times() default 0;
 
     /**
-     * failAck msg;
+     * failAck msg,when the request is prevented by {@link Duplix}, this msg can be return to the caller.
      *
+     *  the msg format currently support:
+     *  1.  response is primitive type, a default value will be return. so msg need not be set.
+     *  2.  response is {@link String} , msg should be defined in format msg="request invalid, try later ."
+     *  3.  response is JavaBean Object, msg should be defined in format msg="filed: your can only draw a lottery twice a day,see you tomorrow."
      * @return
      */
     String msg() default "";

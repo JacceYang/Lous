@@ -30,11 +30,8 @@ public class KeepConfigurationSelector extends AdviceModeImportSelector<EnableKe
 
     private String[] importProxy() {
         List<String> result = new ArrayList<>();
-
         result.add(AutoProxyRegistrar.class.getName());
         result.add(ProxyKeepConfig.class.getName());
-//        result.add(ProxyDuplixConfig.class.getName());
-
         return StringUtils.toStringArray(result);
     }
 
