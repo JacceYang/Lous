@@ -14,14 +14,14 @@ public class DuplixInvokeContextParser {
     DefaultInvokeContentEncode defaultInvokeContentEncode = new DefaultInvokeContentEncode();
 
     public DuplixInvokeContext parseInvokeContext(Method method, DuplixSourceContext duplixSourceContext) {
-
         DuplixInvokeContext invokeContext = new DuplixInvokeContext();
+
         invokeContext.setAnchor(duplixSourceContext.getRequestURI().anchor().toString());
         invokeContext.setContent(defaultInvokeContentEncode.encode(duplixSourceContext.getParameters().toString()));
         invokeContext.setKey(duplixSourceContext.getKey());
         invokeContext.setReturnType(method.getReturnType());
         invokeContext.setMsg(duplixSourceContext.getMsg());
-        return invokeContext;
 
+        return invokeContext;
     }
 }

@@ -1,5 +1,6 @@
 package com.meituan.mpmct.lous.keep.duplix.support;
 
+import org.springframework.core.annotation.AnnotatedElementUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -13,13 +14,13 @@ import java.lang.reflect.Method;
 public class DuplixAnnotationUtils {
 
     public static String[] extractPath(Method method) {
-        GetMapping methodAnnotation = method.getAnnotation(GetMapping.class);
+        RequestMapping webRequest = AnnotatedElementUtils.getMergedAnnotation(method, RequestMapping.class);
         String baseUrl[] = null;
         if (method.getDeclaringClass().isAnnotationPresent(RequestMapping.class)) {
             RequestMapping classRequestMapping = method.getDeclaringClass().getAnnotation(RequestMapping.class);
             baseUrl = classRequestMapping.value();
         }
-        String[] subUrl = methodAnnotation.value();
+        String[] subUrl = webRequest.value();
 
         return combineUlr(baseUrl != null ? baseUrl[0] : "", subUrl);
     }

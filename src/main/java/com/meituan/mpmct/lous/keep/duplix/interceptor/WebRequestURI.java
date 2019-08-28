@@ -17,7 +17,6 @@ public class WebRequestURI implements RequestURI {
 
     private String webUrl;
 
-
     public WebRequestURI(HttpServletRequest request, String key) {
         this.webUrl = unWrapperUrl(request);
     }
@@ -41,12 +40,10 @@ public class WebRequestURI implements RequestURI {
         return uri;
     }
 
-
     @Override
     public Object anchor() {
         return webUrl;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -58,9 +55,6 @@ public class WebRequestURI implements RequestURI {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(webUrl);
     }
-
-
 }

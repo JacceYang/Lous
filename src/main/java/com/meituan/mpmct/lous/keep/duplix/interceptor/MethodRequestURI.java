@@ -17,7 +17,6 @@ public class MethodRequestURI implements RequestURI {
         this.methodClassKey = methodClassKey;
     }
 
-
     @Override
     public Object anchor() {
         return methodClassKey;

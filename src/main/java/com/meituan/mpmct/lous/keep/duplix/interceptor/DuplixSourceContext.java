@@ -76,10 +76,14 @@ public class DuplixSourceContext {
             this.parameters = parameters;
         }
 
+        /**
+         *  TODO  for Java Bean object which do not implement toString() method . it may cause error.
+         * @return
+         */
         @Override
         public String toString() {
             return "{" +
-                    "parameters=" + Arrays.toString(parameters) +
+                      Arrays.toString(parameters) +
                     '}';
         }
     }

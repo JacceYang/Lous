@@ -33,7 +33,7 @@ public class DuplixInvokeContainer {
     boolean runCheck() {
         String cacheValue = memCache.getCache(invokeContext.getKey());
         if (cacheValue == null) {
-            memCache.putCache(invokeContext.getKey(), invokeContext.getContent(), sourceContext.getExpire());
+            memCache.putCache(invokeContext.getKey(), invokeContext.getContent(), sourceContext.getExpire(),sourceContext.getTimes());
         } else {
             return cacheValue.equals(invokeContext.getContent());
         }
@@ -45,14 +45,19 @@ public class DuplixInvokeContainer {
         Class<?> returnType = invokeContext.getReturnType();
         Object o = returnType.newInstance();
 
-        if (invokeContext.getMsg() != null) {
+        if (invokeContext.getMsg() != null && !isSampleType(returnType)) {
             String[] fieldValue = getFieldValue(invokeContext.getMsg());
             Assert.isTrue(fieldValue.length == 2, "msg expression on duplix is invalid.");
             Field declaredField = returnType.getDeclaredField(fieldValue[0]);
             declaredField.setAccessible(true);
             declaredField.set(o, fieldValue[1]);
         }
-        return o;
+
+        return returnType.equals(String.class) ? invokeContext.getMsg() : o;
+    }
+
+    private boolean isSampleType(Class<?> clazz){
+        return clazz.isPrimitive() || clazz.equals(String.class);
     }
 
     private String[] getFieldValue(String msg) {

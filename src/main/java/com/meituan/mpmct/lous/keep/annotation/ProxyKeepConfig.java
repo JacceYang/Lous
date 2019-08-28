@@ -7,6 +7,7 @@ import com.meituan.mpmct.lous.keep.power.interceptor.BeanFactoryPowerAdvisor;
 import com.meituan.mpmct.lous.keep.power.interceptor.PowerInterceptor;
 import com.meituan.mpmct.lous.keep.power.support.GlobalPowerHandlerRepository;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
@@ -19,8 +20,9 @@ import org.springframework.context.annotation.Role;
 @Configuration
 public class ProxyKeepConfig extends AbstractKeepConfig {
 
-    @Configuration    //todo 完善条件配置化逻辑
-    public class ProxyDuplicaConfig {
+    @Configuration
+    @ConditionalOnProperty(prefix = "lous",name = "duplix.enable",havingValue = "true",matchIfMissing = true)
+    public class ProxyDuplixConfig {
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
         public DuplixIntercepter duplicaIntercepter() {
@@ -30,7 +32,7 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
 
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-        public BeanFactoryDuplixAdvisor beanFactoryDuplicaAdvisor() {
+        public BeanFactoryDuplixAdvisor beanFactoryDuplixAdvisor() {
             BeanFactoryDuplixAdvisor beanFactoryDuplixAdvisor = new BeanFactoryDuplixAdvisor();
             beanFactoryDuplixAdvisor.setAdvice(duplicaIntercepter());
             return beanFactoryDuplixAdvisor;
@@ -44,7 +46,8 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
         }
     }
 
-    //@Configuration
+    @Configuration
+    @ConditionalOnProperty(prefix = "lous",name = "power.enable",havingValue = "true")
     public class ProxyPowerConfig {
 
         @Bean

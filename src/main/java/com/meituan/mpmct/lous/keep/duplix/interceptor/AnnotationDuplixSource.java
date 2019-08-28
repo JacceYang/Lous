@@ -12,18 +12,20 @@ import java.lang.reflect.Method;
  **/
 public class AnnotationDuplixSource implements DuplixSource {
 
-
     private static DuplixSourceContextParser sourceContextParser = new DuplixSourceContextParser();
 
     private static KeyExpressionEvaluator expressionEvaluator = new KeyExpressionEvaluator();
 
     @Override
-    public DuplixSourceContext getDuplicaSourceContext(Method method, Object targetObject, Object[] parameters, BeanFactory beanFactory) {
-        DuplixElement duplixElement = sourceContextParser.computeDuplicaElement(method, targetObject.getClass());
+    public DuplixSourceContext getDuplixSourceContext(Method method, Object targetObject, Object[] parameters, BeanFactory beanFactory) {
+
+        DuplixElement duplixElement = sourceContextParser.computeDuplixElement(method, targetObject.getClass());
         if (duplixElement == null) {
             return null;
         }
-        DuplixSourceContext duplixSourceContext = sourceContextParser.parseDuplicaSourceContext(method, targetObject.getClass(), parameters, duplixElement, expressionEvaluator, beanFactory);
+
+        DuplixSourceParseContext parseContext=new DuplixSourceParseContext(method, targetObject.getClass(), parameters, duplixElement);
+        DuplixSourceContext duplixSourceContext = sourceContextParser.parseDuplixSourceContext(parseContext, expressionEvaluator, beanFactory);
         return duplixSourceContext;
     }
 }

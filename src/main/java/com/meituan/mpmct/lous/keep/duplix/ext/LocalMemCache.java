@@ -3,6 +3,7 @@ package com.meituan.mpmct.lous.keep.duplix.ext;
 import com.meituan.mpmct.lous.keep.duplix.support.MemCache;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,35 +17,38 @@ import java.util.concurrent.ConcurrentHashMap;
  **/
 //@ConditionalOnMissingBean(value = MemCache.class
 @Component
-public class LocalMemCache implements MemCache,SmartInitializingSingleton{
+@ConditionalOnProperty(prefix = "lous",name = "duplix.enable",havingValue = "true",matchIfMissing =true)
+public class LocalMemCache implements MemCache, SmartInitializingSingleton {
 
     /**
      * The key should be comparable and
      */
     private volatile Map<Object, WrappedValue> cache = new ConcurrentHashMap<>(16);
 
-    @Value("${lous.duplica.cache.maxsize}")
+    @Value("${lous.duplix.cache.maxsize}")
     private String maxMemSize;
 
-    @Value("${lous.duplica.cache.step}")
+    @Value("${lous.duplix.cache.eliminate.step}")
     private Integer step;
 
-    private LocalCacheMonitor monitor =null;
+    private LocalCacheMonitor monitor = null;
+
+    private static String EMPTY_CONTENT="@@##$$";
 
     @Override
-    public void putCache(Object key, String value, long ms) {
-        cache.put(key, new WrappedValue(value, ms, new Date().getTime()));
+    public void putCache(Object key, String value, long ms,int times) {
+        cache.put(key, new WrappedValue(value, ms,times, new Date().getTime()));
     }
 
     @Override
     public String getCache(Object key) {
-        WrappedValue wrappedValue =cache.get(key);
+        WrappedValue wrappedValue = cache.get(key);
         return wrappedValue == null ? null : WrappedValue.unWrappValue(wrappedValue);
     }
 
     @Override
     public void afterSingletonsInstantiated() {
-        monitor = new LocalCacheMonitor(cache,maxMemSize,step);
+        monitor = new LocalCacheMonitor(cache, maxMemSize, step);
     }
 
     public static class WrappedValue implements Comparable<WrappedValue> {
@@ -60,25 +64,55 @@ public class LocalMemCache implements MemCache,SmartInitializingSingleton{
         private long ms;
 
         /**
-         * add(in) time
+         * add(in cache) time
          */
         private long in;
 
+        /**
+         * times can be invoke duration time.
+         */
+        private int times;
+
+        private byte timeScene;
+
         public WrappedValue(String content, long ms, long in) {
+            this(content, ms, 0, in);
+        }
+
+        public WrappedValue(String content, long ms,  int times,long in) {
             this.content = content;
             this.ms = ms;
             this.in = in;
+            this.times = times-1;
+            this.timeScene = (byte) (times > 0 ? 1 : 0);
         }
 
         public static String unWrappValue(WrappedValue value) {
+            return value.getTimeScene() > 0?unWrappValueTime(value):unWrappValuePeriod(value);
+        }
+
+        private static String unWrappValuePeriod(WrappedValue value){
             if (value.getIn() + value.getMs() > new Date().getTime()) {
                 return value.getContent();
             }
             return null;
         }
 
+        private static String unWrappValueTime(WrappedValue value) {
+            if (value.getTimes() > 0) {
+                value.setTimes(value.getTimes() - 1);
+            } else {
+                return unWrappValuePeriod(value);
+            }
+            return EMPTY_CONTENT;
+        }
+
         public String getContent() {
             return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
         }
 
         public long getMs() {
@@ -89,6 +123,17 @@ public class LocalMemCache implements MemCache,SmartInitializingSingleton{
             return in;
         }
 
+        public int getTimes() {
+            return times;
+        }
+
+        public void setTimes(int times) {
+            this.times = times;
+        }
+
+        public byte getTimeScene() {
+            return timeScene;
+        }
 
         @Override
         public int compareTo(WrappedValue o) {

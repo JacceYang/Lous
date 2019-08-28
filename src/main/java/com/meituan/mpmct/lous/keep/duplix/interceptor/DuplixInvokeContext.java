@@ -7,7 +7,6 @@ package com.meituan.mpmct.lous.keep.duplix.interceptor;
  **/
 public class DuplixInvokeContext {
 
-
     /**
      * the return value Type for faskAck.
      */

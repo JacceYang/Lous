@@ -33,7 +33,7 @@ public class KeepConfigurationSelector extends AdviceModeImportSelector<EnableKe
 
         result.add(AutoProxyRegistrar.class.getName());
         result.add(ProxyKeepConfig.class.getName());
-//        result.add(ProxyDuplicaConfig.class.getName());
+//        result.add(ProxyDuplixConfig.class.getName());
 
         return StringUtils.toStringArray(result);
     }

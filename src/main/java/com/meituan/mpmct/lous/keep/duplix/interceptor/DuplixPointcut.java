@@ -5,7 +5,8 @@ import com.meituan.mpmct.lous.keep.duplix.config.DuplixEvent;
 import com.meituan.mpmct.lous.keep.event.ObservableEventCenter;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.aop.support.StaticMethodMatcherPointcut;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.core.annotation.AnnotatedElementUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.lang.reflect.Method;
 
@@ -20,14 +21,15 @@ public class DuplixPointcut extends StaticMethodMatcherPointcut {
     public boolean matches(Method method, Class<?> targetClass) {
         Method mostSpecificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
         if (mostSpecificMethod.isAnnotationPresent(Duplix.class)) {
-            fireDuplicaProxy(new DuplixEvent(mostSpecificMethod));
+            fireDuplixProxy(new DuplixEvent(mostSpecificMethod));
             return true;
         }
         return false;
     }
 
-    private void fireDuplicaProxy(DuplixEvent duplixEvent) {
-        if (duplixEvent.getMethod().isAnnotationPresent(GetMapping.class)) {
+    private void fireDuplixProxy(DuplixEvent duplixEvent) {
+        RequestMapping webRequest = AnnotatedElementUtils.getMergedAnnotation(duplixEvent.getMethod(), RequestMapping.class);
+        if (webRequest != null) {
             ObservableEventCenter.changed();
             ObservableEventCenter.publishEvent(duplixEvent);
         }

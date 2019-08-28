@@ -24,4 +24,27 @@ public class MD5ContentEncoder implements ContentEncoder {
 
         return null;
     }
+
+//    public static String encode11(byte[] content) {
+//
+//        try {
+//            MessageDigest md5 = MessageDigest.getInstance("MD5");
+//            md5.update(content, 0, content.length);
+//            return new BigInteger(1, md5.digest()).toString(16);
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
+//
+//
+//
+//    public static void main(String[] args) {
+//        String var1=encode11(new String("阳差").getBytes());
+//
+//        String var2=encode11("阳差".getBytes());
+//
+//        System.out.println(var2);
+//    }
 }

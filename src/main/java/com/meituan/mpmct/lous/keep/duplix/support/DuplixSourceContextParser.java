@@ -19,15 +19,15 @@ import java.util.Set;
  **/
 public class DuplixSourceContextParser {
 
-    public DuplixElement computeDuplicaElement(Method method, Class<?> targetClass) {
+    public DuplixElement computeDuplixElement(Method method, Class<?> targetClass) {
         Method mostSpecificMethod = AopUtils.getMostSpecificMethod(method, targetClass);
         if (mostSpecificMethod != null && mostSpecificMethod.isAnnotationPresent(Duplix.class)) {
-            return parseDuplicaElement(mostSpecificMethod);
+            return parseDuplixElement(mostSpecificMethod);
         }
         return null;
     }
 
-    private DuplixElement parseDuplicaElement(Method method) {
+    private DuplixElement parseDuplixElement(Method method) {
         Set<Duplix> allMergedAnnotations = AnnotatedElementUtils.findAllMergedAnnotations(method, Duplix.class);
 
         if (allMergedAnnotations != null) {
@@ -46,23 +46,23 @@ public class DuplixSourceContextParser {
         return null;
     }
 
-    public DuplixSourceContext parseDuplicaSourceContext(Method method, Class<?> targetClass, Object[] parameters, DuplixElement element, KeyExpressionEvaluator expressionEvaluator, BeanFactory beanFactory) {
+    public DuplixSourceContext parseDuplixSourceContext(DuplixSourceParseContext parseContext, KeyExpressionEvaluator expressionEvaluator, BeanFactory beanFactory) {
 
-        Assert.notNull(element, "duplicate element shouldn't be null");
+        Assert.notNull(parseContext.getElement(), "duplicate element shouldn't be null");
         DuplixSourceContext sourceContext = new DuplixSourceContext();
-        EvaluationContext evaluationContext = expressionEvaluator.createEvaluationContext(method, parameters, targetClass, beanFactory);
-        String storeKey = expressionEvaluator.key(element.getKey(), new MethodClassKey(method, targetClass), evaluationContext).toString();
-        if (element.getScene() == Scene.WEB) {
-            sourceContext.setRequestURI(new WebRequestURI(method, targetClass, element.getKey()));
+        EvaluationContext evaluationContext = expressionEvaluator.createEvaluationContext(parseContext.getMethod(), parseContext.getParameters(), parseContext.getTargetClass(), beanFactory);
+        String storeKey = expressionEvaluator.key(parseContext.getElement().getKey(), new MethodClassKey(parseContext.getMethod(), parseContext.getTargetClass()), evaluationContext).toString();
+        if (parseContext.getElement().getScene() == Scene.WEB) {
+            sourceContext.setRequestURI(new WebRequestURI(parseContext.getMethod(), parseContext.getTargetClass(), parseContext.getElement().getKey()));
         } else {
-            sourceContext.setRequestURI(new MethodRequestURI(new MethodClassKey(method, targetClass), storeKey));
+            sourceContext.setRequestURI(new MethodRequestURI(new MethodClassKey(parseContext.getMethod(), parseContext.getTargetClass()), storeKey));
         }
-        long ms = element.getUnit().toMillis(element.getExpire());
+        long ms = parseContext.getElement().getUnit().toMillis(parseContext.getElement().getExpire());
         sourceContext.setExpire(ms);
         sourceContext.setKey(storeKey);
-        sourceContext.setTimes(element.getTimes());
-        sourceContext.setMsg(element.getMsg());
-        sourceContext.setParameters(new DuplixSourceContext.RequestParameter(parameters));
+        sourceContext.setTimes(parseContext.getElement().getTimes());
+        sourceContext.setMsg(parseContext.getElement().getMsg());
+        sourceContext.setParameters(new DuplixSourceContext.RequestParameter(parseContext.getParameters()));
         return sourceContext;
     }
 }

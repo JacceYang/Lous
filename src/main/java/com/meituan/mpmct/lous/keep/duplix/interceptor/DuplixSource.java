@@ -11,5 +11,5 @@ import java.lang.reflect.Method;
  **/
 public interface DuplixSource {
 
-    DuplixSourceContext getDuplicaSourceContext(Method method, Object targetObject, Object[] parameters, BeanFactory beanFactory);
+    DuplixSourceContext getDuplixSourceContext(Method method, Object targetObject, Object[] parameters, BeanFactory beanFactory);
 }

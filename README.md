@@ -4,11 +4,13 @@
 **1.1 名称及简介**:
 *** 
 Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处理架构,设计初衷是抽离API 层方法调用时非业务逻辑的渗透。
-让代码开发更加专注(more focused)，业务代码更加整洁(more clean)。Lous 关注方法调用过程中常见的结果缓存(@EnableCache),恶意频繁攻击(@Duplica),
-方法调用拦截和预处理和后处理功能。框架借鉴了spring-boot中约定大于配置思路,开箱即用,简化开发流程。框架废弃了经典的xml 配置化引入方式,采用基于
+让代码开发更加专注(more focused)，业务代码更加整洁(more clean)。Lous 关注方法调用过程中常见的结果缓存(@EnableCache),恶意频繁攻击(@Duplix),
+方法调用拦截和预处理和后处理功能。框架借鉴了spring-boot中约定大于配置思想,开箱即用,简化开发流程。框架废弃了经典的xml 配置化引入方式,采用基于
 注解的方式引入所需的功能(more flexible)。
 
 **1.2 主要内容**:
+
+Lous 框架紧密围绕API层接口调用,依据不同场景提供三大基础组件,每一个组件
 *** 
 主要包括API层网关中常见的操作组件
 * API 网关拦截处理器(@EnableKeep--@Power)
@@ -107,7 +109,7 @@ public class LoginAdviceAspectJ {
 ```java
 
 @SpringBootApplication
-@EnableKeep(annotation = {Duplica.class, Power.class}) 
+@EnableKeep(annotation = {Duplix.class, Power.class}) 
 public class LousApplication {
 
     public static void main(String[] args) {
@@ -120,7 +122,7 @@ public class LousApplication {
 }
 
 ```
-通过以上的@EnableKeep注解,应用就开启了@Keep 组件能力.通过引入{Duplica.class, Power.class} 自组件功能,可以开启Keep 组件下的子组件能力,支持不同的系统能力.
+通过以上的@EnableKeep注解,应用就开启了@Keep 组件能力.通过引入{Duplix.class, Power.class} 自组件功能,可以开启Keep 组件下的子组件能力,支持不同的系统能力.
 
 
 ```java
@@ -175,8 +177,8 @@ public class LoginServiceImpl implements LoginService {
 * 【Cache】本地缓存快照和快照加载能力,序列化和反序列化本地缓存在程序推出和启动时,本项功能默认不开启。
 * 【Cache】缓存Promotion 功能实现,多级缓存时,内存基于默认规则和用户定义规则的缓存数据迁移。保证最热缓存在最高速存储介质。
 * 【Cache】 本地缓存使用空间控制.
-* 【Duplica】 分布式请求数据同步能力。保证相同请求到不同的物理机器上依然能够被拦截.
-* 【Duplica】 支持高并发下幂等逻辑控制。
+* 【Duplix】 分布式请求数据同步能力。保证相同请求到不同的物理机器上依然能够被拦截.
+* 【Duplix】 支持高并发下幂等逻辑控制。
 
 
 # 5.0 作者简介

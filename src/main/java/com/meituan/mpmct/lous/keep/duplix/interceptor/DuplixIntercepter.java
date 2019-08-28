@@ -23,5 +23,4 @@ public class DuplixIntercepter extends DuplixAspectSupport implements MethodInte
         return execute(invoker, invocation.getMethod(), invocation.getThis(), invocation.getArguments());
     }
 
-
 }

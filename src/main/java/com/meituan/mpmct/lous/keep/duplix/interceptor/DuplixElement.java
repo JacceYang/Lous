@@ -146,6 +146,5 @@ public class DuplixElement {
             return new DuplixElement(this);
         }
 
-
     }
 }

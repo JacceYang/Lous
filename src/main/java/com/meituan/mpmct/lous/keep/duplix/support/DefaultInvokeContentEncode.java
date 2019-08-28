@@ -9,7 +9,6 @@ public class DefaultInvokeContentEncode implements InvokeContentEncode {
 
     @Override
     public String encode(String content) {
-
         // 内容过短,不用加密
         if (content.length() < 32) {
             return content;
