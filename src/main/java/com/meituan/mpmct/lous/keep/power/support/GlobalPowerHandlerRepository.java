@@ -1,7 +1,7 @@
 package com.meituan.mpmct.lous.keep.power.support;
 
 import com.meituan.mpmct.lous.keep.annotation.Power;
-import com.meituan.mpmct.lous.keep.event.ObservableEventCenter;
+import com.meituan.mpmct.lous.keep.event.KeepEventCenter;
 import com.meituan.mpmct.lous.keep.power.interceptor.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -190,7 +190,7 @@ public class GlobalPowerHandlerRepository implements BeanFactoryAware, GlobalPow
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 
         this.beanFactory = beanFactory;
-        ObservableEventCenter.addListener(this);
+        KeepEventCenter.addListener(this);
         if (beanFactory instanceof ListableBeanFactory) {
             ListableBeanFactory listableBeanFactory = (ListableBeanFactory) beanFactory;
             initialize(listableBeanFactory);

@@ -3,24 +3,29 @@
 
 **1.1 名称及简介**:
 *** 
-Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处理架构,设计初衷是抽离API 层方法调用时非业务逻辑的渗透。
-让代码开发更加专注(more focused)，业务代码更加整洁(more clean)。Lous 关注方法调用过程中常见的结果缓存(@EnableCache),恶意频繁攻击(@Duplix),
-方法调用拦截和预处理和后处理功能。框架借鉴了spring-boot中约定大于配置思想,开箱即用,简化开发流程。框架废弃了经典的xml 配置化引入方式,采用基于
+Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处理架构,设计初衷是抽离API级别方法调用时非业务逻辑代码对的业务代码的渗透。
+让代码开发更加专注(more focused)，业务代码更加整洁(more clean)。Lous 关注方法调用过程中常见的结果缓存(@EnableSmartCache),恶意频繁攻击和频繁调用(@Duplix),
+方法调用拦截和预处理和后处理功能。框架借鉴了spring-boot中约定大于配置思想,开箱即用,简化开发流程。废弃了经典的xml 配置化引入方式,采用基于
 注解的方式引入所需的功能(more flexible)。
 
 **1.2 主要内容**:
 
-Lous 框架紧密围绕API层接口调用,依据不同场景提供三大基础组件,每一个组件
+Lous 框架紧密围绕API层接口调用,依据不同场景提供Power,Duplix,SmartCache三大基础组件,每一个组件针对不同的业务场景实现有不同的能力。用户可以很方便的在
+应用启动类上使用Enablexxx 注解实现特定组件的启动。
 *** 
 主要包括API层网关中常见的操作组件
-* API 网关拦截处理器(@EnableKeep--@Power)
+* Power: API 网关拦截处理器(@EnableKeep--@Power)
+Power 的设计借鉴了AOP思想,但是不同于常见的AOP框架,其接入更加方便,快捷。系统将方法调用的过程分割为调用前和调用后处理两部分,其中每一个handler 的调用用户可以依据自己的业务特点定制抽象成一个通用的handler,比如鉴权逻辑,参数校验逻辑,通用日志同步逻辑等,用户定义好不同的handler 之后,通过在即方法上注解@Power, 将方法上要应用的handler 依据调用的时间不同,配置在pre-handler 和post-handler 中.同时handler中需要额外用到的调用上下文环境,可以通过配置collector 来收集,在handler处理和方法调用的每个阶段,用户只需要通过获取PowerInvokeContext对象,通过PowerInvokeContext#getProperty和PowerInvokeContext#getMethodParameter方便的获取到属性值和方法值。这个系统的调用流程如下所示:
 
 <img src="https://github.com/JacceYang/PersonProfile/blob/master/Power%20model.png" width="90%">
 
-> 支持应用级别 API网关，实现可配置化的拦截器，校验器和各种错误处理能力。 
+> 支持应用级别 API网关，实现可配置化的拦截器，校验器和各种错误处理能力。系统提供了通用化的框架能力,对于一些通用且常见的校验逻辑,可以在系统框架上扩展,抽象出单个的handler。在不同的应用下通过配置 prehandler={"common_handler1","common_handler2"} 即可。
 
 
-* 重复频繁调用阻止器(@EnableKeep--@Duplix) 
+说明:Power作为Keep 的子组件,其功能的开启需要@EnableKeep.由于系统默认不开启Power 组件。当你需要用到Power 组件时。请在application.properties 或者applicaiton.yml 中通过lous.power.enable=true 开启。
+
+
+* @Duplix:阻断器(@EnableKeep--@Duplix) 
 <img src="https://github.com/JacceYang/PersonProfile/blob/master/WX20190824-111939%402x.png" width="70%" vertical-align="middle">
 使用场景:针对Web层或者Service层对大量恶意或者重复请求做重复性校验。通过定义重复判定规则,对每一次请求做身份判断。通过定义时间窗口范围,将时间窗口内的一此或者自定义次数后的请求判定为重复请求，从而让系统执行拒绝请求逻辑。
 

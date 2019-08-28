@@ -2,7 +2,7 @@ package com.meituan.mpmct.lous.keep.duplix.config;
 
 import com.meituan.mpmct.lous.keep.duplix.interceptor.WebHandlerInterceptor;
 import com.meituan.mpmct.lous.keep.duplix.support.DuplixAnnotationUtils;
-import com.meituan.mpmct.lous.keep.event.ObservableEventCenter;
+import com.meituan.mpmct.lous.keep.event.KeepEventCenter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.InstantiationAwareBeanPostProcessor;
 import org.springframework.stereotype.Component;
@@ -47,7 +47,7 @@ public class WebAppConfigure implements WebMvcConfigurer, Observer, Instantiatio
 
     @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
-        ObservableEventCenter.addListener(this);
+        KeepEventCenter.addListener(this);
         return null;
     }
 }
