@@ -1,7 +1,5 @@
 package com.meituan.mpmct.lous.demo;
 
-import com.meituan.mpmct.lous.keep.annotation.Duplica;
-import com.meituan.mpmct.lous.keep.annotation.Scene;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

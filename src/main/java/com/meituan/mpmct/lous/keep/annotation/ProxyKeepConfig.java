@@ -1,8 +1,8 @@
 package com.meituan.mpmct.lous.keep.annotation;
 
-import com.meituan.mpmct.lous.keep.duplica.interceptor.BeanFactoryDuplicaAdvisor;
-import com.meituan.mpmct.lous.keep.duplica.interceptor.DuplicaIntercepter;
-import com.meituan.mpmct.lous.keep.duplica.interceptor.WebHandlerInterceptor;
+import com.meituan.mpmct.lous.keep.duplix.interceptor.BeanFactoryDuplixAdvisor;
+import com.meituan.mpmct.lous.keep.duplix.interceptor.DuplixIntercepter;
+import com.meituan.mpmct.lous.keep.duplix.interceptor.WebHandlerInterceptor;
 import com.meituan.mpmct.lous.keep.power.interceptor.BeanFactoryPowerAdvisor;
 import com.meituan.mpmct.lous.keep.power.interceptor.PowerInterceptor;
 import com.meituan.mpmct.lous.keep.power.support.GlobalPowerHandlerRepository;
@@ -23,17 +23,17 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
     public class ProxyDuplicaConfig {
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-        public DuplicaIntercepter duplicaIntercepter() {
-            DuplicaIntercepter duplicaIntercepter = new DuplicaIntercepter();
+        public DuplixIntercepter duplicaIntercepter() {
+            DuplixIntercepter duplicaIntercepter = new DuplixIntercepter();
             return duplicaIntercepter;
         }
 
         @Bean
         @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
-        public BeanFactoryDuplicaAdvisor beanFactoryDuplicaAdvisor() {
-            BeanFactoryDuplicaAdvisor beanFactoryDuplicaAdvisor = new BeanFactoryDuplicaAdvisor();
-            beanFactoryDuplicaAdvisor.setAdvice(duplicaIntercepter());
-            return beanFactoryDuplicaAdvisor;
+        public BeanFactoryDuplixAdvisor beanFactoryDuplicaAdvisor() {
+            BeanFactoryDuplixAdvisor beanFactoryDuplixAdvisor = new BeanFactoryDuplixAdvisor();
+            beanFactoryDuplixAdvisor.setAdvice(duplicaIntercepter());
+            return beanFactoryDuplixAdvisor;
         }
 
         @Bean

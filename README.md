@@ -18,7 +18,7 @@ Lous(劳斯) 谐音(lost 又名迷失) 是一套专注应用级别 API 网关处
 > 支持应用级别 API网关，实现可配置化的拦截器，校验器和各种错误处理能力。 
 
 
-* 重复频繁调用阻止器(@EnableKeep--@Duplica) 
+* 重复频繁调用阻止器(@EnableKeep--@Duplix) 
 <img src="https://github.com/JacceYang/PersonProfile/blob/master/WX20190824-111939%402x.png" width="70%" vertical-align="middle">
 使用场景:针对Web层或者Service层对大量恶意或者重复请求做重复性校验。通过定义重复判定规则,对每一次请求做身份判断。通过定义时间窗口范围,将时间窗口内的一此或者自定义次数后的请求判定为重复请求，从而让系统执行拒绝请求逻辑。
 
@@ -107,8 +107,7 @@ public class LoginAdviceAspectJ {
 ```java
 
 @SpringBootApplication
-@EnableKeep(annotation = {Duplica.class, Power.class}) // Enable api gateway annotation ,and sub component  Duplica(频频调用拦截) and Power(方法调用拦截 处理开启 )
-
+@EnableKeep(annotation = {Duplica.class, Power.class}) 
 public class LousApplication {
 
     public static void main(String[] args) {
@@ -182,7 +181,7 @@ public class LoginServiceImpl implements LoginService {
 
 # 5.0 作者简介
 *** 
-一个机械专业软件工程师，喜欢捣鼓事情，为人低调低调，3年C/C++,2年Java,1年前端开发。互联网大厂打酱油.
+一个机械专业软件工程师，喜欢捣鼓事情，为人低调，3年C/C++,2年Java,1年前端开发。互联网大厂打酱油.
 
 技术交流加微信：
 <img src="https://github.com/JacceYang/PersonProfile/blob/master/WechatIMG147.jpeg" width="240px">
