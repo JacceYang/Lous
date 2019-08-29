@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
  * @Data:Initialized in 11:58 AM 2019/8/25
  **/
 @RestController
-//@RequestMapping("brand/")
 public class FuncController {
 
 
