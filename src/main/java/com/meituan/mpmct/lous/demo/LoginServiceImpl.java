@@ -1,5 +1,7 @@
 package com.meituan.mpmct.lous.demo;
 
+import com.meituan.mpmct.lous.cache.annotation.CachingMode;
+import com.meituan.mpmct.lous.cache.annotation.GetCache;
 import com.meituan.mpmct.lous.keep.annotation.Duplix;
 import com.meituan.mpmct.lous.keep.annotation.Scene;
 import com.meituan.mpmct.lous.keep.power.support.PropertyValueWrapper;
@@ -18,7 +20,7 @@ public class LoginServiceImpl implements LoginService {
 
     private AtomicInteger counter = new AtomicInteger(0);
 
-    //    @GetCache(key = "#name+#age", cacheName = "login-record",cacheMode = CachingMode.LOCAL)
+      @GetCache(key = "#name+#age", cacheName = "login-record",cacheMode = CachingMode.LOCAL)
     @Override
     //@Power(preHandler = {"ageChecker", "user"}, collector = "#{@loginServiceImpl.country}")
     @Duplix(scene = Scene.METHOD,key = "#name+#age",expire = 10)
