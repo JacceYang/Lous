@@ -2,7 +2,6 @@
 # 1.Lous 是什么
 
 ## 1.1 名称及简介
-*** 
 Lous(劳斯) (谐音lost 迷失) 是一套专注应用级别 API 网关处理架构,设计初衷是抽离API级别方法调用时非业务逻辑代码对的业务代码的渗透。
 让代码开发更加专注(more focused)，业务代码更加整洁(more neat)。Lous 关注方法调用过程中常见的结果缓存(@EnableSmartCache),恶意频繁攻击和频繁调用(@Duplix),
 方法调用拦截和预处理和后处理功能(@Power)。框架借鉴了spring-boot中约定大于配置思想,开箱即用,简化开发流程。废弃了经典的xml 配置化引入方式,采用基于
@@ -12,7 +11,7 @@ Lous(劳斯) (谐音lost 迷失) 是一套专注应用级别 API 网关处理架
 
 Lous 框架紧密围绕API层接口调用,依据不同场景提供Power,Duplix,SmartCache三大基础组件,每一个组件针对不同的业务场景,实现了不同的能力。用户可以方便的在
 应用启动类上使用Enablexxx 注解启动特定组件。
-*** 
+
 ### 1.2.1 Power: API 网关拦截处理器(@EnableKeep--@Power)
 Power 的设计借鉴了AOP思想,但是不同于常见的AOP框架,其接入更加方便,快捷。系统将方法调用的过程分割为调用前和调用后处理两部分,其中每一个handler 的调用用户可以依据自己的业务特点定制抽象成一个通用的handler,比如鉴权逻辑,参数校验逻辑,通用日志同步逻辑等.用户定义好不同的handler 之后,通过在目标方法上注解@Power, 并依据业务特点配置不同的handler. 在配置handler时，用户可以依据调用目标方法的时间不同,分别在pre-handler 和post-handler 中配置对应的处理器即可。系统兼具上下文信息收集能力,在handler中需要额外用到的调用上下文环境数据时,可以通过在@Power上配置collector 来收集所需数据。在handler处理和方法调用的每个阶段,用户只需要通过获取PowerInvokeContext对象,通过PowerInvokeContext#getProperty和PowerInvokeContext#getMethodParameter方便的获取到属性值和方法值。整个系统的调用流程如下所示:
 
@@ -48,7 +47,7 @@ Smart缓存，不仅仅是一个基于注解的缓存调用组件。其主要的
 > 主要实现缓存的分级存储和智能跃迁.具体使用说明见Smart Caching [使用文档]()
 
 # 2.环境说明
-*** 
+
 |environment  | Version | Supported          |
 |------------ | ------- | ------------------ |
 |JDK Version  | >8.x   | :white_check_mark: |
@@ -59,7 +58,7 @@ Smart缓存，不仅仅是一个基于注解的缓存调用组件。其主要的
 考虑xml 配置样式 处在淘汰的边缘,所以项目暂时没有支持xml标签解析,配置化的能力,强烈需求会支持，看后面看情况。
 
 # 3.起步
-*** 
+
 ## 3.1 使用@Power注解实现API层方法调用的 拦截和处理
 
 **场景说明**
