@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.iyetoo.mpm</groupId>
 	<artifactId>lous-starter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>lous</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -62,7 +62,7 @@
 
 	<profiles>
 		<profile>
-			<id>iyetoo</id>
+			<id>release</id>
 			<build>
 				<plugins>
 					<!-- Source -->
@@ -130,16 +130,27 @@
 						<artifactId>maven-release-plugin</artifactId>
 						<version>2.5.3</version>
 					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.8</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>iyetoo-snapshots</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>false</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
 			<distributionManagement>
 				<snapshotRepository>
-					<id>sonatype-nexus-snapshots</id>
+					<id>iyetoo-snapshots</id>
 					<name>Sonatype Nexus Snapshots</name>
 					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 				</snapshotRepository>
 				<repository>
-					<id>sonatype-nexus-staging</id>
+					<id>iyetoo-staging</id>
 					<name>Nexus Release Repository</name>
 					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 				</repository>
