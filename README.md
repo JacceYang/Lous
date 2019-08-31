@@ -280,7 +280,7 @@ public class LoginServiceImpl implements LoginService {
 * 【power】同组Handler 的简单逻辑运算能力。
 
 
-# 5.0 框架作者简介
+# 5.0 作者简介
 *** 
 一个机械专业软件工程师，喜欢捣鼓事情，为人低调，2.5年C/C++,近2年Java,1年前端开发。互联网大厂打酱油.
 
