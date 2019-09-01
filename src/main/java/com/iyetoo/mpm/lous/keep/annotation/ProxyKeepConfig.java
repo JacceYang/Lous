@@ -1,12 +1,15 @@
 package com.iyetoo.mpm.lous.keep.annotation;
 
+import com.iyetoo.mpm.lous.keep.duplix.ext.LocalMemCache;
 import com.iyetoo.mpm.lous.keep.duplix.interceptor.BeanFactoryDuplixAdvisor;
 import com.iyetoo.mpm.lous.keep.duplix.interceptor.DuplixIntercepter;
 import com.iyetoo.mpm.lous.keep.duplix.interceptor.WebHandlerInterceptor;
+import com.iyetoo.mpm.lous.keep.duplix.support.MemCache;
 import com.iyetoo.mpm.lous.keep.power.interceptor.BeanFactoryPowerAdvisor;
 import com.iyetoo.mpm.lous.keep.power.interceptor.PowerInterceptor;
 import com.iyetoo.mpm.lous.keep.power.support.GlobalPowerHandlerRepository;
 import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +39,14 @@ public class ProxyKeepConfig extends AbstractKeepConfig {
             BeanFactoryDuplixAdvisor beanFactoryDuplixAdvisor = new BeanFactoryDuplixAdvisor();
             beanFactoryDuplixAdvisor.setAdvice(duplicaIntercepter());
             return beanFactoryDuplixAdvisor;
+        }
+
+        @Bean
+        @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
+        @ConditionalOnMissingBean(value = MemCache.class)
+        public MemCache memCache(){
+            MemCache memCache=new   LocalMemCache();
+            return memCache;
         }
 
         @Bean

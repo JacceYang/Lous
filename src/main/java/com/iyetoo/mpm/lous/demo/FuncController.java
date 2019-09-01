@@ -15,7 +15,7 @@ public class FuncController {
 
 
     @GetMapping("/demo/fun")
-    @Duplix(scene = Scene.METHOD,key = "#name+#age",expire = 4,msg = "msg:提交太频繁!")
+    @Duplix(scene = Scene.METHOD,key = "#name+#age",expire = 4,msg = "{\"msg\":\"提交太频繁!\",\"code\":400}")
     public ResponVo getName(String name,Integer age){
         return ResponVo.success(name+age);
     }
