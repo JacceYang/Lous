@@ -1,9 +1,16 @@
 package com.iyetoo.mpm.lous.keep.duplix.interceptor;
 
+import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.iyetoo.mpm.lous.keep.duplix.support.MemCache;
+import jdk.nashorn.api.scripting.JSObject;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
 /**
@@ -40,19 +47,16 @@ public class DuplixInvokeContainer {
         return false;
     }
 
-    Object fastAck() throws IllegalAccessException, InstantiationException, NoSuchFieldException {
+    Object fastAck() throws IllegalAccessException, InstantiationException, NoSuchFieldException, IOException {
 
         Class<?> returnType = invokeContext.getReturnType();
-        Object o = returnType.newInstance();
-
+        Object o = null;
         if (invokeContext.getMsg() != null && !isSampleType(returnType)) {
-            String[] fieldValue = getFieldValue(invokeContext.getMsg());
-            Assert.isTrue(fieldValue.length == 2, "msg expression on duplix is invalid.");
-            Field declaredField = returnType.getDeclaredField(fieldValue[0]);
-            declaredField.setAccessible(true);
-            declaredField.set(o, fieldValue[1]);
+            o = JSONObject.parseObject(invokeContext.getMsg(), returnType);
         }
-
+        if (o==null){
+            o = returnType.newInstance();
+        }
         return returnType.equals(String.class) ? invokeContext.getMsg() : o;
     }
 

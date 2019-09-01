@@ -16,7 +16,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.0.0 Initialized in 10:12 PM 2019/8/25
  **/
 //@ConditionalOnMissingBean(value = MemCache.class
-@Component
 @ConditionalOnProperty(prefix = "lous",name = "duplix.enable",havingValue = "true",matchIfMissing =true)
 public class LocalMemCache implements MemCache, SmartInitializingSingleton {
 
