@@ -65,12 +65,23 @@ Smart缓存，不仅仅是一个基于注解的缓存调用组件。其主要的
 
 # 3.起步
 
+## 3.0 引入maven 依赖
+```xml
+<dependency>
+    <groupId>com.iyetoo.mpm</groupId>
+    <artifactId>lous-starter</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+</dependency>
+```
+开放功能@Keep 下的@Power和@Duplix
+
 ## 3.1 使用@Power注解实现API层方法调用的 拦截和处理
 
 **场景说明**
 > 在实际的开发过程中(无论是Web 还是service 层),常常需要校验方法调用者的身份和特征。依据特征数据,系统判断方法调用者是否有权限做进一步的修改或者查阅信息操作.常见的实现方法如下:
 
 ### 3.1.1 方法内部写预处理逻辑
+
 ```java
 public class LoginServiceImpl implements LoginService {
     
