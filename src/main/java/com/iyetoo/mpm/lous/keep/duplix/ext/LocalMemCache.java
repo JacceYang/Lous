@@ -24,7 +24,7 @@ public class LocalMemCache implements MemCache, SmartInitializingSingleton {
      */
     private volatile Map<Object, WrappedValue> cache = new ConcurrentHashMap<>(16);
 
-    @Value("${lous.duplix.cache.maxsize:10KB}")
+    @Value("${lous.duplix.cache.maxsize:25M}")
     private String maxMemSize;
 
     @Value("${lous.duplix.cache.eliminate.step:200}")
