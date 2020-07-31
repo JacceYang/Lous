@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class FunctionController2 {
 
     @PostMapping("/demo/fun2")
-    @Duplix(scene = Scene.METHOD,key = "#person.id",times = 4,expire=15, msg = "提交太频繁!")
+    @Duplix(scene = Scene.METHOD,key = "#person.id",times = 2,expire=15, msg = "提交太频繁!")
     public String getName(@RequestBody Person person){
 
         return person.getName()+person.getId();

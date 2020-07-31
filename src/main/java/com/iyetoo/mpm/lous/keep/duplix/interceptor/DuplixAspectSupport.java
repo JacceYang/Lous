@@ -27,17 +27,23 @@ public class DuplixAspectSupport implements BeanFactoryAware {
 
     public Object execute(DuplixInvoker invoker, Method method, Object targetObject, Object[] parameter) throws Throwable {
 
-        // 1. 解析请求的元数据部分,确认请求来源
-        DuplixSourceContext duplixSourceContext = duplixSource.getDuplixSourceContext(method, targetObject, parameter, beanFactory);
+        // for same parameter reason, the Spel may run exception, in this case we ignore the check annotation.
+        try {
+            // 1. 解析请求的元数据部分,确认请求来源
+            DuplixSourceContext duplixSourceContext = duplixSource.getDuplixSourceContext(method, targetObject, parameter, beanFactory);
 
-        // 2. 构建请求的实际上线文
-        DuplixInvokeContext invokeContext = invokeContextParser.parseInvokeContext(method, duplixSourceContext);
+            // 2. 构建请求的实际上线文
+            DuplixInvokeContext invokeContext = invokeContextParser.parseInvokeContext(method, duplixSourceContext);
 
-        // 3. 检查请求是否
-        DuplixInvokeContainer invokeContainer = new DuplixInvokeContainer(memCache, invokeContext, duplixSourceContext);
+            // 3. 检查请求是否
+            DuplixInvokeContainer invokeContainer = new DuplixInvokeContainer(memCache, invokeContext, duplixSourceContext);
 
-        if (invokeContainer.runCheck()) {
-            return invokeContainer.fastAck();
+            if (invokeContainer.runCheck()) {
+                return invokeContainer.fastAck();
+            }
+        }catch (Exception e ){
+
+            // do nothing
         }
 
         return invoker.invoke();
